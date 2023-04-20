@@ -1,13 +1,13 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fuksiarz_imitation/core/errors/failure.dart';
-import 'package:fuksiarz_imitation/source/domain/entities.dart';
 import 'package:fuksiarz_imitation/source/domain/service/get_events_data_from_remote.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
 
 import 'package:fuksiarz_imitation/source/domain/repository/data_fom_remote_repository.dart';
 
+import '../../../fixtures/event_data_fixture.dart';
 @GenerateNiceMocks(
   [
     MockSpec<DataFromRemoteRepository>(),
@@ -19,23 +19,6 @@ import './get_events_data_from_remote_test.mocks.dart';
 void main() {
   late DataFromRemoteRepository mockedRepository;
   late GetEventsDataFromRemote tEvent;
-  final EventData eventData = EventData(
-    eventId: 1,
-    eventName: 'eventName',
-    category1Id: 1,
-    category2Id: 2,
-    category3Id: 3,
-    category1Name: 'category1Name',
-    category2Name: 'category2Name',
-    category3Name: 'category3Name',
-    eventCodeId: 1,
-    eventStart: DateTime.now(),
-    eventType: 1,
-    gamesCount: 1,
-    remoteId: 1,
-    eventExtendedData: const [],
-    eventGames: const [],
-  );
   late Failure mFailure;
   setUp(() {
     mockedRepository = MockDataFromRemoteRepository();
@@ -48,14 +31,14 @@ void main() {
       when(
         mockedRepository.getEventsDataFromRemote(),
       ).thenAnswer(
-        (_) async => Right(eventData),
+        (_) async => Right(eventDataFixture),
       );
 
       final resoult = await tEvent.call();
 
       expect(
         resoult,
-        Right(eventData),
+        Right(eventDataFixture),
       );
       verify(mockedRepository.getEventsDataFromRemote());
       verifyNoMoreInteractions(mockedRepository);

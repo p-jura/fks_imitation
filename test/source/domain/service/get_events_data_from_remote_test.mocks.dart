@@ -90,31 +90,6 @@ class MockDataFromRemoteRepository extends _i1.Mock
           ),
         )),
       ) as _i4.Future<_i2.Either<_i5.Failure, _i6.EventData>>);
-  @override
-  _i4.Future<_i2.Either<_i5.Failure, dynamic>> call(dynamic params) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #call,
-          [params],
-        ),
-        returnValue: _i4.Future<_i2.Either<_i5.Failure, dynamic>>.value(
-            _FakeEither_0<_i5.Failure, dynamic>(
-          this,
-          Invocation.method(
-            #call,
-            [params],
-          ),
-        )),
-        returnValueForMissingStub:
-            _i4.Future<_i2.Either<_i5.Failure, dynamic>>.value(
-                _FakeEither_0<_i5.Failure, dynamic>(
-          this,
-          Invocation.method(
-            #call,
-            [params],
-          ),
-        )),
-      ) as _i4.Future<_i2.Either<_i5.Failure, dynamic>>);
 }
 
 /// A class which mocks [Failure].

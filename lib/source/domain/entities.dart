@@ -65,7 +65,7 @@ class EventGame extends Equatable {
   final int gameCode;
   final double argument;
   final int combinationType;
-  final List<int> marketTypes;
+  final List marketTypes;
   final int gameLayout;
   final int eventLayout;
   final List<Outcome> outcomes;
@@ -101,7 +101,7 @@ class EventGame extends Equatable {
 @immutable
 class Outcome extends Equatable {
   final int outcomeId;
-  final String outcomeName;
+  final String? outcomeName;
   final double outcomeOdds;
   final int status;
 
