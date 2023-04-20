@@ -1,7 +1,8 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
 @immutable
-class EventData {
+class EventData extends Equatable {
   final int eventId;
   final String eventName;
   final int category1Id;
@@ -35,10 +36,29 @@ class EventData {
     required this.eventExtendedData,
     required this.eventGames,
   });
+
+  @override
+  List<Object?> get props => [
+        eventId,
+        eventName,
+        category1Id,
+        category2Id,
+        category3Id,
+        category1Name,
+        category2Name,
+        category3Name,
+        eventCodeId,
+        eventStart,
+        eventType,
+        gamesCount,
+        remoteId,
+        eventExtendedData,
+        eventGames,
+      ];
 }
 
 @immutable
-class EventGame {
+class EventGame extends Equatable {
   final int gameId;
   final String gameName;
   final int gameType;
@@ -62,10 +82,24 @@ class EventGame {
     required this.eventLayout,
     required this.outcomes,
   });
+
+  @override
+  List<Object?> get props => [
+        gameId,
+        gameName,
+        gameType,
+        gameCode,
+        argument,
+        combinationType,
+        marketTypes,
+        gameLayout,
+        eventLayout,
+        outcomes,
+      ];
 }
 
 @immutable
-class Outcome {
+class Outcome extends Equatable {
   final int outcomeId;
   final String outcomeName;
   final double outcomeOdds;
@@ -77,4 +111,18 @@ class Outcome {
     required this.outcomeOdds,
     required this.status,
   });
+
+  @override
+  List<Object?> get props => [
+        outcomeId,
+        outcomeName,
+        outcomeOdds,
+        status,
+      ];
 }
+
+@immutable
+class QuickSearchBody {}
+
+@immutable
+class QuickSearchResponseBody {}

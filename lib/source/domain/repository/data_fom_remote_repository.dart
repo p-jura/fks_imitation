@@ -5,5 +5,5 @@ import 'package:fuksiarz_imitation/source/domain/entities.dart';
 
 abstract class DataFromRemoteRepository implements GetData {
   Future<Either<Failure, EventData>> getEventsDataFromRemote();
-  
+  Future<Either<Failure, EventData>> getQueryDataFromRemote(QuickSearchBody query);
 }
