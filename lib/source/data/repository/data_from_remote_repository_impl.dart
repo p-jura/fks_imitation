@@ -1,3 +1,4 @@
+import 'package:fuksiarz_imitation/core/errors/server_error.dart';
 import 'package:fuksiarz_imitation/source/data/data_source/remote_data_source.dart';
 import 'package:fuksiarz_imitation/source/domain/entities_lists.dart';
 import 'package:fuksiarz_imitation/core/errors/failure.dart';
@@ -10,8 +11,22 @@ class DataFromRemoteRepositoryImpl implements DataFromRemoteRepository {
   DataFromRemoteRepositoryImpl({required this.dataSource});
 
   @override
-  Future<Either<Failure, EventsDataList>> getEventsDataFromRemote() {
-    // TODO: implement getEventsDataFromRemote
-    throw UnimplementedError();
+  Future<Either<Failure, EventsDataList>> getEventsDataFromRemote() async {
+    final remoteData = await dataSource.getRemoteData();
+    if (remoteData.code != null &&
+        remoteData.code! >= 200 &&
+        remoteData.code! < 300) {
+      return Right(
+        EventsDataList(
+          eventDataModels: remoteData.data!,
+        ),
+      );
+    }
+    return Left(
+      ServerError(
+        errorCode: remoteData.code,
+        message: remoteData.discription,
+      ),
+    );
   }
 }

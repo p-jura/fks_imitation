@@ -12,12 +12,10 @@
     "eventType": 1,
     "gamesCount": 1,
     "remoteId": 1,
-    "eventExtendedData": [
-        {
-            "neutralGround": "string",
-            "remoteCategoryId": "string"
-        }
-    ],
+    "eventExtendedData": {
+        "neutralGround": "string",
+        "remoteCategoryId": "string"
+    },
     "eventGames": [
         {
             "argument": 1.0,

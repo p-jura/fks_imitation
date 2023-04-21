@@ -95,5 +95,6 @@ class OutcomeData extends Outcome {
   factory OutcomeData.fromJson(Map<String, dynamic> json) =>
       _$OutcomeDataFromJson(json);
 
+  @override
   Map<String, dynamic> toJson() => _$OutcomeDataToJson(this);
 }
