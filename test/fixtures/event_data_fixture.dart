@@ -1,4 +1,4 @@
-import 'package:fuksiarz_imitation/source/domain/entities.dart';
+import 'package:fuksiarz_imitation/source/domain/single_entities.dart';
 
 final EventData eventDataFixture = EventData(
     eventId: 1,

@@ -1,9 +1,8 @@
 import 'dart:convert';
-
 import 'package:flutter_test/flutter_test.dart';
-import 'package:fuksiarz_imitation/source/data/models.dart';
-import 'package:fuksiarz_imitation/source/domain/entities.dart';
 
+import 'package:fuksiarz_imitation/source/domain/entities_lists.dart';
+import 'package:fuksiarz_imitation/source/domain/single_entities.dart';
 import '../../fixtures/fixture_reader.dart';
 
 void main() {
@@ -31,7 +30,7 @@ void main() {
     outcomes: [outcome],
   );
 
-  final EventDataModel mockedDataModel = EventDataModel(
+  final EventData mockedDataModel = EventData(
     eventId: 1,
     eventName: 'string',
     category1Id: 1,
@@ -68,20 +67,20 @@ void main() {
     },
   );
 
-  test('EventGamesList.eventGamesToList()', () {
-    // final List<Map<String, dynamic>> jsonMap =
-    //     (jsonDecode(eventGamesFixture) as List)
-    //         .map((e) => e as Map<String, dynamic>)
-    //         .toList();
-    final jsonMap = jsonDecode(eventGamesFixture);
+  test(
+    'EventGamesList.eventGamesToList()',
+    () {
+      final jsonMap = jsonDecode(eventGamesFixture);
 
-    final List tEventGames = EventGamesList.eventGamesToList([jsonMap.first]).list;
+      final List tEventGames =
+          EventGamesList.eventGamesToList([jsonMap.first]).list;
 
-    expect(
-      tEventGames.first,
-      equals(eventGame),
-    );
-  });
+      expect(
+        tEventGames.first,
+        equals(eventGame),
+      );
+    },
+  );
   test(
     'EventsDataList.fromJson()',
     () {

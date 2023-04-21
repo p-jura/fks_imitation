@@ -1,6 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fuksiarz_imitation/core/errors/failure.dart';
+import 'package:fuksiarz_imitation/source/domain/entities_lists.dart';
+import 'package:fuksiarz_imitation/source/domain/single_entities.dart';
 import 'package:fuksiarz_imitation/source/domain/service/get_events_data_from_remote.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
@@ -20,6 +22,9 @@ void main() {
   late DataFromRemoteRepository mockedRepository;
   late GetEventsDataFromRemote tEvent;
   late Failure mFailure;
+  final EventsDataList listOfEvents =
+      EventsDataList(eventDataModels: [eventDataFixture]);
+
   setUp(() {
     mockedRepository = MockDataFromRemoteRepository();
     tEvent = GetEventsDataFromRemote(mockedRepository);
@@ -31,7 +36,7 @@ void main() {
       when(
         mockedRepository.getEventsDataFromRemote(),
       ).thenAnswer(
-        (_) async => Right(eventDataFixture),
+        (_) async => Right(listOfEvents),
       );
 
       final resoult = await tEvent.call();
