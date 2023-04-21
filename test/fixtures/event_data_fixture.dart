@@ -14,6 +14,6 @@ final EventData eventDataFixture = EventData(
     eventType: 1,
     gamesCount: 1,
     remoteId: 1,
-    eventExtendedData: const [],
+    eventExtendedData: {},
     eventGames: const [],
   );

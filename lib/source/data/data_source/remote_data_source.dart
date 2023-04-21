@@ -1,5 +1,5 @@
-import 'package:fuksiarz_imitation/source/domain/entities_lists.dart';
+import 'package:fuksiarz_imitation/source/data/models.dart';
 
-abstract class RemoteDataSorces {
-  Future<EventsDataList> getListOfEventsData();
+abstract class RemoteDataSources {
+  Future<EventsDataDto> getListOfEventsData();
 }

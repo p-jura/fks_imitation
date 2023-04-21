@@ -1,23 +1,23 @@
 import 'dart:convert';
-import 'package:flutter_test/flutter_test.dart';
 
-import 'package:fuksiarz_imitation/source/domain/entities_lists.dart';
-import 'package:fuksiarz_imitation/source/domain/single_entities.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:fuksiarz_imitation/source/data/models.dart';
+import 'package:mockito/mockito.dart';
 import '../../fixtures/fixture_reader.dart';
 
 void main() {
   final String outcomeFixture = readFixture('outcome_fixture.json');
   final String eventGamesFixture = readFixture('event_games_fixture.json');
   final String eventDataFixture = readFixture('event_data_fixture.json');
-
-  const outcome = Outcome(
+  final String remoteDataFixture = readFixture('remote_data_fixture.json');
+  const OutcomeData outcomeData = OutcomeData(
     outcomeId: 1,
     outcomeName: null,
     outcomeOdds: 1.0,
     status: 100,
   );
 
-  const eventGame = EventGame(
+  const eventGame = Event(
     gameId: 1,
     gameName: 'int',
     gameType: 1,
@@ -27,10 +27,10 @@ void main() {
     marketTypes: [],
     gameLayout: 1,
     eventLayout: 1,
-    outcomes: [outcome],
+    outcome: [outcomeData],
   );
 
-  final EventData mockedDataModel = EventData(
+  final Data mockedDataModel = Data(
     eventId: 1,
     eventName: 'string',
     category1Id: 1,
@@ -40,72 +40,68 @@ void main() {
     category2Name: 'string',
     category3Name: 'string',
     eventCodeId: 1,
-    eventStart: DateTime.fromMillisecondsSinceEpoch(1681981200000),
+    dataEventStarts: DateTime.fromMillisecondsSinceEpoch(1681981200000),
     eventType: 1,
     gamesCount: 1,
     remoteId: 1,
-    eventExtendedData: const [
-      {
-        'neutralGround': 'string',
-        'remoteCategoryId': 'string',
-      }
-    ],
-    eventGames: const [eventGame],
-  );
-
-  test(
-    'OutcomesList.outcomesToList()',
-    () {
-      final jsonMap = jsonDecode(outcomeFixture);
-
-      final List tOutcomeList = OutcomesList.outcomesToList(jsonMap).list;
-
-      expect(
-        tOutcomeList.first,
-        equals(outcome),
-      );
+    eventExtendedData: const {
+      'neutralGround': 'string',
+      'remoteCategoryId': 'string',
     },
+    dataEventGames: const [eventGame],
   );
 
-  test(
-    'EventGamesList.eventGamesToList()',
-    () {
-      final jsonMap = jsonDecode(eventGamesFixture);
+  test('OutcomeData fromJson', () {
+    final json = jsonDecode(outcomeFixture);
 
-      final List tEventGames =
-          EventGamesList.eventGamesToList([jsonMap.first]).list;
+    final result = OutcomeData.fromJson(json);
+
+    expect(
+      result,
+      equals(outcomeData),
+    );
+  });
+
+  test(
+    'Event fromJson',
+    () {
+      final json = jsonDecode(eventGamesFixture);
+
+      final result = Event.fromJson(json);
 
       expect(
-        tEventGames.first,
+        result,
         equals(eventGame),
       );
     },
   );
   test(
-    'EventsDataList.fromJson()',
+    'Data fromJson',
     () {
-      final jsonMap = jsonDecode(eventDataFixture);
+      final json = jsonDecode(eventDataFixture);
 
-      final List tModelFromJson = EventsDataList.fromJson(jsonMap).list;
+      final result = Data.fromJson(json);
 
       expect(
-        tModelFromJson.first,
+        result,
         equals(mockedDataModel),
       );
     },
   );
-  test(
-    'EventsDataList.fromJson() should be equal to mockedList',
-    () async {
-      final jsonMap = jsonDecode(eventDataFixture);
-      final EventsDataList mockedList =
-          EventsDataList(eventDataModels: [mockedDataModel]);
-      final tModelFromJson = EventsDataList.fromJson(jsonMap);
 
-      expect(
-        tModelFromJson,
-        equals(mockedList),
-      );
-    },
-  );
+  // this test is just to be sure that every nestet layers are in DTO
+  // the json file is real response from server copied to fixtures
+  test(
+      'EventDataDto fromJson should return code 200 from remote_data_fixture.json file ',
+      () {
+    final json = jsonDecode(remoteDataFixture);
+
+    final result = EventsDataDto.fromJson(json);
+    expect(
+      result.code,
+      equals(
+        200,
+      ),
+    );
+  });
 }

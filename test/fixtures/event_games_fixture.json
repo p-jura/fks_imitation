@@ -1,21 +1,19 @@
-[
-    {
-        "argument": 1.0,
-        "combinationType": 1,
-        "eventLayout": 1,
-        "gameCode": 1,
-        "gameId": 1,
-        "gameLayout": 1,
-        "gameName": "int",
-        "gameType": 1,
-        "marketTypes": [],
-        "periodId": 1,
-        "outcomes": [
-            {
-                "outcomeId": 1,
-                "outcomeOdds": 1.0,
-                "status": 100                            
-            }
-        ]
-    }
-]
+{
+    "argument": 1.0,
+    "combinationType": 1,
+    "eventLayout": 1,
+    "gameCode": 1,
+    "gameId": 1,
+    "gameLayout": 1,
+    "gameName": "int",
+    "gameType": 1,
+    "marketTypes": [],
+    "periodId": 1,
+    "outcomes": [
+        {
+            "outcomeId": 1,
+            "outcomeOdds": 1.0,
+            "status": 100
+        }
+    ]
+}

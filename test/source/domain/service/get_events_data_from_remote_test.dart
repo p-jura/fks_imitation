@@ -43,7 +43,7 @@ void main() {
 
       expect(
         resoult,
-        Right(eventDataFixture),
+        Right(listOfEvents),
       );
       verify(mockedRepository.getEventsDataFromRemote());
       verifyNoMoreInteractions(mockedRepository);

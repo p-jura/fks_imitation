@@ -1,46 +1,40 @@
 {
-    "code": 1,
-    "description": "string",
-    "data": [
+    "category1Id": 1,
+    "category1Name": "string",
+    "category2Id": 1,
+    "category2Name": "string",
+    "category3Id": 1,
+    "category3Name": "string",
+    "eventCodeId": 1,
+    "eventId": 1,
+    "eventName": "string",
+    "eventStart": 1681981200000,
+    "eventType": 1,
+    "gamesCount": 1,
+    "remoteId": 1,
+    "eventExtendedData": [
         {
-            "category1Id": 1,
-            "category1Name": "string",
-            "category2Id": 1,
-            "category2Name": "string",
-            "category3Id": 1,
-            "category3Name": "string",
-            "eventCodeId": 1,
-            "eventId": 1,
-            "eventName": "string",
-            "eventStart": 1681981200000,
-            "eventType": 1,
-            "gamesCount": 1,
-            "remoteId": 1,
-            "eventExtendedData": [
+            "neutralGround": "string",
+            "remoteCategoryId": "string"
+        }
+    ],
+    "eventGames": [
+        {
+            "argument": 1.0,
+            "combinationType": 1,
+            "eventLayout": 1,
+            "gameCode": 1,
+            "gameId": 1,
+            "gameLayout": 1,
+            "gameName": "int",
+            "gameType": 1,
+            "marketTypes": [],
+            "periodId": 1,
+            "outcomes": [
                 {
-                    "neutralGround": "string",
-                    "remoteCategoryId": "string"
-                }
-            ],
-            "eventGames": [
-                {
-                    "argument": 1.0,
-                    "combinationType": 1,
-                    "eventLayout": 1,
-                    "gameCode": 1,
-                    "gameId": 1,
-                    "gameLayout": 1,
-                    "gameName": "int",
-                    "gameType": 1,
-                    "marketTypes": [],
-                    "periodId": 1,
-                    "outcomes": [
-                        {
-                            "outcomeId": 1,
-                            "outcomeOdds": 1.0,
-                            "status": 100                            
-                        }
-                    ]
+                    "outcomeId": 1,
+                    "outcomeOdds": 1.0,
+                    "status": 100
                 }
             ]
         }

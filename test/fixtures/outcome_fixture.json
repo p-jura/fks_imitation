@@ -1,7 +1,5 @@
-[
-    {
-        "outcomeId": 1,
-        "outcomeOdds": 1.0,
-        "status": 100                            
-    }
-]
+{
+    "outcomeId": 1,
+    "outcomeOdds": 1.0,
+    "status": 100
+}
