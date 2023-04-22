@@ -4,7 +4,7 @@ class ServerError extends Failure {
   final int? errorCode;
   final String? message;
 
-  ServerError({this.errorCode, this.message});
+  const ServerError({this.errorCode, this.message});
 
   @override
   List<Object?> get props => [errorCode, message];

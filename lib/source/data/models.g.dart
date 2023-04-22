@@ -9,7 +9,7 @@ part of 'models.dart';
 EventsDataDto _$EventsDataDtoFromJson(Map<String, dynamic> json) =>
     EventsDataDto(
       code: json['code'] as int?,
-      discription: json['discription'] as String?,
+      description: json['description'] as String?,
       data: (json['data'] as List<dynamic>?)
           ?.map((e) => Data.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -18,7 +18,7 @@ EventsDataDto _$EventsDataDtoFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$EventsDataDtoToJson(EventsDataDto instance) =>
     <String, dynamic>{
       'code': instance.code,
-      'discription': instance.discription,
+      'description': instance.description,
       'data': instance.data,
     };
 

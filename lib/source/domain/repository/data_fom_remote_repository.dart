@@ -4,5 +4,5 @@ import 'package:fuksiarz_imitation/source/domain/entities_lists.dart';
 
 
 abstract class DataFromRemoteRepository {
-  Future<Either<Failure, EventsDataList>> getEventsDataFromRemote();
+  Future<Either<Failure, EventsDataList>> getEventsDataFromRemote([int? params]);
 }

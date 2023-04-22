@@ -11,8 +11,8 @@ class DataFromRemoteRepositoryImpl implements DataFromRemoteRepository {
   DataFromRemoteRepositoryImpl({required this.dataSource});
 
   @override
-  Future<Either<Failure, EventsDataList>> getEventsDataFromRemote() async {
-    final remoteData = await dataSource.getRemoteData();
+  Future<Either<Failure, EventsDataList>> getEventsDataFromRemote([int? params]) async {
+    final remoteData = await dataSource.getRemoteData(params);
     if (remoteData.code != null &&
         remoteData.code! >= 200 &&
         remoteData.code! < 300) {
@@ -25,7 +25,7 @@ class DataFromRemoteRepositoryImpl implements DataFromRemoteRepository {
     return Left(
       ServerError(
         errorCode: remoteData.code,
-        message: remoteData.discription,
+        message: remoteData.description,
       ),
     );
   }

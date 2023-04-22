@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fuksiarz_imitation/source/data/models.dart';
-import 'package:mockito/mockito.dart';
 import '../../fixtures/fixture_reader.dart';
 
 void main() {

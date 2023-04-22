@@ -1,6 +1,6 @@
-import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:fuksiarz_imitation/source/data/models.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:http/http.dart' as http;
@@ -14,10 +14,15 @@ void main() {
   late MockClient mockedHttpClient;
   late RemoteDataSourcesImpl dataSourcesImpl;
 
-  final mockedDTO = readFixture('outcome_fixture.json');
-  final http.Response httpResponse = http.Response(mockedDTO, 200);
-  final url =
-      Uri.parse('https://fuksiarz.pl/rest/market/categories/multi/13/events');
+  final dtoStingFixture = readFixture('remote_data_simple_fixture.json');
+  const mockDto =
+      EventsDataDto(code: 200, description: 'OK.', data: []);
+  final http.Response httpResponse = http.Response(dtoStingFixture, 200);
+
+  const int tCat = 1;
+  final url = Uri.parse(
+    'https://fuksiarz.pl/rest/market/categories/multi/$tCat/events',
+  );
   setUp(
     () {
       mockedHttpClient = MockClient();
@@ -25,11 +30,9 @@ void main() {
     },
   );
   test(
-    'when getRemoteData() is called should return DTO',
+    'veryfieing proper category is selected',
     () async {
-      when(mockedHttpClient.get(any)).thenAnswer((_) async => httpResponse);
-
-      final result = await dataSourcesImpl.getRemoteData();
+      await dataSourcesImpl.getRemoteData(tCat);
       verify(
         mockedHttpClient.get(
           url,
@@ -38,4 +41,22 @@ void main() {
       );
     },
   );
+  test('when getRemoteData() is called should return DTO', () async {
+    when(
+      mockedHttpClient.get(
+        any,
+        headers: {'Content-Type': 'application/json'},
+      ),
+    ).thenAnswer((_) async => httpResponse);
+    final response = await dataSourcesImpl.getRemoteData(tCat);
+    expect(response.code, 200);
+    expect(
+      response,
+      equals(mockDto),
+    );
+    expect(
+      response.runtimeType,
+      equals(EventsDataDto),
+    );
+  });
 }

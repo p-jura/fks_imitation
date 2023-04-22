@@ -36,24 +36,25 @@ class _FakeEventsDataDto_0 extends _i1.SmartFake implements _i2.EventsDataDto {
 /// See the documentation for Mockito's code generation for more information.
 class MockRemoteDataSources extends _i1.Mock implements _i3.RemoteDataSources {
   @override
-  _i4.Future<_i2.EventsDataDto> getListOfEventsData() => (super.noSuchMethod(
+  _i4.Future<_i2.EventsDataDto> getRemoteData([int? params]) =>
+      (super.noSuchMethod(
         Invocation.method(
-          #getListOfEventsData,
-          [],
+          #getRemoteData,
+          [params],
         ),
         returnValue: _i4.Future<_i2.EventsDataDto>.value(_FakeEventsDataDto_0(
           this,
           Invocation.method(
-            #getListOfEventsData,
-            [],
+            #getRemoteData,
+            [params],
           ),
         )),
         returnValueForMissingStub:
             _i4.Future<_i2.EventsDataDto>.value(_FakeEventsDataDto_0(
           this,
           Invocation.method(
-            #getListOfEventsData,
-            [],
+            #getRemoteData,
+            [params],
           ),
         )),
       ) as _i4.Future<_i2.EventsDataDto>);

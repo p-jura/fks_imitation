@@ -17,7 +17,7 @@ void main() {
   late DataFromRemoteRepositoryImpl repository;
   final mockedDTO = EventsDataDto(
     code: 200,
-    discription: 'discription',
+    description: 'discription',
     data: [
       dataFixture,
     ],
@@ -26,7 +26,7 @@ void main() {
   final mockedEventDataList = EventsDataList(eventDataModels: mockDataList);
 
   const mockedDTOwithoutData =
-      EventsDataDto(code: 400, discription: 'discription', data: null);
+      EventsDataDto(code: 400, description: 'discription', data: null);
 
   setUp(
     () {
@@ -37,12 +37,12 @@ void main() {
   test(
     'Should return Right(List<EventsDataList>) when the getListOfEvent() is called',
     () async {
-      when(mockDataSource.getRemoteData())
+      when(mockDataSource.getRemoteData(any))
           .thenAnswer((_) async => mockedDTO);
 
       final result = await repository.getEventsDataFromRemote();
 
-      verify(mockDataSource.getRemoteData());
+      verify(mockDataSource.getRemoteData(null));
       expect(
         result,
         equals(
@@ -54,10 +54,10 @@ void main() {
   test(
     'Should return ServerError when the getListOfEvent() is called',
     () async {
-      when(mockDataSource.getRemoteData())
+      when(mockDataSource.getRemoteData(any))
           .thenAnswer((_) async => mockedDTOwithoutData);
 
-      final result = await repository.getEventsDataFromRemote();
+      final result = await repository.getEventsDataFromRemote(1);
 
       expect(
         result.isLeft(),

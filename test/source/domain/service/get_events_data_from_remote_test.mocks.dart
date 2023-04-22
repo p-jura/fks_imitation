@@ -40,10 +40,10 @@ class MockDataFromRemoteRepository extends _i1.Mock
     implements _i3.DataFromRemoteRepository {
   @override
   _i4.Future<_i2.Either<_i5.Failure, _i6.EventsDataList>>
-      getEventsDataFromRemote() => (super.noSuchMethod(
+      getEventsDataFromRemote([int? params]) => (super.noSuchMethod(
             Invocation.method(
               #getEventsDataFromRemote,
-              [],
+              [params],
             ),
             returnValue:
                 _i4.Future<_i2.Either<_i5.Failure, _i6.EventsDataList>>.value(
@@ -51,7 +51,7 @@ class MockDataFromRemoteRepository extends _i1.Mock
               this,
               Invocation.method(
                 #getEventsDataFromRemote,
-                [],
+                [params],
               ),
             )),
             returnValueForMissingStub:
@@ -60,7 +60,7 @@ class MockDataFromRemoteRepository extends _i1.Mock
               this,
               Invocation.method(
                 #getEventsDataFromRemote,
-                [],
+                [params],
               ),
             )),
           ) as _i4.Future<_i2.Either<_i5.Failure, _i6.EventsDataList>>);

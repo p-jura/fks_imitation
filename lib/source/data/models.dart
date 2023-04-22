@@ -7,12 +7,12 @@ part 'models.g.dart';
 @JsonSerializable()
 class EventsDataDto extends Equatable {
   final int? code;
-  final String? discription;
+  final String? description;
   final List<Data>? data;
 
   const EventsDataDto({
     required this.code,
-    required this.discription,
+    required this.description,
     required this.data,
   });
   factory EventsDataDto.fromJson(Map<String, dynamic> json) =>
@@ -21,7 +21,7 @@ class EventsDataDto extends Equatable {
   Map<String, dynamic> toJson() => _$EventsDataDtoToJson(this);
 
   @override
-  List<Object?> get props => [code, discription, data];
+  List<Object?> get props => [code, description, data];
 }
 
 @JsonSerializable(includeIfNull: false)
