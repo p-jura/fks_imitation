@@ -99,16 +99,70 @@ class OutcomeData extends Outcome {
 }
 
 @JsonSerializable()
-class QuickSearchResposnseDTO extends QuickSearchResponse {
+class QuickSearchResponseDto extends Equatable {
+  final int code;
+  final String description;
+  final List<QuickSearchResponseData> data;
 
+  const QuickSearchResponseDto({
+    required this.code,
+    required this.description,
+    required this.data,
+  });
+
+  factory QuickSearchResponseDto.fromJson(Map<String, dynamic> json) =>
+      _$QuickSearchResponseDtoFromJson(json);
+
+  Map<String, dynamic> toJson() => _$QuickSearchResponseDtoToJson(this);
+
+  @override
+  List<Object?> get props => [code, description, data];
+}
+
+@JsonSerializable()
+class QuickSearchResponseData extends QuickSearchResponse {
   @JsonKey(name: 'extras')
   final Map<String, String> modelExtras;
 
-  const QuickSearchResposnseDTO({
+  const QuickSearchResponseData({
     required super.area,
     required super.name,
     required super.id,
     required super.score,
     required this.modelExtras,
-  }):super(extras: modelExtras);
+  }) : super(extras: modelExtras);
+
+  factory QuickSearchResponseData.fromJson(Map<String, dynamic> json) =>
+      _$QuickSearchResponseDataFromJson(json);
+
+  @override
+  Map<String, dynamic> toJson() => _$QuickSearchResponseDataToJson(this);
+}
+
+class QuickSearchRequest extends Equatable {
+  final List<String> areas;
+  final String languageCode;
+  final int limit;
+  final int mergeLanguages;
+  final String modes;
+  final String pattern;
+
+  const QuickSearchRequest({
+    required this.areas,
+    required this.languageCode,
+    required this.limit,
+    required this.mergeLanguages,
+    required this.modes,
+    required this.pattern,
+  });
+
+  @override
+  List<Object?> get props => [
+        areas,
+        languageCode,
+        limit,
+        mergeLanguages,
+        modes,
+        pattern,
+      ];
 }

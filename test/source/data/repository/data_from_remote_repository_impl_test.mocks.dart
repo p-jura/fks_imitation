@@ -31,6 +31,17 @@ class _FakeEventsDataDto_0 extends _i1.SmartFake implements _i2.EventsDataDto {
         );
 }
 
+class _FakeQuickSearchResponseData_1 extends _i1.SmartFake
+    implements _i2.QuickSearchResponseData {
+  _FakeQuickSearchResponseData_1(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [RemoteDataSources].
 ///
 /// See the documentation for Mockito's code generation for more information.
@@ -58,4 +69,29 @@ class MockRemoteDataSources extends _i1.Mock implements _i3.RemoteDataSources {
           ),
         )),
       ) as _i4.Future<_i2.EventsDataDto>);
+  @override
+  _i4.Future<_i2.QuickSearchResponseData> getQuckSearchData([String? params]) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getQuckSearchData,
+          [params],
+        ),
+        returnValue: _i4.Future<_i2.QuickSearchResponseData>.value(
+            _FakeQuickSearchResponseData_1(
+          this,
+          Invocation.method(
+            #getQuckSearchData,
+            [params],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i4.Future<_i2.QuickSearchResponseData>.value(
+                _FakeQuickSearchResponseData_1(
+          this,
+          Invocation.method(
+            #getQuckSearchData,
+            [params],
+          ),
+        )),
+      ) as _i4.Future<_i2.QuickSearchResponseData>);
 }

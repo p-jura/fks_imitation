@@ -1,6 +1,6 @@
 import 'package:fuksiarz_imitation/source/domain/single_entities.dart';
 
-const QuickSearchResponse quickSearchResponseBody = QuickSearchResponse(
+const QuickSearchResponse quickSearchResponseDataFixture = QuickSearchResponse(
   area: 1,
   name: 'name',
   id: 1,

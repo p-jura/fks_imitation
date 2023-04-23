@@ -5,11 +5,9 @@ import 'package:mockito/annotations.dart';
 
 import 'package:fuksiarz_imitation/core/errors/failure.dart';
 import 'package:fuksiarz_imitation/source/domain/entities_lists.dart';
-import 'package:fuksiarz_imitation/source/domain/service/get_events_data_from_remote.dart';
 import 'package:fuksiarz_imitation/source/domain/service/get_quick_search_data_from_remote.dart';
-import 'package:fuksiarz_imitation/source/domain/single_entities.dart';
 import 'package:fuksiarz_imitation/source/domain/repository/data_fom_remote_repository.dart';
-import '../../../fixtures/quick_search_response_fixture.dart';
+import '../../../fixtures/quick_search_fixtures/quick_search_response_fixture.dart';
 @GenerateNiceMocks(
   [
     MockSpec<DataFromRemoteRepository>(),

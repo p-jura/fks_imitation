@@ -3,52 +3,17 @@ import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fuksiarz_imitation/source/data/models.dart';
 import '../../fixtures/fixture_reader.dart';
+import '../../fixtures/models_fixtures.dart';
 
 void main() {
   final String outcomeFixture = readFixture('outcome_fixture.json');
   final String eventGamesFixture = readFixture('event_games_fixture.json');
   final String eventDataFixture = readFixture('event_data_fixture.json');
   final String remoteDataFixture = readFixture('remote_data_fixture.json');
-  const OutcomeData outcomeData = OutcomeData(
-    outcomeId: 1,
-    outcomeName: null,
-    outcomeOdds: 1.0,
-    status: 100,
-  );
-
-  const eventGame = Event(
-    gameId: 1,
-    gameName: 'int',
-    gameType: 1,
-    gameCode: 1,
-    argument: 1.0,
-    combinationType: 1,
-    marketTypes: [],
-    gameLayout: 1,
-    eventLayout: 1,
-    outcome: [outcomeData],
-  );
-
-  final Data mockedDataModel = Data(
-    eventId: 1,
-    eventName: 'string',
-    category1Id: 1,
-    category2Id: 1,
-    category3Id: 1,
-    category1Name: 'string',
-    category2Name: 'string',
-    category3Name: 'string',
-    eventCodeId: 1,
-    dataEventStarts: DateTime.fromMillisecondsSinceEpoch(1681981200000),
-    eventType: 1,
-    gamesCount: 1,
-    remoteId: 1,
-    eventExtendedData: const {
-      'neutralGround': 'string',
-      'remoteCategoryId': 'string',
-    },
-    dataEventGames: const [eventGame],
-  );
+  
+  const OutcomeData mockedOutcomeData = outcomeDataFixture;
+  const Event mockedEventGame = eventGameFixture;
+  final Data mockedDataModel = dataModelFixture;
 
   test('OutcomeData fromJson', () {
     final json = jsonDecode(outcomeFixture);
@@ -57,7 +22,7 @@ void main() {
 
     expect(
       result,
-      equals(outcomeData),
+      equals(mockedOutcomeData),
     );
   });
 
@@ -70,7 +35,7 @@ void main() {
 
       expect(
         result,
-        equals(eventGame),
+        equals(mockedEventGame),
       );
     },
   );

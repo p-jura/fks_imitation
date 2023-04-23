@@ -8,7 +8,7 @@ import 'package:mockito/annotations.dart';
 
 import 'package:fuksiarz_imitation/source/domain/repository/data_fom_remote_repository.dart';
 
-import '../../../fixtures/event_data_fixture.dart';
+import '../../../fixtures/remote_data_fixtures/event_data_fixture.dart';
 @GenerateNiceMocks(
   [
     MockSpec<DataFromRemoteRepository>(),

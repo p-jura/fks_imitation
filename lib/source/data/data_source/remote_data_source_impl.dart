@@ -17,4 +17,12 @@ class RemoteDataSourcesImpl implements RemoteDataSources {
 
     return EventsDataDto.fromJson(jsonDecode(response.body));
   }
+  
+  @override
+  Future<QuickSearchResponseDto> getQuckSearchData([String? params]) {
+    // TODO: implement getQuckSearchData
+    throw UnimplementedError();
+  }
+  
+
 }
