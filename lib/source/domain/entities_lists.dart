@@ -7,7 +7,6 @@ class EventsDataList extends Equatable {
   final List<EventData> eventDataModels;
 
   const EventsDataList({required this.eventDataModels});
-  List<EventData> get list => [...eventDataModels];
 
   @override
   List<Object?> get props => [eventDataModels];
@@ -17,7 +16,6 @@ class EventGamesList extends Equatable {
   final List<EventGame> gameEvents;
 
   const EventGamesList(this.gameEvents);
-  List<EventGame> get list => [...gameEvents];
 
   @override
   List<Object?> get props => [gameEvents];
@@ -27,8 +25,15 @@ class OutcomesList extends Equatable {
   final List<Outcome> outcomeList;
 
   const OutcomesList(this.outcomeList);
-  List<Outcome> get list => [...outcomeList];
 
   @override
   List<Object?> get props => [outcomeList];
+}
+
+class QuickSearchResponseList extends Equatable {
+  final List<QuickSearchResponse> quickSearchResponse;
+
+  const QuickSearchResponseList(this.quickSearchResponse);
+  @override
+  List<Object?> get props => [quickSearchResponse];
 }

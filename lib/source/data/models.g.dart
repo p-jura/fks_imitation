@@ -131,3 +131,23 @@ Map<String, dynamic> _$OutcomeDataToJson(OutcomeData instance) {
   val['status'] = instance.status;
   return val;
 }
+
+QuickSearchResposnseDTO _$QuickSearchResposnseDTOFromJson(
+        Map<String, dynamic> json) =>
+    QuickSearchResposnseDTO(
+      area: json['area'] as int,
+      name: json['name'] as String,
+      id: json['id'] as int,
+      score: (json['score'] as num).toDouble(),
+      modelExtras: Map<String, String>.from(json['extras'] as Map),
+    );
+
+Map<String, dynamic> _$QuickSearchResposnseDTOToJson(
+        QuickSearchResposnseDTO instance) =>
+    <String, dynamic>{
+      'area': instance.area,
+      'name': instance.name,
+      'id': instance.id,
+      'score': instance.score,
+      'extras': instance.modelExtras,
+    };

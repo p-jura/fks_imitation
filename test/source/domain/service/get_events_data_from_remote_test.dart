@@ -21,7 +21,7 @@ void main() {
   late DataFromRemoteRepository mockedRepository;
   late GetEventsDataFromRemote tEvent;
   late Failure mFailure;
-  final EventsDataList listOfEvents =
+  final EventsDataList listOfEventsFixture =
       EventsDataList(eventDataModels: [eventDataFixture]);
 
   setUp(() {
@@ -30,32 +30,28 @@ void main() {
     mFailure = MockFailure();
   });
   test(
-    'Should return EventData when remote is called',
+    'Should return EventDataList when remote is called',
     () async {
       when(
         mockedRepository.getEventsDataFromRemote(),
-      ).thenAnswer(
-        (_) async => Right(listOfEvents),
-      );
+      ).thenAnswer((_) async => Right(listOfEventsFixture));
 
       final resoult = await tEvent.call();
 
       expect(
         resoult,
-        Right(listOfEvents),
+        Right(listOfEventsFixture),
       );
       verify(mockedRepository.getEventsDataFromRemote());
       verifyNoMoreInteractions(mockedRepository);
     },
   );
   test(
-    'Should return Failure when remote is called',
+    'Should return Failure when remote is called without data',
     () async {
       when(
         mockedRepository.getEventsDataFromRemote(),
-      ).thenAnswer(
-        (_) async => Left(mFailure),
-      );
+      ).thenAnswer((_) async => Left(mFailure));
 
       final resoult = await tEvent.call();
 

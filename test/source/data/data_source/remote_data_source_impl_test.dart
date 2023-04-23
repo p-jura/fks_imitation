@@ -1,4 +1,3 @@
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fuksiarz_imitation/source/data/models.dart';
 import 'package:mockito/annotations.dart';
@@ -15,8 +14,7 @@ void main() {
   late RemoteDataSourcesImpl dataSourcesImpl;
 
   final dtoStingFixture = readFixture('remote_data_simple_fixture.json');
-  const mockDto =
-      EventsDataDto(code: 200, description: 'OK.', data: []);
+  const mockDto = EventsDataDto(code: 200, description: 'OK.', data: []);
   final http.Response httpResponse = http.Response(dtoStingFixture, 200);
 
   const int tCat = 1;
@@ -32,6 +30,12 @@ void main() {
   test(
     'veryfieing proper category is selected',
     () async {
+      when(
+        mockedHttpClient.get(
+          any,
+          headers: {'Content-Type': 'application/json'},
+        ),
+      ).thenAnswer((_) async => httpResponse);
       await dataSourcesImpl.getRemoteData(tCat);
       verify(
         mockedHttpClient.get(

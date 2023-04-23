@@ -3,15 +3,17 @@ import 'package:dartz/dartz.dart';
 import 'package:fuksiarz_imitation/core/service/get_data.dart';
 import 'package:fuksiarz_imitation/source/domain/entities_lists.dart';
 import 'package:fuksiarz_imitation/source/domain/repository/data_fom_remote_repository.dart';
+import 'package:fuksiarz_imitation/source/domain/single_entities.dart';
 
-class GetEventsDataFromRemote extends GetData<EventsDataList, int> {
+class GetQuickSearchDataFromeRemote
+    implements GetData<QuickSearchResponseList, String> {
   final DataFromRemoteRepository _repository;
 
-  GetEventsDataFromRemote(DataFromRemoteRepository repository)
+  GetQuickSearchDataFromeRemote(DataFromRemoteRepository repository)
       : _repository = repository;
 
   @override
-  Future<Either<Failure, EventsDataList>> call([int? params]) async {
-    return await _repository.getEventsDataFromRemote(params);
+  Future<Either<Failure, QuickSearchResponseList>> call(String params) async {
+   return _repository.getQuickSearchDataFromeRemote(params);
   }
 }

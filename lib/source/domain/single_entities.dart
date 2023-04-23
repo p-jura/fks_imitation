@@ -164,8 +164,40 @@ class Outcome extends Equatable {
       ];
 }
 
-@immutable
-class QuickSearchBody {}
 
 @immutable
-class QuickSearchResponseBody {}
+class QuickSearchResponse extends Equatable {
+  final int area;
+  final String name;
+  final int id;
+  final double score;
+  final Map<String, String> extras;
+
+  const QuickSearchResponse({
+    required this.area,
+    required this.name,
+    required this.id,
+    required this.score,
+    required this.extras,
+  });
+  factory QuickSearchResponse.fromJson(Map<String, dynamic> json) =>
+      QuickSearchResponse(
+        area: json['area'],
+        name: json['name'],
+        id: json['id'],
+        score: json['score'],
+        extras: json['extras'],
+      );
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> data = <String, dynamic>{};
+    data['area'] = area;
+    data['name'] = name;
+    data['id'] = id;
+    data['score'] = score;
+    data['extras'] = extras;
+    return data;
+  }
+
+  @override
+  List<Object?> get props => [area, name, id, score, extras];
+}

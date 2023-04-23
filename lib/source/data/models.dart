@@ -62,7 +62,6 @@ class Data extends EventData {
 
 @JsonSerializable(includeIfNull: false)
 class Event extends EventGame {
-
   @JsonKey(name: 'outcomes')
   final List<OutcomeData> outcome;
 
@@ -97,4 +96,19 @@ class OutcomeData extends Outcome {
 
   @override
   Map<String, dynamic> toJson() => _$OutcomeDataToJson(this);
+}
+
+@JsonSerializable()
+class QuickSearchResposnseDTO extends QuickSearchResponse {
+
+  @JsonKey(name: 'extras')
+  final Map<String, String> modelExtras;
+
+  const QuickSearchResposnseDTO({
+    required super.area,
+    required super.name,
+    required super.id,
+    required super.score,
+    required this.modelExtras,
+  }):super(extras: modelExtras);
 }
