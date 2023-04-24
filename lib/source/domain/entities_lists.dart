@@ -33,7 +33,7 @@ class OutcomesList extends Equatable {
 class QuickSearchResponseList extends Equatable {
   final List<QuickSearchResponse> quickSearchResponse;
 
-  const QuickSearchResponseList(this.quickSearchResponse);
+  const QuickSearchResponseList({ required this.quickSearchResponse});
   @override
   List<Object?> get props => [quickSearchResponse];
 }

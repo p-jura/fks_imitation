@@ -100,9 +100,9 @@ class OutcomeData extends Outcome {
 
 @JsonSerializable()
 class QuickSearchResponseDto extends Equatable {
-  final int code;
-  final String description;
-  final List<QuickSearchResponseData> data;
+  final int? code;
+  final String? description;
+  final List<QuickSearchResponseData>? data;
 
   const QuickSearchResponseDto({
     required this.code,
@@ -140,11 +140,11 @@ class QuickSearchResponseData extends QuickSearchResponse {
 }
 
 class QuickSearchRequest extends Equatable {
-  final List<String> areas;
-  final String languageCode;
+  final List<String>? areas;
+  final String? languageCode;
   final int limit;
-  final int mergeLanguages;
-  final String modes;
+  final int? mergeLanguages;
+  final List<String>? modes;
   final String pattern;
 
   const QuickSearchRequest({
@@ -156,6 +156,15 @@ class QuickSearchRequest extends Equatable {
     required this.pattern,
   });
 
+  Map<String, dynamic> toJson() => {
+        'areas': areas,
+        'languageCode': languageCode,
+        'limit': limit,
+        'mergeLanguages': mergeLanguages,
+        'modes': modes,
+        'pattern': pattern,
+      };
+      
   @override
   List<Object?> get props => [
         areas,

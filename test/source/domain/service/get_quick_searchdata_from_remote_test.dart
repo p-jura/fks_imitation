@@ -21,8 +21,9 @@ void main() {
   late DataFromRemoteRepository mockedRepository;
   late Failure mFailure;
   const String tParams = 'any';
-  const QuickSearchResponseList rFixture =
-      QuickSearchResponseList([quickSearchResponseBody]);
+  const QuickSearchResponseList rFixture = QuickSearchResponseList(
+    quickSearchResponse: [quickSearchResponseDataFixture],
+  );
 
   setUp(() {
     mockedRepository = MockDataFromRemoteRepository();
@@ -30,20 +31,20 @@ void main() {
     mFailure = MockFailure();
   });
   test('Should return failure when no data is in quick search ', () async {
-    when(mockedRepository.getQuickSearchDataFromeRemote(any))
+    when(mockedRepository.getQuickSearchDataFromeRemote(tParams))
         .thenAnswer((_) async => Left(mFailure));
-    
+
     final result = await tSearch.call(tParams);
-    
+
     expect(result, isA<Left>());
   });
   test('Should return QickSearchResponseList when remote repo is called',
       () async {
-    when(mockedRepository.getQuickSearchDataFromeRemote(any))
+    when(mockedRepository.getQuickSearchDataFromeRemote(tParams))
         .thenAnswer((_) async => const Right(rFixture));
-   
+
     final result = await tSearch.call(tParams);
-   
+
     expect(
       result,
       equals(const Right(rFixture)),

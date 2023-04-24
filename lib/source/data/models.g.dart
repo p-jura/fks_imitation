@@ -135,10 +135,10 @@ Map<String, dynamic> _$OutcomeDataToJson(OutcomeData instance) {
 QuickSearchResponseDto _$QuickSearchResponseDtoFromJson(
         Map<String, dynamic> json) =>
     QuickSearchResponseDto(
-      code: json['code'] as int,
-      description: json['description'] as String,
-      data: (json['data'] as List<dynamic>)
-          .map((e) =>
+      code: json['code'] as int?,
+      description: json['description'] as String?,
+      data: (json['data'] as List<dynamic>?)
+          ?.map((e) =>
               QuickSearchResponseData.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
