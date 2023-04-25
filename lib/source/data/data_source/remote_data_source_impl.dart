@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'dart:convert';
 import 'package:fuksiarz_imitation/core/errors/exceptions.dart';
 import 'package:fuksiarz_imitation/source/data/data_source/remote_data_source.dart';

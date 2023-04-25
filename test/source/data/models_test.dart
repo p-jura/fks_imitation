@@ -6,10 +6,10 @@ import '../../fixtures/fixture_reader.dart';
 import '../../fixtures/models_fixtures.dart';
 
 void main() {
-  final String outcomeFixture = readFixture('outcome_fixture.json');
-  final String eventGamesFixture = readFixture('event_games_fixture.json');
-  final String eventDataFixture = readFixture('event_data_fixture.json');
-  final String remoteDataFixture = readFixture('remote_data_fixture.json');
+  final String outcomeFixture = readFixture('outcome_fixture.json', 'remote_data_fixtures');
+  final String eventGamesFixture = readFixture('event_games_fixture.json', 'remote_data_fixtures');
+  final String eventDataFixture = readFixture('event_data_fixture.json', 'remote_data_fixtures');
+  final String remoteDataFixture = readFixture('remote_data_fixture.json', 'remote_data_fixtures');
   
   const OutcomeData mockedOutcomeData = outcomeDataFixture;
   const Event mockedEventGame = eventGameFixture;
