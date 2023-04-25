@@ -1,14 +1,19 @@
 import 'package:equatable/equatable.dart';
 
 abstract class Failure extends Equatable {
-  const Failure([List props = const <dynamic>[]]) : super();
+  final int? errorCode;
+  final String? message;
+  const Failure(this.message, [this.errorCode]);
+
+  @override
+  List<Object?> get props => [message];
 }
 
 class ServerOrClientError extends Failure {
-  final int? errorCode;
-  final String? message;
-
-  const ServerOrClientError({this.errorCode, this.message});
+  const ServerOrClientError({
+    errorCode,
+    message,
+  }) : super(message, errorCode);
 
   @override
   List<Object?> get props => [errorCode, message];
@@ -18,9 +23,7 @@ class ServerOrClientError extends Failure {
 }
 
 class NoDataFoundFailure extends Failure {
-  final String? message;
-
-  const NoDataFoundFailure({this.message});
+  const NoDataFoundFailure({message}) : super(message);
 
   @override
   List<Object?> get props => [message];
