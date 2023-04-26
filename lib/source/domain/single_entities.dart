@@ -11,7 +11,7 @@ class EventData extends Equatable {
   final String? category1Name;
   final String? category2Name;
   final String? category3Name;
-  final int eventCodeId;
+  final int? eventCodeId;
   final DateTime? eventStart;
   final int? eventType;
   final int? gamesCount;

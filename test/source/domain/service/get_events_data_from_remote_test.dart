@@ -22,7 +22,7 @@ void main() {
   late GetEventsDataFromRemote tEvent;
   late Failure mFailure;
   final EventsDataList listOfEventsFixture =
-      EventsDataList(eventDataModels: [eventDataFixture]);
+      EventsDataList(eventData: [eventDataFixture]);
 
   setUp(() {
     mockedRepository = MockDataFromRemoteRepository();

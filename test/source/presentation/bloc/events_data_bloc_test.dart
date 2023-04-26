@@ -52,18 +52,18 @@ void main() {
         setUp: () {
           when(mockGetEvent.call(any)).thenAnswer(
             (_) async => Right(
-              EventsDataList(eventDataModels: [eventData]),
+              EventsDataList(eventData: [eventData]),
             ),
           );
         },
         act: (bloc) => bloc.add(
-          GetEventsFromRemote(tCat),
+          GetEventsFromRemoteSingleCategory(tCat),
         ),
         expect: () => [
           LoadingState(),
-          EventLoadedState(
+          SingleCategoryEventsLoadedState(
             eventsDataList: EventsDataList(
-              eventDataModels: [eventData],
+              eventData: [eventData],
             ),
           ),
         ],
@@ -79,19 +79,46 @@ void main() {
           );
         },
         act: (bloc) => bloc.add(
-          GetEventsFromRemote(tCat),
+          GetEventsFromRemoteSingleCategory(tCat),
         ),
         expect: () => [
           LoadingState(),
-          EventLoadedState(
+          SingleCategoryEventsLoadedState(
             eventsDataList: const EventsDataList(
-              eventDataModels: [],
+              eventData: [],
             ),
           ),
         ],
       );
     },
   );
+  group('_getAllCategoriesEventData()', () {
+    final EventData eventData = eventDataFixture;
+    final List<Map<String, dynamic>> mapOfCatWithEventFixture = [
+      mapOfCatWithEventCountFixture,
+      mapOfCatWithEventCountFixture
+    ];
+    blocTest(
+      'Should emit state with data from all categories',
+      build: () => tBloc,
+      setUp: () => when(mockGetEvent.call(any)).thenAnswer(
+        (_) async => Right(
+          EventsDataList(eventData: [eventData]),
+        ),
+      ),
+      act: (bloc) => bloc.add(GetEventsFromRemoteAllCategories(2)),
+      expect: () => [
+        LoadingState(),
+        AllCategoriesEventsLoadedState(
+          allCategoriesEventsList: [
+            EventsDataList(eventData: [eventData]),
+            EventsDataList(eventData: [eventData]),
+          ],
+          listOfMappedCatWithEventsCount: mapOfCatWithEventFixture,
+        ),
+      ],
+    );
+  });
   group('_getQueryData()', () {
     const QuickSearchResponse tQuickSearchResponse =
         quickSearchResponseDataFixture;

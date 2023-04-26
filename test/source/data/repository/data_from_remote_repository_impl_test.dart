@@ -10,7 +10,6 @@ import 'package:fuksiarz_imitation/source/data/models.dart';
 import 'package:fuksiarz_imitation/source/data/repository/data_from_remote_repository_impl.dart';
 import 'package:fuksiarz_imitation/source/domain/entities_lists.dart';
 import 'package:fuksiarz_imitation/source/domain/single_entities.dart';
-import '../../../fixtures/quick_search_fixtures/quick_search_response_fixture.dart';
 import '../../../fixtures/quick_search_fixtures/quick_serach_response_dto_fixture.dart';
 import '../../../fixtures/remote_data_fixtures/event_data_fixture.dart';
 @GenerateNiceMocks([MockSpec<RemoteDataSources>()])
@@ -36,7 +35,7 @@ void main() {
         ],
       );
       final List<EventData> mockDataList = [dataFixture];
-      final mockedEventDataList = EventsDataList(eventDataModels: mockDataList);
+      final mockedEventDataList = EventsDataList(eventData: mockDataList);
       const mockedDTOwithoutData =
           EventsDataDto(code: 400, description: 'discription', data: null);
 

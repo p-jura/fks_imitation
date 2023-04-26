@@ -9,7 +9,7 @@ import 'package:http/http.dart' as http;
 const QUICKSEARCHURI = 'https://fuksiarz.pl/rest/search/events/quick-search';
 const HEADERS = {
   'Content-Type': 'application/json',
-  'Request-Language': 'pl',
+  'Request-Language': 'en',
 };
 
 class RemoteDataSourcesImpl implements RemoteDataSources {
@@ -35,7 +35,7 @@ class RemoteDataSourcesImpl implements RemoteDataSources {
     );
     if (response.statusCode == 200) {
       return EventsDataDto.fromJson(
-        jsonDecode(response.body),
+        json.decode(utf8.decode(response.bodyBytes)),
       );
     } else {
       throw ServerException(
@@ -65,8 +65,11 @@ class RemoteDataSourcesImpl implements RemoteDataSources {
       ),
     );
     if (postResponse.statusCode == 200) {
-      final Map<String, dynamic> json = jsonDecode(postResponse.body);
-      return QuickSearchResponseDto.fromJson(json);
+      return QuickSearchResponseDto.fromJson(
+        json.decode(
+          utf8.decode(postResponse.bodyBytes),
+        ),
+      );
     } else {
       throw ServerException(
         postResponse.statusCode,

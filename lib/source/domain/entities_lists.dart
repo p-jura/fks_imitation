@@ -4,12 +4,12 @@ import 'package:fuksiarz_imitation/source/domain/single_entities.dart';
 
 @immutable
 class EventsDataList extends Equatable {
-  final List<EventData> eventDataModels;
+  final List<EventData> eventData;
 
-  const EventsDataList({required this.eventDataModels});
+  const EventsDataList({required this.eventData});
 
   @override
-  List<Object?> get props => [eventDataModels];
+  List<Object?> get props => [eventData];
 }
 
 class EventGamesList extends Equatable {
@@ -33,7 +33,7 @@ class OutcomesList extends Equatable {
 class QuickSearchResponseList extends Equatable {
   final List<QuickSearchResponse> quickSearchResponse;
 
-  const QuickSearchResponseList({ required this.quickSearchResponse});
+  const QuickSearchResponseList({required this.quickSearchResponse});
   @override
   List<Object?> get props => [quickSearchResponse];
 }

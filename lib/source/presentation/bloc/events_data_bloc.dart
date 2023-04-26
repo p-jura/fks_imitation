@@ -1,7 +1,5 @@
 import 'dart:developer';
-import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:dartz/dartz.dart';
 import 'package:fuksiarz_imitation/core/errors/failure.dart';
 import 'package:fuksiarz_imitation/source/domain/entities_lists.dart';
 import 'package:fuksiarz_imitation/source/domain/service/get_events_data_from_remote.dart';
@@ -17,11 +15,12 @@ class EventsDataBloc extends Bloc<EventsDataBlocEvent, EventsDataBlocState> {
     required this.getEventsData,
     required this.getQuickSearchData,
   }) : super(EmptyState()) {
-    on<GetEventsFromRemote>(_getData);
+    on<GetEventsFromRemoteSingleCategory>(_getData);
+    on<GetEventsFromRemoteAllCategories>(_getAllCategoriesEventData);
     on<GetQueryFromRemote>(_getQueryData);
   }
   void _getData(
-    GetEventsFromRemote event,
+    GetEventsFromRemoteSingleCategory event,
     Emitter<EventsDataBlocState> emit,
   ) async {
     emit(LoadingState());
@@ -30,20 +29,50 @@ class EventsDataBloc extends Bloc<EventsDataBlocEvent, EventsDataBlocState> {
       (failure) {
         failure.mapFailuresToLog();
         emit(
-          EventLoadedState(
+          SingleCategoryEventsLoadedState(
             eventsDataList: const EventsDataList(
-              eventDataModels: [],
+              eventData: [],
             ),
           ),
         );
       },
       (eventsDataList) {
         emit(
-          EventLoadedState(
+          SingleCategoryEventsLoadedState(
             eventsDataList: eventsDataList,
           ),
         );
       },
+    );
+  }
+
+  void _getAllCategoriesEventData(
+    GetEventsFromRemoteAllCategories event,
+    Emitter<EventsDataBlocState> emit,
+  ) async {
+    final List<EventsDataList> allCategoriesEventsList = [];
+    final List<Map<String, dynamic>> listOfMappedCatWithEventsCount = [];
+    emit(LoadingState());
+
+    for (var catId = 1; catId <= event.categoiresAmmount!; catId++) {
+      var eventEitherResponse = await getEventsData.call(catId);
+      log('eventEitherResponse has data');
+      eventEitherResponse.fold(
+        (failure) => failure.mapFailuresToLog(),
+        (eventsDataList) {
+          allCategoriesEventsList.add(eventsDataList);
+          listOfMappedCatWithEventsCount.add({
+            'categoryName': eventsDataList.eventData.first.category1Name?.toUpperCase(),
+            'categoryEventsCount': eventsDataList.eventData.first.gamesCount
+          });
+        },
+      );
+    }
+    emit(
+      AllCategoriesEventsLoadedState(
+        allCategoriesEventsList: allCategoriesEventsList,
+        listOfMappedCatWithEventsCount: listOfMappedCatWithEventsCount,
+      ),
     );
   }
 
@@ -77,10 +106,10 @@ extension MapFailures on Failure {
   void mapFailuresToLog() {
     switch (runtimeType) {
       case ServerOrClientError:
-        log('$errorCode: $message');
+        log('ServerOrClientError -  $errorCode: $message');
         break;
       case NoDataFoundFailure:
-        log(message!);
+        log('NoDataFoundFailure - $message');
         break;
     }
   }

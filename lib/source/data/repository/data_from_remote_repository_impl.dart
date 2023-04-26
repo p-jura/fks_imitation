@@ -19,10 +19,10 @@ class DataFromRemoteRepositoryImpl implements DataFromRemoteRepository {
   ]) async {
     try {
       final remoteData = await _dataSource.getRemoteData(params);
-      if (remoteData.code == 200 && remoteData.data != null) {
+      if (remoteData.code == 200 && remoteData.data != null && remoteData.data!.isNotEmpty)  {
         return Right(
           EventsDataList(
-            eventDataModels: remoteData.data!,
+            eventData: remoteData.data!,
           ),
         );
       } else {

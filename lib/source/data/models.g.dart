@@ -31,7 +31,7 @@ Data _$DataFromJson(Map<String, dynamic> json) => Data(
       category1Name: json['category1Name'] as String?,
       category2Name: json['category2Name'] as String?,
       category3Name: json['category3Name'] as String?,
-      eventCodeId: json['eventCodeId'] as int,
+      eventCodeId: json['eventCodeId'] as int?,
       dataEventStarts: Data._dataTimeInMilliseconds(json['eventStart'] as int),
       eventType: json['eventType'] as int?,
       gamesCount: json['gamesCount'] as int?,
@@ -60,7 +60,7 @@ Map<String, dynamic> _$DataToJson(Data instance) {
   writeNotNull('category1Name', instance.category1Name);
   writeNotNull('category2Name', instance.category2Name);
   writeNotNull('category3Name', instance.category3Name);
-  val['eventCodeId'] = instance.eventCodeId;
+  writeNotNull('eventCodeId', instance.eventCodeId);
   writeNotNull('eventType', instance.eventType);
   writeNotNull('gamesCount', instance.gamesCount);
   writeNotNull('remoteId', instance.remoteId);

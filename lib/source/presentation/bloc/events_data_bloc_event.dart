@@ -4,13 +4,22 @@ import 'package:flutter/material.dart';
 @immutable
 abstract class EventsDataBlocEvent extends Equatable {}
 
-class GetEventsFromRemote extends EventsDataBlocEvent {
+class GetEventsFromRemoteSingleCategory extends EventsDataBlocEvent {
   final int? catalogId;
 
-  GetEventsFromRemote(this.catalogId);
+  GetEventsFromRemoteSingleCategory(this.catalogId);
 
   @override
   List<Object?> get props => [catalogId];
+}
+
+class GetEventsFromRemoteAllCategories extends EventsDataBlocEvent {
+  final int? categoiresAmmount;
+
+  GetEventsFromRemoteAllCategories([this.categoiresAmmount]);
+
+  @override
+  List<Object?> get props => [categoiresAmmount];
 }
 
 class GetQueryFromRemote extends EventsDataBlocEvent {

@@ -11,3 +11,11 @@ const Map<int, String> mapOfCategories = {
   10: 'Golf',
   11: 'Voleyball',
 };
+
+const Map<String, String> mapOfCallenderWidget = {
+  'offer': 'OFERTA',
+  'my': 'MOJE',
+  'live': 'LIVE',
+  'hot': 'HOT',
+  'cashback': 'CASHBACK',
+};
