@@ -13,7 +13,7 @@ class HeaderWidget extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Container(
+          SizedBox(
             width: 80,
             height: 20,
             child: Image.asset(

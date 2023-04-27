@@ -12,7 +12,7 @@ class MainSite extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String pickedCategory = 'WSZYSTKO';
+    
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 198, 40, 40),
       body: BlocProvider(

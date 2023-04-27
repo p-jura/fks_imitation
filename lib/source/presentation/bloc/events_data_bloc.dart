@@ -4,6 +4,7 @@ import 'package:fuksiarz_imitation/core/errors/failure.dart';
 import 'package:fuksiarz_imitation/source/domain/entities_lists.dart';
 import 'package:fuksiarz_imitation/source/domain/service/get_events_data_from_remote.dart';
 import 'package:fuksiarz_imitation/source/domain/service/get_quick_search_data_from_remote.dart';
+import 'package:fuksiarz_imitation/source/domain/single_entities.dart';
 import 'package:fuksiarz_imitation/source/presentation/bloc/events_data_bloc_event.dart';
 import 'package:fuksiarz_imitation/source/presentation/bloc/events_data_bloc_state.dart';
 
@@ -50,21 +51,36 @@ class EventsDataBloc extends Bloc<EventsDataBlocEvent, EventsDataBlocState> {
     GetEventsFromRemoteAllCategories event,
     Emitter<EventsDataBlocState> emit,
   ) async {
+    int allCatEventsCount = 0;
     final List<EventsDataList> allCategoriesEventsList = [];
-    final List<Map<String, dynamic>> listOfMappedCatWithEventsCount = [];
+    final List<Map<String, dynamic>> listOfMappedCatWithEventsCount = [
+      {
+        'categoryName': 'WSZYSTKO',
+        'categoryEventsCount': allCatEventsCount,
+      }
+    ];
+
     emit(LoadingState());
 
     for (var catId = 1; catId <= event.categoiresAmmount!; catId++) {
       var eventEitherResponse = await getEventsData.call(catId);
       log('eventEitherResponse has data');
       eventEitherResponse.fold(
+        // logs no data found on specific [catId]
         (failure) => failure.mapFailuresToLog(),
+       
         (eventsDataList) {
           allCategoriesEventsList.add(eventsDataList);
+          var sumOfAllGames = eventsDataList.eventData.addAllGamesInList();
           listOfMappedCatWithEventsCount.add({
-            'categoryName': eventsDataList.eventData.first.category1Name?.toUpperCase(),
-            'categoryEventsCount': eventsDataList.eventData.first.gamesCount
+            'categoryName':
+                eventsDataList.eventData.first.category1Name?.toUpperCase(),
+            'categoryEventsCount': sumOfAllGames,
           });
+          // adds all events ammount into category 'WSZYSTKO'
+          allCatEventsCount = allCatEventsCount + sumOfAllGames;
+          listOfMappedCatWithEventsCount.first['categoryEventsCount'] =
+              allCatEventsCount;
         },
       );
     }
@@ -112,5 +128,16 @@ extension MapFailures on Failure {
         log('NoDataFoundFailure - $message');
         break;
     }
+  }
+}
+
+extension SumOfAllGamesCountFields on List<EventData> {
+  /// Adds all "gamesCount" fields of [EventData] within List<EventData>
+  int addAllGamesInList() {
+    int result = 0;
+    for (EventData a in this) {
+      result = result + a.gamesCount!;
+    }
+    return result;
   }
 }

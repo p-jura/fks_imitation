@@ -34,6 +34,7 @@ void main() {
       getQuickSearchData: mockGetQuickSearch,
     );
   });
+
   blocTest(
     'Initial state should be EmptyState()',
     build: () => tBloc,
@@ -145,5 +146,45 @@ void main() {
       expect: () =>
           [LoadingState(), QueryLoadedState(qickSearchEventList: tQsearchList)],
     );
+  });
+  List<EventData> tList = const [
+    EventData(
+      eventId: 1,
+      eventName: 'eventName',
+      category1Id: 1,
+      category2Id: 2,
+      category3Id: 3,
+      category1Name: 'category1Name',
+      category2Name: 'category2Name',
+      category3Name: 'category3Name',
+      eventCodeId: 1,
+      eventStart: null,
+      eventType: null,
+      gamesCount: 10,
+      remoteId: null,
+      eventExtendedData: null,
+      eventGames: [],
+    ),
+    EventData(
+      eventId: 1,
+      eventName: 'eventName',
+      category1Id: 1,
+      category2Id: 2,
+      category3Id: 3,
+      category1Name: 'category1Name',
+      category2Name: 'category2Name',
+      category3Name: 'category3Name',
+      eventCodeId: 1,
+      eventStart: null,
+      eventType: null,
+      gamesCount: 15,
+      remoteId: null,
+      eventExtendedData: null,
+      eventGames: [],
+    ),
+  ];
+  test('extension addAllElementsWitchFieldName extension', () {
+    final resoult = tList.addAllGamesInList();
+    expect(resoult, 25);
   });
 }

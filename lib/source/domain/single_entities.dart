@@ -37,6 +37,26 @@ class EventData extends Equatable {
     required this.eventGames,
   });
 
+  List<Object?> toList() {
+    return [
+      eventId,
+      eventName,
+      category1Id,
+      category2Id,
+      category3Id,
+      category1Name,
+      category2Name,
+      category3Name,
+      eventCodeId,
+      eventStart,
+      eventType,
+      gamesCount,
+      remoteId,
+      eventExtendedData,
+      eventGames,
+    ];
+  }
+
   @override
   List<Object?> get props => [
         eventId,
@@ -163,7 +183,6 @@ class Outcome extends Equatable {
         status,
       ];
 }
-
 
 @immutable
 class QuickSearchResponse extends Equatable {

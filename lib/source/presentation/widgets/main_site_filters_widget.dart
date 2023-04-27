@@ -1,11 +1,11 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fuksiarz_imitation/source/domain/entities_lists.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 import 'package:fuksiarz_imitation/source/presentation/bloc/events_data_bloc.dart';
 import 'package:fuksiarz_imitation/source/presentation/bloc/events_data_bloc_event.dart';
 import 'package:fuksiarz_imitation/source/presentation/bloc/events_data_bloc_state.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class MainSiteFilters extends StatefulWidget {
   const MainSiteFilters({super.key});
@@ -55,7 +55,9 @@ class _MainSiteFiltersState extends State<MainSiteFilters> {
                 } else if (state is NoDataFoundState) {
                   return Text(state.message);
                 } else {
-                  return const Text('No data found: please reload application');
+                  return const Text(
+                    'No data found: Check your internet connection and reload application',
+                  );
                 }
               },
             ),
