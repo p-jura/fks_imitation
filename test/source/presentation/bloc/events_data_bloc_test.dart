@@ -43,59 +43,15 @@ void main() {
       isA<EmptyState>(),
     ),
   );
-  group(
-    '_getData()',
-    () {
-      final EventData eventData = eventDataFixture;
-      blocTest(
-        'LoadingState - should retrive data from remote server and emit LoadedState',
-        build: () => tBloc,
-        setUp: () {
-          when(mockGetEvent.call(any)).thenAnswer(
-            (_) async => Right(
-              EventsDataList(eventData: [eventData]),
-            ),
-          );
-        },
-        act: (bloc) => bloc.add(
-          GetEventsFromRemoteSingleCategory(tCat),
-        ),
-        expect: () => [
-          LoadingState(),
-          SingleCategoryEventsLoadedState(
-            eventsDataList: EventsDataList(
-              eventData: [eventData],
-            ),
-          ),
-        ],
-      );
-      blocTest(
-        'Should emit state to Loaded with empty data list when response is failure',
-        build: () => tBloc,
-        setUp: () {
-          when(mockGetEvent.call(any)).thenAnswer(
-            (_) async => const Left(
-              NoDataFoundFailure(message: 'test'),
-            ),
-          );
-        },
-        act: (bloc) => bloc.add(
-          GetEventsFromRemoteSingleCategory(tCat),
-        ),
-        expect: () => [
-          LoadingState(),
-          SingleCategoryEventsLoadedState(
-            eventsDataList: const EventsDataList(
-              eventData: [],
-            ),
-          ),
-        ],
-      );
-    },
-  );
+
   group('_getAllCategoriesEventData()', () {
     final EventData eventData = eventDataFixture;
     final List<Map<String, dynamic>> mapOfCatWithEventFixture = [
+      {
+        'categoryName': 'WSZYSTKO',
+        'categoryEventsCount': 2,
+        'isActive': true,
+      },
       mapOfCatWithEventCountFixture,
       mapOfCatWithEventCountFixture
     ];
@@ -181,44 +137,10 @@ void main() {
       remoteId: null,
       eventExtendedData: null,
       eventGames: [],
-    ),
-    EventData(
-      eventId: 1,
-      eventName: 'eventName',
-      category1Id: 1,
-      category2Id: 2,
-      category3Id: 3,
-      category1Name: 'category1Name',
-      category2Name: 'category2Name',
-      category3Name: 'category3Name',
-      eventCodeId: 1,
-      eventStart: null,
-      eventType: null,
-      gamesCount: 4,
-      remoteId: null,
-      eventExtendedData: null,
-      eventGames: [],
-    ),
-    EventData(
-      eventId: 1,
-      eventName: 'eventName',
-      category1Id: 1,
-      category2Id: 2,
-      category3Id: 3,
-      category1Name: 'category1Name',
-      category2Name: 'category2Name',
-      category3Name: 'category3Name',
-      eventCodeId: 1,
-      eventStart: null,
-      eventType: null,
-      gamesCount: 4,
-      remoteId: null,
-      eventExtendedData: null,
-      eventGames: [],
-    ),
+    )
   ];
   test('extension addAllElementsWitchFieldName extension', () {
     final resoult = tList.addAllGamesInList();
-    expect(resoult, 13);
+    expect(resoult, 5);
   });
 }

@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fuksiarz_imitation/core/errors/exceptions.dart';
 import 'package:fuksiarz_imitation/source/data/models.dart';
@@ -13,7 +12,7 @@ import '../../../fixtures/fixture_reader.dart';
 import './remote_data_source_impl_test.mocks.dart';
 
 void main() {
-  late MockClient mockedHttpClient;
+  late http.Client mockedHttpClient;
   late RemoteDataSourcesImpl dataSourcesImpl;
 
   const headers = {
@@ -49,13 +48,11 @@ void main() {
       test(
         'veryfieing proper category is selected',
         () async {
-          when(
-            mockedHttpClient.get(
-              any,
-              headers: headers,
-            ),
-          ).thenAnswer((_) async => httpResponse);
+          when(mockedHttpClient.get(url, headers: headers))
+              .thenAnswer((_) async => httpResponse);
+
           await dataSourcesImpl.getRemoteData(tCat);
+
           verify(
             mockedHttpClient.get(
               url,
@@ -69,7 +66,7 @@ void main() {
         () async {
           when(
             mockedHttpClient.get(
-              any,
+              url,
               headers: headers,
             ),
           ).thenAnswer((_) async => httpResponse);
@@ -90,7 +87,7 @@ void main() {
         () async {
           when(
             mockedHttpClient.get(
-              any,
+              url,
               headers: headers,
             ),
           ).thenAnswer((_) async => httpResponse);

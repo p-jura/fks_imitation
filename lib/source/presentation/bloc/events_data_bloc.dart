@@ -16,35 +16,8 @@ class EventsDataBloc extends Bloc<EventsDataBlocEvent, EventsDataBlocState> {
     required this.getEventsData,
     required this.getQuickSearchData,
   }) : super(EmptyState()) {
-    on<GetEventsFromRemoteSingleCategory>(_getData);
     on<GetEventsFromRemoteAllCategories>(_getAllCategoriesEventData);
     on<GetQueryFromRemote>(_getQueryData);
-  }
-  void _getData(
-    GetEventsFromRemoteSingleCategory event,
-    Emitter<EventsDataBlocState> emit,
-  ) async {
-    emit(LoadingState());
-    final eventEitherResponse = await getEventsData.call(event.catalogId);
-    eventEitherResponse.fold(
-      (failure) {
-        failure.mapFailuresToLog();
-        emit(
-          SingleCategoryEventsLoadedState(
-            eventsDataList: const EventsDataList(
-              eventData: [],
-            ),
-          ),
-        );
-      },
-      (eventsDataList) {
-        emit(
-          SingleCategoryEventsLoadedState(
-            eventsDataList: eventsDataList,
-          ),
-        );
-      },
-    );
   }
 
   void _getAllCategoriesEventData(

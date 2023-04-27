@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fuksiarz_imitation/source/get_it_instance.dart';
+import 'package:fuksiarz_imitation/source/presentation/bloc/cubit/single_category_event_cubit.dart';
 import 'package:fuksiarz_imitation/source/presentation/bloc/events_data_bloc.dart';
 import 'package:fuksiarz_imitation/source/presentation/widgets/main_site_callender.dart';
 import 'package:fuksiarz_imitation/source/presentation/widgets/main_site_events_view_widget.dart';
@@ -15,8 +16,15 @@ class MainSite extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 198, 40, 40),
-      body: BlocProvider(
-        create: (_) => injSrv<EventsDataBloc>(),
+      body: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (_) => injSrv<EventsDataBloc>(),
+          ),
+          BlocProvider(
+            create: (_) => injSrv<SingleCategoryEventCubit>(),
+          ),
+        ],
         child: Column(
           children: [
             Expanded(

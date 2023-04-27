@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fuksiarz_imitation/source/domain/entities_lists.dart';
+import 'package:fuksiarz_imitation/source/get_it_instance.dart';
+import 'package:fuksiarz_imitation/source/presentation/bloc/cubit/single_category_event_cubit.dart';
 import 'package:fuksiarz_imitation/source/presentation/bloc/events_data_bloc.dart';
+import 'package:fuksiarz_imitation/source/presentation/bloc/events_data_bloc_event.dart';
 import 'package:fuksiarz_imitation/source/presentation/bloc/events_data_bloc_state.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -21,15 +25,17 @@ class MainSiteEventsViewWidget extends StatelessWidget {
               ),
             );
           } else if (state is AllCategoriesEventsLoadedState) {
+            var allEvents = state.allEventsDataList;
             List<Map<String, dynamic>> itemCount =
                 state.mappedCatWithEventsCount;
             itemCount.removeAt(0);
             return ListView.builder(
               itemCount: itemCount.length,
               itemBuilder: (context, index) {
-                return NarrowedListElement(
+                return ExpandedListElement(
                   itemCount: itemCount,
                   index: index,
+                  allEvents: allEvents,
                 );
               },
             );
@@ -104,21 +110,86 @@ class NarrowedListElement extends StatelessWidget {
               ],
             ),
           ),
-          Container(
-            padding: const EdgeInsets.all(3),
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: const Color.fromARGB(255, 227, 232, 238),
+          InkWell(
+            onTap: () {
+              BlocProvider.of<SingleCategoryEventCubit>(context).getData(index);
+            },
+            child: Container(
+              padding: const EdgeInsets.all(3),
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: const Color.fromARGB(255, 227, 232, 238),
+                ),
+                borderRadius: BorderRadius.circular(5),
               ),
-              borderRadius: BorderRadius.circular(5),
+              child: const Icon(
+                Icons.expand_less,
+                size: 24,
+              ),
             ),
-            child: const Icon(
-              Icons.expand_less,
-              size: 24,
-            ),
-          )
+          ),
         ],
       ),
+    );
+  }
+}
+
+class ExpandedListElement extends StatelessWidget {
+  const ExpandedListElement({
+    required this.itemCount,
+    required this.index,
+    required this.allEvents,
+    super.key,
+  });
+
+  final List<Map<String, dynamic>> itemCount;
+  final int index;
+  final List<EventsDataList> allEvents;
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder(
+      bloc: injSrv<SingleCategoryEventCubit>(),
+      builder: (context, state) {
+        // initial cubit state
+        if (state is SingleCategoryEventInitial) {
+          return NarrowedListElement(
+            itemCount: itemCount,
+            index: index,
+          );
+        }
+        if (state is SingleCategoryLoadingState) {
+          return const LinearProgressIndicator();
+        }
+        if (state is SingleCategoryEventsLoadedState) {
+          print('newState');
+          var dataList = state.eventsDataList;
+          return Column(
+            children: [
+              NarrowedListElement(
+                index: index,
+                itemCount: itemCount,
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 15,
+                ),
+                child: SingleChildScrollView(
+                  child: Row(
+                    children: [
+                      Text(
+                        dataList.eventData[index].eventStart.toString(),
+                      ),
+                    ],
+                  ),
+                ),
+              )
+            ],
+          );
+        }
+        return const Text(
+          'No data found: Check your internet connection and reload application',
+        );
+      },
     );
   }
 }

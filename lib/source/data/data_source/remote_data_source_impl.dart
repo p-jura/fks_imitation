@@ -77,4 +77,6 @@ class RemoteDataSourcesImpl implements RemoteDataSources {
       );
     }
   }
+
+  http.Client get repository => _repository;
 }

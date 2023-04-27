@@ -92,7 +92,7 @@ class _MainSiteCallenderState extends State<MainSiteCallender> {
                                     const Text(
                                       ' 🟢',
                                       style: TextStyle(
-                                          fontSize: 5, color: Colors.green),
+                                          fontSize: 5, color: Colors.green,),
                                     ),
                                   ],
                                 )

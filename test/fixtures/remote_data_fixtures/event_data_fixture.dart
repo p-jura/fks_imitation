@@ -38,6 +38,6 @@ final Data dataFixture = Data(
 );
 
 Map<String, dynamic> mapOfCatWithEventCountFixture = {
-  'categoryName': 'category1Name',
+  'categoryName': 'CATEGORY1NAME',
   'categoryEventsCount': 1,
 };
