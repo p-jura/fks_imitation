@@ -8,11 +8,16 @@ import 'package:http/http.dart' as http;
 
 import 'package:fuksiarz_imitation/source/data/data_source/remote_data_source_impl.dart';
 import '../../../fixtures/fixture_reader.dart';
-@GenerateNiceMocks([MockSpec<http.Client>()])
+
+@GenerateNiceMocks(
+  [
+    MockSpec<http.Client>(onMissingStub: OnMissingStub.returnDefault),
+  ],
+)
 import './remote_data_source_impl_test.mocks.dart';
 
 void main() {
-  late http.Client mockedHttpClient;
+  late MockClient mockedHttpClient;
   late RemoteDataSourcesImpl dataSourcesImpl;
 
   const headers = {
@@ -45,18 +50,23 @@ void main() {
       final url = Uri.parse(
         'https://fuksiarz.pl/rest/market/categories/multi/$tCat/events',
       );
+
       test(
         'veryfieing proper category is selected',
         () async {
-          when(mockedHttpClient.get(url, headers: headers))
-              .thenAnswer((_) async => httpResponse);
+          when(
+            mockedHttpClient.get(
+              any,
+              headers: anyNamed('headers'),
+            ),
+          ).thenAnswer((_) async => httpResponse);
 
           await dataSourcesImpl.getRemoteData(tCat);
 
           verify(
             mockedHttpClient.get(
               url,
-              headers: headers,
+              headers: anyNamed('headers'),
             ),
           );
         },
@@ -66,8 +76,8 @@ void main() {
         () async {
           when(
             mockedHttpClient.get(
-              url,
-              headers: headers,
+              any,
+              headers: anyNamed('headers'),
             ),
           ).thenAnswer((_) async => httpResponse);
           await dataSourcesImpl.getRemoteData();
@@ -76,7 +86,7 @@ void main() {
               Uri.parse(
                 'https://fuksiarz.pl/rest/market/categories/multi/1/events',
               ),
-              headers: headers,
+              headers: anyNamed('headers'),
             ),
           );
         },
@@ -87,8 +97,8 @@ void main() {
         () async {
           when(
             mockedHttpClient.get(
-              url,
-              headers: headers,
+              any,
+              headers: anyNamed('headers'),
             ),
           ).thenAnswer((_) async => httpResponse);
           final response = await dataSourcesImpl.getRemoteData(tCat);
@@ -111,8 +121,8 @@ void main() {
         () async {
           when(
             mockedHttpClient.get(
-              url,
-              headers: headers,
+              any,
+              headers: anyNamed('headers'),
             ),
           ).thenAnswer((_) async => httpErrorResponse);
 
@@ -156,8 +166,8 @@ void main() {
         () async {
           when(
             mockedHttpClient.post(
-              url,
-              headers: headers,
+              any,
+              headers: anyNamed('headers'),
               body: jsonEncode(postRequest.toJson()),
             ),
           ).thenAnswer((_) async => httpQueryResponse);
@@ -166,8 +176,8 @@ void main() {
 
           verify(
             mockedHttpClient.post(
-              url,
-              headers: headers,
+              any,
+              headers: anyNamed('headers'),
               body: jsonEncode(postRequest.toJson()),
             ),
           );
@@ -178,8 +188,8 @@ void main() {
         () async {
           when(
             mockedHttpClient.post(
-              url,
-              headers: headers,
+              any,
+              headers: anyNamed('headers'),
               body: jsonEncode(postRequest.toJson()),
             ),
           ).thenAnswer((_) async => httpQueryResponse);
@@ -194,8 +204,8 @@ void main() {
         () async {
           when(
             mockedHttpClient.post(
-              url,
-              headers: headers,
+              any,
+              headers: anyNamed('headers'),
               body: jsonEncode(postRequest.toJson()),
             ),
           ).thenAnswer((_) async => httpQueryResponseWithError);

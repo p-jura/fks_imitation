@@ -9,12 +9,15 @@ abstract class SingleCategoryEventState extends Equatable {
 
 class SingleCategoryEventInitial extends SingleCategoryEventState {}
 
-class SingleCategoryLoadingState extends SingleCategoryEventState {}
+class SingleCategoryLoadingState extends SingleCategoryEventState {
+  const SingleCategoryLoadingState();
+}
 
 class SingleCategoryEventsLoadedState extends SingleCategoryEventState {
   final EventsDataList _eventsDataList;
 
-  const SingleCategoryEventsLoadedState({required EventsDataList eventsDataList})
+  const SingleCategoryEventsLoadedState(
+      {required EventsDataList eventsDataList})
       : _eventsDataList = eventsDataList;
 
   EventsDataList get eventsDataList => _eventsDataList;

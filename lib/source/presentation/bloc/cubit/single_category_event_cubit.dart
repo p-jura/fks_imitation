@@ -14,20 +14,12 @@ class SingleCategoryEventCubit extends Cubit<SingleCategoryEventState> {
         super(SingleCategoryEventInitial());
 
   void getData(categoryId) async {
-    emit(SingleCategoryLoadingState());
+    emit(const SingleCategoryLoadingState());
     final eventEitherResponse = await _getEventsData.call(categoryId);
     eventEitherResponse.fold(
       (failure) {
         print(failure.toString());
-        emit(SingleCategoryLoadingState());
         failure.mapFailuresToLog();
-        emit(
-          const SingleCategoryEventsLoadedState(
-            eventsDataList: EventsDataList(
-              eventData: [],
-            ),
-          ),
-        );
       },
       (eventsDataList) {
         emit(

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fuksiarz_imitation/source/domain/entities_lists.dart';
 import 'package:fuksiarz_imitation/source/get_it_instance.dart';
 import 'package:fuksiarz_imitation/source/presentation/bloc/cubit/single_category_event_cubit.dart';
 import 'package:fuksiarz_imitation/source/presentation/bloc/events_data_bloc.dart';
-import 'package:fuksiarz_imitation/source/presentation/bloc/events_data_bloc_event.dart';
 import 'package:fuksiarz_imitation/source/presentation/bloc/events_data_bloc_state.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -15,7 +13,8 @@ class MainSiteEventsViewWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: BlocBuilder<EventsDataBloc, EventsDataBlocState>(
-        builder: (context, state) {
+        bloc: injSrv<EventsDataBloc>(),
+        builder: (blctx, state) {
           if (state is LoadingState) {
             return const Center(
               child: SizedBox(
@@ -25,7 +24,6 @@ class MainSiteEventsViewWidget extends StatelessWidget {
               ),
             );
           } else if (state is AllCategoriesEventsLoadedState) {
-            var allEvents = state.allEventsDataList;
             List<Map<String, dynamic>> itemCount =
                 state.mappedCatWithEventsCount;
             itemCount.removeAt(0);
@@ -35,15 +33,181 @@ class MainSiteEventsViewWidget extends StatelessWidget {
                 return ExpandedListElement(
                   itemCount: itemCount,
                   index: index,
-                  allEvents: allEvents,
                 );
               },
             );
+          } else {
+            return const Text(
+              'No data found: Check your internet connection and reload application:MainSiteEventsViewWidget',
+            );
           }
-          return const Text(
-            'No data found: Check your internet connection and reload application',
-          );
         },
+      ),
+    );
+  }
+}
+
+class ExpandedListElement extends StatelessWidget {
+  const ExpandedListElement({
+    required this.itemCount,
+    required this.index,
+    super.key,
+  });
+
+  final List<Map<String, dynamic>> itemCount;
+  final int index;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<SingleCategoryEventCubit, SingleCategoryEventState>(
+      bloc: injSrv<SingleCategoryEventCubit>(),
+      builder: (ctx, state) {
+        // initial cubit state
+        if (state is SingleCategoryEventInitial) {
+          return NarrowedListElement(
+            itemCount: itemCount,
+            index: index,
+          );
+        }
+        if (state is SingleCategoryLoadingState) {
+          print(state.toString());
+          return const LinearProgressIndicator();
+        }
+        if (state is SingleCategoryEventsLoadedState) {
+          print(state.toString());
+          var dataList = state.eventsDataList;
+          var cat2Name = dataList.eventData[index].category2Name.toString();
+          var cat3Name = dataList.eventData[index].category3Name.toString();
+          return Column(
+            children: [
+              NarrowedListElement(
+                index: index,
+                itemCount: itemCount,
+              ),
+              Container(
+                height: 41,
+                color: Colors.white,
+                padding: const EdgeInsets.only(top: 10),
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: const [
+                      SizedBoxWinneExtension(
+                        text: 'ZWYCIĘZCA MECZU',
+                        width: 140,
+                        isActive: true,
+                      ),
+                      SizedBoxWinneExtension(
+                        text: 'ZWYCIĘZCA PIERWSZEJ POŁOWY MECZU',
+                        width: 240,
+                        isActive: false,
+                      ),
+                      SizedBoxWinneExtension(
+                        text: 'ZWYCIĘZCA TURNIEJU',
+                        width: 140,
+                        isActive: false,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              // events category 2 and 3 level
+              Container(
+                color: Colors.white,
+                margin: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 8,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                      child: Row(
+                        children: [
+                          Text(
+                            cat2Name,
+                            style: GoogleFonts.montserrat(
+                              color: const Color.fromARGB(255, 0, 0, 0),
+                              fontSize: 10,
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          const Icon(
+                            Icons.arrow_forward_ios,
+                            size: 10,
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            cat3Name,
+                            style: GoogleFonts.montserrat(
+                              color: const Color.fromARGB(255, 0, 0, 0),
+                              fontSize: 10,
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const Icon(Icons.expand_more)
+                  ],
+                ),
+              ),
+            ],
+          );
+        }
+        return const Text(
+          'No data found: Check your internet connection and reload application',
+        );
+      },
+    );
+  }
+}
+
+class SizedBoxWinneExtension extends StatelessWidget {
+  const SizedBoxWinneExtension({
+    super.key,
+    required this.text,
+    required this.width,
+    required this.isActive,
+  });
+  final bool isActive;
+  final String text;
+  final double width;
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: width,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Container(
+            margin: const EdgeInsets.only(
+              left: 10,
+              right: 10,
+            ),
+            child: Text(
+              text,
+              style: GoogleFonts.montserrat(
+                fontSize: 10,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+          SizedBox(
+            width: width,
+            child: Divider(
+              thickness: 2.0,
+              color: isActive
+                  ? const Color.fromARGB(255, 156, 179, 202)
+                  : Colors.white,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -112,6 +276,7 @@ class NarrowedListElement extends StatelessWidget {
           ),
           InkWell(
             onTap: () {
+              print(index);
               BlocProvider.of<SingleCategoryEventCubit>(context).getData(index);
             },
             child: Container(
@@ -130,66 +295,6 @@ class NarrowedListElement extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class ExpandedListElement extends StatelessWidget {
-  const ExpandedListElement({
-    required this.itemCount,
-    required this.index,
-    required this.allEvents,
-    super.key,
-  });
-
-  final List<Map<String, dynamic>> itemCount;
-  final int index;
-  final List<EventsDataList> allEvents;
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder(
-      bloc: injSrv<SingleCategoryEventCubit>(),
-      builder: (context, state) {
-        // initial cubit state
-        if (state is SingleCategoryEventInitial) {
-          return NarrowedListElement(
-            itemCount: itemCount,
-            index: index,
-          );
-        }
-        if (state is SingleCategoryLoadingState) {
-          return const LinearProgressIndicator();
-        }
-        if (state is SingleCategoryEventsLoadedState) {
-          print('newState');
-          var dataList = state.eventsDataList;
-          return Column(
-            children: [
-              NarrowedListElement(
-                index: index,
-                itemCount: itemCount,
-              ),
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 15,
-                ),
-                child: SingleChildScrollView(
-                  child: Row(
-                    children: [
-                      Text(
-                        dataList.eventData[index].eventStart.toString(),
-                      ),
-                    ],
-                  ),
-                ),
-              )
-            ],
-          );
-        }
-        return const Text(
-          'No data found: Check your internet connection and reload application',
-        );
-      },
     );
   }
 }

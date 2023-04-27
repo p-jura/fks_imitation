@@ -338,3 +338,45 @@ class MockClient extends _i1.Mock implements _i2.Client {
         returnValueForMissingStub: null,
       );
 }
+
+/// A class which mocks [Response].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockResponse extends _i1.Mock implements _i2.Response {
+  @override
+  _i5.Uint8List get bodyBytes => (super.noSuchMethod(
+        Invocation.getter(#bodyBytes),
+        returnValue: _i5.Uint8List(0),
+        returnValueForMissingStub: _i5.Uint8List(0),
+      ) as _i5.Uint8List);
+  @override
+  String get body => (super.noSuchMethod(
+        Invocation.getter(#body),
+        returnValue: '',
+        returnValueForMissingStub: '',
+      ) as String);
+  @override
+  int get statusCode => (super.noSuchMethod(
+        Invocation.getter(#statusCode),
+        returnValue: 0,
+        returnValueForMissingStub: 0,
+      ) as int);
+  @override
+  Map<String, String> get headers => (super.noSuchMethod(
+        Invocation.getter(#headers),
+        returnValue: <String, String>{},
+        returnValueForMissingStub: <String, String>{},
+      ) as Map<String, String>);
+  @override
+  bool get isRedirect => (super.noSuchMethod(
+        Invocation.getter(#isRedirect),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+  @override
+  bool get persistentConnection => (super.noSuchMethod(
+        Invocation.getter(#persistentConnection),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+}

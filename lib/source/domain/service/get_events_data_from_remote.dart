@@ -12,6 +12,7 @@ class GetEventsDataFromRemote extends GetData<EventsDataList, int> {
 
   @override
   Future<Either<Failure, EventsDataList>> call([int? params]) async {
+    
     return await _repository.getEventsDataFromRemote(params);
   }
 }

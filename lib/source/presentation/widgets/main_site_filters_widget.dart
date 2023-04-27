@@ -6,14 +6,9 @@ import 'package:fuksiarz_imitation/source/presentation/bloc/events_data_bloc.dar
 import 'package:fuksiarz_imitation/source/presentation/bloc/events_data_bloc_event.dart';
 import 'package:fuksiarz_imitation/source/presentation/bloc/events_data_bloc_state.dart';
 
-class MainSiteFilters extends StatefulWidget {
+class MainSiteFilters extends StatelessWidget {
   const MainSiteFilters({super.key});
 
-  @override
-  State<MainSiteFilters> createState() => _MainSiteFiltersState();
-}
-
-class _MainSiteFiltersState extends State<MainSiteFilters> {
   @override
   Widget build(BuildContext context) {
     // categoires ammount lisetd in assignment

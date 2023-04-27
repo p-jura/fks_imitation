@@ -29,25 +29,27 @@ Future<void> setUp() async {
   );
 
   // Services
+
   injSrv.registerFactory<GetEventsDataFromRemote>(
     () => GetEventsDataFromRemote(
       injSrv(),
     ),
   );
+
   injSrv.registerFactory<GetQuickSearchDataFromeRemote>(
     () => GetQuickSearchDataFromeRemote(
       injSrv(),
     ),
   );
   // Bloc
-  injSrv.registerFactory<EventsDataBloc>(
-    () => EventsDataBloc(
+  injSrv.registerSingleton<EventsDataBloc>(
+    EventsDataBloc(
       getEventsData: injSrv<GetEventsDataFromRemote>(),
       getQuickSearchData: injSrv(),
     ),
   );
-  injSrv.registerFactory<SingleCategoryEventCubit>(
-    () => SingleCategoryEventCubit(
+  injSrv.registerSingleton<SingleCategoryEventCubit>(
+    SingleCategoryEventCubit(
       getEventsData: injSrv<GetEventsDataFromRemote>(),
     ),
   );

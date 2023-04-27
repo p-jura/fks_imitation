@@ -38,7 +38,7 @@ void main() {
       tCat,
     ),
     expect: () => [
-      SingleCategoryLoadingState(),
+      const SingleCategoryLoadingState(),
       SingleCategoryEventsLoadedState(
         eventsDataList: EventsDataList(
           eventData: [eventData],
@@ -58,7 +58,7 @@ void main() {
     },
     act: (cubit) => cubit.getData(tCat),
     expect: () => [
-      SingleCategoryLoadingState(),
+      const SingleCategoryLoadingState(),
       const SingleCategoryEventsLoadedState(
         eventsDataList: EventsDataList(
           eventData: [],
