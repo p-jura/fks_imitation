@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fuksiarz_imitation/source/get_it_instance.dart';
 import 'package:fuksiarz_imitation/source/presentation/bloc/events_data_bloc.dart';
 import 'package:fuksiarz_imitation/source/presentation/widgets/main_site_callender.dart';
+import 'package:fuksiarz_imitation/source/presentation/widgets/main_site_events_view_widget.dart';
 import 'package:fuksiarz_imitation/source/presentation/widgets/main_site_filters_widget.dart';
 import 'package:fuksiarz_imitation/source/presentation/widgets/main_site_header_widget.dart';
 import 'package:fuksiarz_imitation/source/presentation/widgets/main_site_quick_search_widget.dart';
@@ -12,7 +13,6 @@ class MainSite extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 198, 40, 40),
       body: BlocProvider(
@@ -47,13 +47,15 @@ class MainSite extends StatelessWidget {
                     ),
                     MainSiteCallender(),
                     Divider(
-                        color: Color.fromARGB(255, 227, 232, 238),
-                        height: 1.50,),
+                      color: Color.fromARGB(255, 227, 232, 238),
+                      height: 1.50,
+                    ),
                     MainSiteFilters(),
                     Divider(
                       color: Color.fromARGB(255, 227, 232, 238),
                       height: 1.50,
                     ),
+                    MainSiteEventsViewWidget(),
                   ],
                 ),
               ),

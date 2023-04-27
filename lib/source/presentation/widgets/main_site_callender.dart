@@ -113,11 +113,6 @@ class _MainSiteCallenderState extends State<MainSiteCallender> {
                   padding: const EdgeInsets.all(10),
                   child: Center(
                     child: Image.asset('assets/images/icons/callender.png'),
-                    // Icon(
-                    //   Icons.calendar_month_outlined,
-                    //   size: 24,
-                    //   color: Color.fromARGB(255, 50, 50, 50),
-                    // ),
                   ),
                 ),
               ),

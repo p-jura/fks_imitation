@@ -43,12 +43,11 @@ class _MainSiteFiltersState extends State<MainSiteFilters> {
                 } else if (state is AllCategoriesEventsLoadedState) {
                   return ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemCount: state.listOfMappedCatWithEventsCount.length,
+                    itemCount: state.mappedCatWithEventsCount.length,
                     itemBuilder: (context, index) {
-                      log('index <dirty>: $index');
                       return CategoriesFilterElement(
                         catWithEventsCount:
-                            state.listOfMappedCatWithEventsCount[index],
+                            state.mappedCatWithEventsCount[index],
                       );
                     },
                   );
@@ -82,6 +81,9 @@ class CategoriesFilterElement extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 5),
         decoration: BoxDecoration(
+          color: catWithEventsCount['isActive'] != null
+              ? const Color.fromARGB(255, 224, 230, 237)
+              : const Color.fromARGB(255, 248, 248, 248),
           border: Border.all(
             width: 1,
             color: const Color.fromARGB(255, 227, 232, 238),

@@ -57,6 +57,7 @@ class EventsDataBloc extends Bloc<EventsDataBlocEvent, EventsDataBlocState> {
       {
         'categoryName': 'WSZYSTKO',
         'categoryEventsCount': allCatEventsCount,
+        'isActive': true,
       }
     ];
 
@@ -64,11 +65,10 @@ class EventsDataBloc extends Bloc<EventsDataBlocEvent, EventsDataBlocState> {
 
     for (var catId = 1; catId <= event.categoiresAmmount!; catId++) {
       var eventEitherResponse = await getEventsData.call(catId);
-      log('eventEitherResponse has data');
       eventEitherResponse.fold(
-        // logs no data found on specific [catId]
+        // logs - if [catId] has no data, or [ServerError] appear
         (failure) => failure.mapFailuresToLog(),
-       
+
         (eventsDataList) {
           allCategoriesEventsList.add(eventsDataList);
           var sumOfAllGames = eventsDataList.eventData.addAllGamesInList();
@@ -86,8 +86,8 @@ class EventsDataBloc extends Bloc<EventsDataBlocEvent, EventsDataBlocState> {
     }
     emit(
       AllCategoriesEventsLoadedState(
-        allCategoriesEventsList: allCategoriesEventsList,
-        listOfMappedCatWithEventsCount: listOfMappedCatWithEventsCount,
+        allCategoriesEventsList: [...allCategoriesEventsList],
+        listOfMappedCatWithEventsCount: [...listOfMappedCatWithEventsCount],
       ),
     );
   }
@@ -125,7 +125,7 @@ extension MapFailures on Failure {
         log('ServerOrClientError -  $errorCode: $message');
         break;
       case NoDataFoundFailure:
-        log('NoDataFoundFailure - $message');
+        log('NoDataFoundFailure - $message : $errorCode');
         break;
     }
   }
