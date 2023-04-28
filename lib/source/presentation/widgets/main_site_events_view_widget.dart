@@ -78,86 +78,88 @@ class ExpandedListElement extends StatelessWidget {
           var dataList = state.eventsDataList;
           var cat2Name = dataList.eventData[index].category2Name.toString();
           var cat3Name = dataList.eventData[index].category3Name.toString();
-          return Column(
-            children: [
-              NarrowedListElement(
-                index: index,
-                itemCount: itemCount,
-              ),
-              Container(
-                height: 41,
-                color: Colors.white,
-                padding: const EdgeInsets.only(top: 10),
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
+          return Container(
+            color: Colors.white,
+            child: Column(
+              children: [
+                NarrowedListElement(
+                  index: index,
+                  itemCount: itemCount,
+                ),
+                Container(
+                  height: 41,
+                  color: Colors.white,
+                  padding: const EdgeInsets.only(top: 10),
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: const [
+                        SizedBoxWinneExtension(
+                          text: 'ZWYCIĘZCA MECZU',
+                          width: 130,
+                          isActive: true,
+                        ),
+                        SizedBoxWinneExtension(
+                          text: 'ZWYCIĘZCA PIERWSZEJ POŁOWY MECZU',
+                          width: 240,
+                          isActive: false,
+                        ),
+                        SizedBoxWinneExtension(
+                          text: 'ZWYCIĘZCA TURNIEJU',
+                          width: 140,
+                          isActive: false,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                // events category 2 and 3 level
+                Container(
+                  margin: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 8,
+                  ),
                   child: Row(
-                    children: const [
-                      SizedBoxWinneExtension(
-                        text: 'ZWYCIĘZCA MECZU',
-                        width: 140,
-                        isActive: true,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                        child: Row(
+                          children: [
+                            Text(
+                              cat2Name,
+                              style: GoogleFonts.montserrat(
+                                color: const Color.fromARGB(255, 0, 0, 0),
+                                fontSize: 10,
+                                fontWeight: FontWeight.w800,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            const Icon(
+                              Icons.arrow_forward_ios,
+                              size: 10,
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              cat3Name,
+                              style: GoogleFonts.montserrat(
+                                color: const Color.fromARGB(255, 0, 0, 0),
+                                fontSize: 10,
+                                fontWeight: FontWeight.w800,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                      SizedBoxWinneExtension(
-                        text: 'ZWYCIĘZCA PIERWSZEJ POŁOWY MECZU',
-                        width: 240,
-                        isActive: false,
-                      ),
-                      SizedBoxWinneExtension(
-                        text: 'ZWYCIĘZCA TURNIEJU',
-                        width: 140,
-                        isActive: false,
-                      ),
+                      const Icon(Icons.expand_more)
                     ],
                   ),
                 ),
-              ),
-              // events category 2 and 3 level
-              Container(
-                color: Colors.white,
-                margin: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 8,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SizedBox(
-                      child: Row(
-                        children: [
-                          Text(
-                            cat2Name,
-                            style: GoogleFonts.montserrat(
-                              color: const Color.fromARGB(255, 0, 0, 0),
-                              fontSize: 10,
-                              fontWeight: FontWeight.w800,
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          const Icon(
-                            Icons.arrow_forward_ios,
-                            size: 10,
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            cat3Name,
-                            style: GoogleFonts.montserrat(
-                              color: const Color.fromARGB(255, 0, 0, 0),
-                              fontSize: 10,
-                              fontWeight: FontWeight.w800,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const Icon(Icons.expand_more)
-                  ],
-                ),
-              ),
-            ],
+              ],
+            ),
           );
         }
         return const Text(
@@ -180,12 +182,13 @@ class SizedBoxWinneExtension extends StatelessWidget {
   final double width;
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       width: width,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Container(
+            width: width,
             margin: const EdgeInsets.only(
               left: 10,
               right: 10,
@@ -229,8 +232,8 @@ class NarrowedListElement extends StatelessWidget {
       padding: const EdgeInsets.all(10),
       decoration: const BoxDecoration(
         color: Colors.white,
-        border: Border.symmetric(
-          horizontal: BorderSide(
+        border: Border(
+          top: BorderSide(
             width: 0.0,
             color: Color.fromARGB(255, 227, 232, 238),
           ),
