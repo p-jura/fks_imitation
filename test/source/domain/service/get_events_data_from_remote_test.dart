@@ -6,26 +6,26 @@ import 'package:fuksiarz_imitation/source/domain/service/get_events_data_from_re
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
 
-import 'package:fuksiarz_imitation/source/domain/repository/data_fom_remote_repository.dart';
+import 'package:fuksiarz_imitation/source/domain/repository/data_repository.dart';
 
 import '../../../fixtures/remote_data_fixtures/event_data_fixture.dart';
 @GenerateNiceMocks(
   [
-    MockSpec<DataFromRemoteRepository>(),
+    MockSpec<DataRepository>(),
     MockSpec<Failure>(),
   ],
 )
 import './get_events_data_from_remote_test.mocks.dart';
 
 void main() {
-  late DataFromRemoteRepository mockedRepository;
+  late DataRepository mockedRepository;
   late GetEventsDataFromRemote tEvent;
   late Failure mFailure;
   final EventsDataList listOfEventsFixture =
       EventsDataList(eventData: [eventDataFixture]);
 
   setUp(() {
-    mockedRepository = MockDataFromRemoteRepository();
+    mockedRepository = MockDataRepository();
     tEvent = GetEventsDataFromRemote(mockedRepository);
     mFailure = MockFailure();
   });

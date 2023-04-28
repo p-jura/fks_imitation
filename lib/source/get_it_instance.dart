@@ -4,8 +4,8 @@ import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:fuksiarz_imitation/source/data/data_source/remote_data_source_impl.dart';
-import 'package:fuksiarz_imitation/source/data/repository/data_from_remote_repository_impl.dart';
-import 'package:fuksiarz_imitation/source/domain/repository/data_fom_remote_repository.dart';
+import 'package:fuksiarz_imitation/source/data/repository/data_repository_impl.dart';
+import 'package:fuksiarz_imitation/source/domain/repository/data_repository.dart';
 import 'package:fuksiarz_imitation/source/domain/service/get_events_data_from_remote.dart';
 import 'package:fuksiarz_imitation/source/presentation/bloc/events_data_bloc.dart';
 import 'package:fuksiarz_imitation/source/presentation/bloc/cubit/single_category_event_cubit.dart';
@@ -22,11 +22,11 @@ Future<void> setUp() async {
     ),
   );
   // Repository
-  injSrv.registerLazySingleton<DataFromRemoteRepository>(
-    () => DataFromRemoteRepositoryImpl(
-      dataSource: injSrv(),
-    ),
-  );
+  // injSrv.registerLazySingleton<DataFromRemoteRepository>(
+  //   () => DataFromRemoteRepositoryImpl(
+  //     dataSource: injSrv(),
+  //   ),
+  // );
 
   // Services
 

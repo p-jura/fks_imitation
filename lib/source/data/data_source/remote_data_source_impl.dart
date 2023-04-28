@@ -20,7 +20,7 @@ class RemoteDataSourcesImpl implements RemoteDataSources {
   @override
   Future<EventsDataDto> getRemoteData([int? params]) async {
     int categories;
-    if (params == null) {
+    if (params == null || params < 1) {
       categories = 1;
     } else {
       categories = params;
