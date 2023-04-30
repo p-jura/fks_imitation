@@ -27,6 +27,7 @@ class MainSiteEventsViewWidget extends StatelessWidget {
                 state.mappedCatWithEventsCount;
             itemCount.removeAt(0);
             return ListView.builder(
+              shrinkWrap: true,
               padding: EdgeInsets.zero,
               itemCount: itemCount.length,
               itemBuilder: (context, index) {

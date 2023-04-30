@@ -42,6 +42,7 @@ class MainSite extends StatelessWidget {
                   color: Color.fromARGB(255, 248, 248, 248),
                 ),
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: const [
                     HeaderWidget(),
                     Divider(
