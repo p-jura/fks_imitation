@@ -11,6 +11,8 @@ import 'package:fuksiarz_imitation/source/data/data_source/local_data_source.dar
 import 'package:fuksiarz_imitation/source/data/data_source/remote_data_source.dart'
     as _i3;
 import 'package:fuksiarz_imitation/source/data/models.dart' as _i2;
+import 'package:fuksiarz_imitation/source/domain/entities_lists.dart' as _i7;
+import 'package:fuksiarz_imitation/source/domain/single_entities.dart' as _i8;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -126,16 +128,22 @@ class MockLocalDataSource extends _i1.Mock implements _i5.LocalDataSource {
         )),
       ) as _i4.Future<_i2.EventsDataDto>);
   @override
-  _i4.Future<void> cashData({required _i2.EventsDataDto? data}) =>
+  _i4.Future<bool> cashData({
+    required _i2.EventsDataDto? data,
+    int? params,
+  }) =>
       (super.noSuchMethod(
         Invocation.method(
           #cashData,
           [],
-          {#data: data},
+          {
+            #data: data,
+            #params: params,
+          },
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue: _i4.Future<bool>.value(false),
+        returnValueForMissingStub: _i4.Future<bool>.value(false),
+      ) as _i4.Future<bool>);
 }
 
 /// A class which mocks [CacheStatus].
@@ -143,9 +151,31 @@ class MockLocalDataSource extends _i1.Mock implements _i5.LocalDataSource {
 /// See the documentation for Mockito's code generation for more information.
 class MockCacheStatus extends _i1.Mock implements _i6.CacheStatus {
   @override
-  _i4.Future<bool> get isDataSrored => (super.noSuchMethod(
-        Invocation.getter(#isDataSrored),
+  _i4.Future<bool> isDataStored([int? param]) => (super.noSuchMethod(
+        Invocation.method(
+          #isDataStored,
+          [param],
+        ),
         returnValue: _i4.Future<bool>.value(false),
         returnValueForMissingStub: _i4.Future<bool>.value(false),
       ) as _i4.Future<bool>);
+}
+
+/// A class which mocks [EventsDataList].
+///
+/// See the documentation for Mockito's code generation for more information.
+// ignore: must_be_immutable
+class MockEventsDataList extends _i1.Mock implements _i7.EventsDataList {
+  @override
+  List<_i8.EventData> get eventData => (super.noSuchMethod(
+        Invocation.getter(#eventData),
+        returnValue: <_i8.EventData>[],
+        returnValueForMissingStub: <_i8.EventData>[],
+      ) as List<_i8.EventData>);
+  @override
+  List<Object?> get props => (super.noSuchMethod(
+        Invocation.getter(#props),
+        returnValue: <Object?>[],
+        returnValueForMissingStub: <Object?>[],
+      ) as List<Object?>);
 }

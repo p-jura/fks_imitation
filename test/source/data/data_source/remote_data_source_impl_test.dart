@@ -20,10 +20,6 @@ void main() {
   late MockClient mockedHttpClient;
   late RemoteDataSourcesImpl dataSourcesImpl;
 
-  const headers = {
-    'Content-Type': 'application/json',
-    'Request-Language': 'pl',
-  };
   setUp(
     () {
       mockedHttpClient = MockClient();
@@ -41,7 +37,7 @@ void main() {
         'remote_data_simple_error_fixture.json',
         'remote_data_fixtures',
       );
-      const mockDto = EventsDataDto(code: 200, description: 'OK.', data: []);
+      const tEventDataDto = EventsDataDto(code: 200, description: 'OK.', data: []);
       final http.Response httpResponse = http.Response(dtoStringFixture, 200);
       final http.Response httpErrorResponse =
           http.Response(dtoStringWithErrorFixture, 500);
@@ -108,7 +104,7 @@ void main() {
           );
           expect(
             response,
-            equals(mockDto),
+            equals(tEventDataDto),
           );
           expect(
             response.runtimeType,
@@ -147,8 +143,6 @@ void main() {
           http.Response(responseFixture, 200);
       final http.Response httpQueryResponseWithError =
           http.Response('something went wrong', 400);
-      final url =
-          Uri.parse('https://fuksiarz.pl/rest/search/events/quick-search');
 
       const String searchPattern = 'test';
 

@@ -25,13 +25,17 @@ class DataRepositoryImpl implements DataRepository {
   Future<Either<Failure, EventsDataList>> getEventsDataFromRemote([
     int? params,
   ]) async {
-    final cacheStatus = await _cacheStatus.isDataSrored;
+    final cacheStatus = await _cacheStatus.isDataStored(params);
     if (!cacheStatus) {
       try {
         final remoteData = await _remoteDataSource.getRemoteData(params);
         if (remoteData.code == 200 &&
             remoteData.data != null &&
             remoteData.data!.isNotEmpty) {
+          _localDataSource.cashData(
+            data: remoteData,
+            params: params,
+          );
           return Right(
             EventsDataList(
               eventData: remoteData.data!,
@@ -89,12 +93,23 @@ class DataRepositoryImpl implements DataRepository {
   Future<Either<Failure, EventsDataList>> getEventsDataFromLocal([
     int? params,
   ]) async {
-    final cacheStatus = await _cacheStatus.isDataSrored;
-    if (cacheStatus) {
-      final localData = await _localDataSource.getLocalData(params);
-      return Right(EventsDataList(eventData: localData.data!));
-    }else{
-      return getEventsDataFromRemote(params);
+    try {
+      final cacheStatus = await _cacheStatus.isDataStored(params);
+      if (cacheStatus) {
+        final localData = await _localDataSource.getLocalData(params);
+
+        if (localData.data!.isNotEmpty) {
+          return Right(EventsDataList(eventData: localData.data!));
+        } else {
+          return const Left(
+            NoDataFoundFailure(message: 'No data found in cached file'),
+          );
+        }
+      } else {
+        return getEventsDataFromRemote(params);
+      }
+    } on NoDataCached catch (failure) {
+      return Left(NoDataCached(failure.message));
     }
   }
 }

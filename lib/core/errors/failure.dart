@@ -31,3 +31,7 @@ class NoDataFoundFailure extends Failure {
   @override
   String toString() => 'No data - message: $message';
 }
+
+class NoDataCached extends Failure {
+  const NoDataCached(super.message);
+}

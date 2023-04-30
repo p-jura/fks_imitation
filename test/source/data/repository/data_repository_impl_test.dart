@@ -19,6 +19,7 @@ import '../../../fixtures/remote_data_fixtures/event_data_fixture.dart';
   MockSpec<RemoteDataSources>(),
   MockSpec<LocalDataSource>(),
   MockSpec<CacheStatus>(),
+  MockSpec<EventsDataList>()
 ])
 import './data_repository_impl_test.mocks.dart';
 
@@ -27,11 +28,13 @@ void main() {
   late LocalDataSource mockLocalDataSource;
   late DataRepositoryImpl tRepository;
   late CacheStatus mockCacheStatus;
+
+  const int tParam = 1;
+
   setUp(
     () {
       mockCacheStatus = MockCacheStatus();
-
-      when(mockCacheStatus.isDataSrored).thenAnswer((_) async => false);
+      when(mockCacheStatus.isDataStored()).thenAnswer((_) async => false);
 
       mockLocalDataSource = MockLocalDataSource();
       mockRemoteDataSource = MockRemoteDataSources();
@@ -45,9 +48,12 @@ void main() {
   );
   group(
     'RemoteDataSources',
+    
     () {
       setUp(() {
-        when(mockCacheStatus.isDataSrored).thenAnswer((_) async => false);
+        when(mockCacheStatus.isDataStored(tParam)).thenAnswer(
+          (_) async => true,
+        );
       });
       final mockedDTO = EventsDataDto(
         code: 200,
@@ -57,7 +63,7 @@ void main() {
         ],
       );
       final List<EventData> mockDataList = [dataFixture];
-      final mockedEventDataList = EventsDataList(eventData: mockDataList);
+      final eventsDataListFixture = EventsDataList(eventData: mockDataList);
       const mockedDTOwithoutData =
           EventsDataDto(code: 400, description: 'discription', data: null);
 
@@ -69,22 +75,37 @@ void main() {
 
           final result = await tRepository.getEventsDataFromRemote();
 
-          verify(mockRemoteDataSource.getRemoteData(null));
+          verify(mockRemoteDataSource.getRemoteData(any));
+
           expect(
             result,
             equals(
-              Right(mockedEventDataList),
+              Right(eventsDataListFixture),
             ),
           );
         },
       );
+      test(
+        'Should return cache data localy when the getEventsDataFromRemote() is called',
+        () async {
+          when(mockRemoteDataSource.getRemoteData(any))
+              .thenAnswer((_) async => mockedDTO);
+
+          await tRepository.getEventsDataFromRemote();
+
+          verify(
+            mockLocalDataSource.cashData(data: mockedDTO),
+          );
+        },
+      );
+
       test(
         'Should return NoDataFoundFailure when the getListOfEvent() is called without data',
         () async {
           when(mockRemoteDataSource.getRemoteData(any))
               .thenAnswer((_) async => mockedDTOwithoutData);
 
-          final result = await tRepository.getEventsDataFromRemote(1);
+          final result = await tRepository.getEventsDataFromRemote();
 
           expect(
             result.isLeft(),
@@ -105,7 +126,7 @@ void main() {
           when(mockRemoteDataSource.getRemoteData(any))
               .thenAnswer((_) async => throw ServerException());
 
-          final result = await tRepository.getEventsDataFromRemote(1);
+          final result = await tRepository.getEventsDataFromRemote();
 
           expect(
             result.isLeft(),
@@ -123,11 +144,59 @@ void main() {
     },
   );
   group(
+    'LocalDataSources ',
+    () {
+      final mockedDTO = EventsDataDto(
+        code: 200,
+        description: 'discription',
+        data: [
+          dataFixture,
+        ],
+      );
+      const mockDTOWithoutData = EventsDataDto(
+        code: 200,
+        description: 'discription',
+        data: [],
+      );
+      final tEventsDataList = EventsDataList(eventData: [dataFixture]);
+      setUp(
+        () {
+          when(mockCacheStatus.isDataStored(any)).thenAnswer(
+            (_) async => true,
+          );
+        },
+      );
+      test(
+        'Should return EventsDataList from cached data',
+        () async {
+          when(mockLocalDataSource.getLocalData(any))
+              .thenAnswer((_) async => mockedDTO);
+          final localData = await tRepository.getEventsDataFromLocal();
+          final result = localData.fold((_) => null, (localData) => localData);
+
+          expect(result, equals(tEventsDataList));
+          verify(mockCacheStatus.isDataStored(any));
+          verify(mockLocalDataSource.getLocalData(any));
+        },
+      );
+      test(
+        'Should return failure when cached data failed to load',
+        () async {
+          when(mockLocalDataSource.getLocalData(any))
+              .thenAnswer((_) async => mockDTOWithoutData);
+
+          final localData = await tRepository.getEventsDataFromLocal();
+          final result = localData.fold((failure) => failure, (_) => null);
+          expect(result, isA<NoDataFoundFailure>());
+          expect(result?.message, 'No data found in cached file');
+        },
+      );
+    },
+  );
+
+  group(
     'QuickSearchDataSource',
     () {
-      setUp(() {
-        when(mockCacheStatus.isDataSrored).thenAnswer((_) async => false);
-      });
       const String tStr = 'test';
       test(
         'Should return failure when quick search is called with no data',

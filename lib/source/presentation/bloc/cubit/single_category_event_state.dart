@@ -15,10 +15,13 @@ class SingleCategoryLoadingState extends SingleCategoryEventState {
 
 class SingleCategoryEventsLoadedState extends SingleCategoryEventState {
   final EventsDataList _eventsDataList;
-
-  const SingleCategoryEventsLoadedState(
-      {required EventsDataList eventsDataList})
-      : _eventsDataList = eventsDataList;
+  final int? _categoryId;
+  const SingleCategoryEventsLoadedState({
+    required EventsDataList eventsDataList,
+    required int categoryId,
+  })  : _eventsDataList = eventsDataList,
+        _categoryId = categoryId;
 
   EventsDataList get eventsDataList => _eventsDataList;
+  int? get categoryId => _categoryId;
 }

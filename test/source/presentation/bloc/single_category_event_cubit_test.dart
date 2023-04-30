@@ -40,6 +40,7 @@ void main() {
     expect: () => [
       const SingleCategoryLoadingState(),
       SingleCategoryEventsLoadedState(
+        categoryId: 1,
         eventsDataList: EventsDataList(
           eventData: [eventData],
         ),
@@ -47,7 +48,7 @@ void main() {
     ],
   );
   blocTest(
-    'Should emit state to Loaded with empty data list when response is failure',
+    'Should emit state SingleCategoryLoadingState when response is failure',
     build: () => tCubit,
     setUp: () {
       when(mockGetEvent.call(any)).thenAnswer(
@@ -59,11 +60,6 @@ void main() {
     act: (cubit) => cubit.getData(tCat),
     expect: () => [
       const SingleCategoryLoadingState(),
-      const SingleCategoryEventsLoadedState(
-        eventsDataList: EventsDataList(
-          eventData: [],
-        ),
-      ),
     ],
   );
 }

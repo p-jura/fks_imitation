@@ -32,6 +32,7 @@ class Data extends EventData {
   @JsonKey(
     name: 'eventStart',
     fromJson: _dataTimeInMilliseconds,
+    toJson: _dataEventStartsToJson,
   )
   final DateTime dataEventStarts;
   const Data({
@@ -57,6 +58,10 @@ class Data extends EventData {
 
   static DateTime _dataTimeInMilliseconds(int milliseconds) {
     return DateTime.fromMillisecondsSinceEpoch(milliseconds);
+  }
+
+  static int _dataEventStartsToJson(DateTime date) {
+    return date.microsecondsSinceEpoch;
   }
 }
 
@@ -164,7 +169,7 @@ class QuickSearchRequest extends Equatable {
         'modes': modes,
         'pattern': pattern,
       };
-      
+
   @override
   List<Object?> get props => [
         areas,

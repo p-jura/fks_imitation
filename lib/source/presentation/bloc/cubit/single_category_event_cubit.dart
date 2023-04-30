@@ -18,16 +18,20 @@ class SingleCategoryEventCubit extends Cubit<SingleCategoryEventState> {
     final eventEitherResponse = await _getEventsData.call(categoryId);
     eventEitherResponse.fold(
       (failure) {
-        print(failure.toString());
         failure.mapFailuresToLog();
       },
       (eventsDataList) {
-        emit(
-          SingleCategoryEventsLoadedState(
-            eventsDataList: eventsDataList,
-          ),
-        );
+        if (categoryId != null) {
+          emit(
+            SingleCategoryEventsLoadedState(
+              eventsDataList: eventsDataList,
+              categoryId: categoryId,
+            ),
+          );
+        }
       },
     );
   }
+
+  void resetCubitState() => emit(SingleCategoryEventInitial());
 }
