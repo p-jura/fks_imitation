@@ -29,7 +29,6 @@ void main() {
     mockGetQuickSearch = MockGetQuickSearchDataFromeRemote();
     tBloc = EventsDataBloc(
       getEventsData: mockGetEvent,
-      getQuickSearchData: mockGetQuickSearch,
     );
   });
 
@@ -43,64 +42,76 @@ void main() {
   );
 
   group('_getAllCategoriesEventData()', () {
-    final EventData eventData = eventDataFixture;
-    final List<Map<String, dynamic>> mapOfCatWithEventFixture = [
-      {
+    const EventData eventData = EventData(
+      eventId: 1,
+      eventName: null,
+      category1Id: 1,
+      category2Id: 2,
+      category3Id: 3,
+      category1Name: 'String',
+      category2Name: null,
+      category3Name: null,
+      eventCodeId: null,
+      eventStart: null,
+      eventType: null,
+      gamesCount: 1,
+      remoteId: null,
+      eventExtendedData: null,
+      eventGames: [],
+    );
+    final Map<int, Map<String, dynamic>> mapOfCatWithEventFixture = {
+      0: {
         'categoryName': 'WSZYSTKO',
-        'categoryEventsCount': 2,
+        'categoryEventsCount': 7,
         'isActive': true,
       },
-      mapOfCatWithEventCountFixture,
-      mapOfCatWithEventCountFixture
-    ];
+      1: {
+        'categoryName': 'STRING',
+        'categoryEventsCount': 1,
+      },
+      2: {
+        'categoryName': 'STRING',
+        'categoryEventsCount': 1,
+      },
+      3: {
+        'categoryName': 'STRING',
+        'categoryEventsCount': 1,
+      },
+      4: {
+        'categoryName': 'STRING',
+        'categoryEventsCount': 1,
+      },
+      5: {
+        'categoryName': 'STRING',
+        'categoryEventsCount': 1,
+      },
+      6: {
+        'categoryName': 'STRING',
+        'categoryEventsCount': 1,
+      },
+      10: {
+        'categoryName': 'STRING',
+        'categoryEventsCount': 1,
+      },
+    };
     blocTest(
       'Should emit state with data from all categories',
       build: () => tBloc,
       setUp: () => when(mockGetEvent.call(any)).thenAnswer(
-        (_) async => Right(
+        (_) async => const Right(
           EventsDataList(eventData: [eventData]),
         ),
       ),
-      act: (bloc) => bloc.add(GetEventsFromRemoteAllCategories(2)),
+      act: (bloc) => bloc.add(GetEventsFromRemoteAllCategories()),
       expect: () => [
         LoadingState(),
         AllCategoriesEventsLoadedState(
-          allEventsDataList: [
-            EventsDataList(eventData: [eventData]),
-            EventsDataList(eventData: [eventData]),
-          ],
           categoriesWithEvents: mapOfCatWithEventFixture,
         ),
       ],
     );
   });
-  group('_getQueryData()', () {
-    const QuickSearchResponse tQuickSearchResponse =
-        quickSearchResponseDataFixture;
-    const QuickSearchResponseList tQsearchList = QuickSearchResponseList(
-      quickSearchResponse: [
-        tQuickSearchResponse,
-      ],
-    );
-    blocTest(
-      'should emit state QueryLoadedState() when data is properly retrived',
-      build: () => tBloc,
-      setUp: () {
-        when(mockGetQuickSearch.call(tString)).thenAnswer(
-          (_) async => const Right(
-            tQsearchList,
-          ),
-        );
-      },
-      act: (bloc) => bloc.add(
-        GetQueryFromRemote(
-          query: tString,
-        ),
-      ),
-      expect: () =>
-          [LoadingState(), QueryLoadedState(qickSearchEventList: tQsearchList)],
-    );
-  });
+
   List<EventData> tList = const [
     EventData(
       eventId: 1,

@@ -27,19 +27,19 @@ class AllCategoriesEventsLoadedState extends EventsDataBlocState {
   List<Object?> get props => [_categoriesWithEvents];
 }
 
-class QueryLoadedState extends EventsDataBlocState {
-  final QuickSearchResponseList qickSearchEventList;
+class SingleCategoryEventsLoadedState extends EventsDataBlocState {
+  final EventsDataList _eventsDataList;
+  final int? _categoryId;
+  SingleCategoryEventsLoadedState({
+    required EventsDataList eventsDataList,
+    required int categoryId,
+  })  : _eventsDataList = eventsDataList,
+        _categoryId = categoryId;
 
-  QueryLoadedState({required this.qickSearchEventList});
+  EventsDataList get eventsDataList => _eventsDataList;
+  int? get categoryId => _categoryId;
 
   @override
-  List<Object?> get props => [qickSearchEventList];
+  List<Object?> get props => [_eventsDataList, _categoryId];
 }
 
-class NoDataFoundState extends EventsDataBlocState {
-  final String message;
-
-  NoDataFoundState(this.message);
-  @override
-  List<Object?> get props => [message];
-}

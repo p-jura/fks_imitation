@@ -44,8 +44,6 @@ class MainSiteFilters extends StatelessWidget {
                       );
                     },
                   );
-                } else if (state is NoDataFoundState) {
-                  return Text(state.message);
                 } else {
                   return const Text(
                     'No data found: Check your internet connection and reload application',

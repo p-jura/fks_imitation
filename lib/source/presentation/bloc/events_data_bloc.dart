@@ -11,14 +11,15 @@ import 'package:fuksiarz_imitation/source/presentation/bloc/events_data_bloc_sta
 
 class EventsDataBloc extends Bloc<EventsDataBlocEvent, EventsDataBlocState> {
   final GetEventsDataFromRemote getEventsData;
-  final GetQuickSearchDataFromeRemote getQuickSearchData;
+
 
   EventsDataBloc({
     required this.getEventsData,
-    required this.getQuickSearchData,
+    
   }) : super(EmptyState()) {
     on<GetEventsFromRemoteAllCategories>(_getAllCategoriesEventData);
-    on<GetQueryFromRemote>(_getQueryData);
+    on<GetEventsDataFromRemoteSingleCat>(_getSingleCategoryData);
+
   }
 
   void _getAllCategoriesEventData(
@@ -33,6 +34,7 @@ class EventsDataBloc extends Bloc<EventsDataBlocEvent, EventsDataBlocState> {
         'isActive': true,
       }
     };
+    
     emit(LoadingState());
 
     for (var catId in mapOfCategories.keys) {
@@ -70,30 +72,29 @@ class EventsDataBloc extends Bloc<EventsDataBlocEvent, EventsDataBlocState> {
     );
   }
 
-  void _getQueryData(
-    GetQueryFromRemote event,
+  void _getSingleCategoryData(
+    GetEventsDataFromRemoteSingleCat event,
     Emitter<EventsDataBlocState> emit,
   ) async {
+
     emit(LoadingState());
-    final queryEitherResponse = await getQuickSearchData.call(event.query);
-    queryEitherResponse.fold(
+    final eventEitherResponse = await getEventsData.call(event.categoryId);
+    eventEitherResponse.fold(
       (failure) {
         failure.mapFailuresToLog();
+      },
+      (eventsDataList) {
         emit(
-          QueryLoadedState(
-            qickSearchEventList: const QuickSearchResponseList(
-              quickSearchResponse: [],
-            ),
+          SingleCategoryEventsLoadedState(
+            eventsDataList: eventsDataList,
+            categoryId: event.categoryId,
           ),
         );
       },
-      (quickSearchResponseList) => emit(
-        QueryLoadedState(
-          qickSearchEventList: quickSearchResponseList,
-        ),
-      ),
     );
   }
+
+ 
 }
 
 extension MapFailures on Failure {

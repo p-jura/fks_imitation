@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fuksiarz_imitation/source/presentation/screens/main_site.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'source/get_it_instance.dart' as get_it_instance;
+import 'source/presentation/screens/query_site.dart';
 
 void main() async {
   if (defaultTargetPlatform == TargetPlatform.android ||
@@ -22,7 +23,10 @@ class AppRootWidget extends StatelessWidget {
         textTheme: GoogleFonts.montserratTextTheme(),
       ),
       debugShowCheckedModeBanner: false,
-      home: const MainSite(),
+      routes: {
+        '/': (context) => const MainSite(),
+        '/quick_search': (context) => const QuerySite(),
+      },
     );
   }
 }

@@ -6,7 +6,7 @@ import 'package:fuksiarz_imitation/source/domain/entities_lists.dart';
 import 'package:fuksiarz_imitation/source/domain/service/get_events_data_from_remote.dart';
 
 import 'package:fuksiarz_imitation/source/domain/single_entities.dart';
-import 'package:fuksiarz_imitation/source/presentation/bloc/cubit/single_category_event_cubit.dart';
+import 'package:fuksiarz_imitation/source/presentation/bloc/single_category_cubit/single_category_event_cubit.dart';
 
 import 'package:mockito/mockito.dart';
 

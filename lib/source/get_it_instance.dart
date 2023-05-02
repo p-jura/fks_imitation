@@ -69,7 +69,6 @@ Future<void> setUp() async {
   injSrv.registerSingleton<EventsDataBloc>(
     EventsDataBloc(
       getEventsData: injSrv<GetEventsDataFromRemote>(),
-      getQuickSearchData: injSrv(),
     ),
   );
   injSrv.registerSingleton<SingleCategoryEventCubit>(
