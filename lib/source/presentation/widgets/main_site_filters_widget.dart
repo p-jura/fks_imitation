@@ -18,7 +18,6 @@ class MainSiteFilters extends StatelessWidget {
       width: double.infinity,
       height: 50,
       padding: const EdgeInsets.all(10),
-      color: const Color.fromARGB(255, 255, 255, 255),
       child: Row(
         children: [
           Container(
@@ -41,8 +40,7 @@ class MainSiteFilters extends StatelessWidget {
                     itemCount: filterCategoriesWithEvents.length,
                     itemBuilder: (context, index) {
                       return CategoriesFilterElement(
-                        catWithEventsCount:
-                            filterCategoriesWithEvents[index],
+                        catWithEventsCount: filterCategoriesWithEvents[index],
                       );
                     },
                   );

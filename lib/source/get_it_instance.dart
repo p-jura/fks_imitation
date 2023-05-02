@@ -11,7 +11,7 @@ import 'package:fuksiarz_imitation/source/data/data_source/remote_data_source_im
 import 'package:fuksiarz_imitation/source/data/repository/data_repository_impl.dart';
 import 'package:fuksiarz_imitation/source/domain/service/get_events_data_from_remote.dart';
 import 'package:fuksiarz_imitation/source/presentation/bloc/events_data_bloc.dart';
-import 'package:fuksiarz_imitation/source/presentation/bloc/cubit/single_category_event_cubit.dart';
+import 'package:fuksiarz_imitation/source/presentation/bloc/single_category_cubit/single_category_event_cubit.dart';
 import 'package:path_provider_platform_interface/path_provider_platform_interface.dart';
 
 final injSrv = GetIt.asNewInstance();

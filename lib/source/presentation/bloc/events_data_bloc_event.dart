@@ -5,12 +5,10 @@ import 'package:flutter/material.dart';
 abstract class EventsDataBlocEvent extends Equatable {}
 
 class GetEventsFromRemoteSingleCategory extends EventsDataBlocEvent {
-  final int? catalogId;
-
-  GetEventsFromRemoteSingleCategory(this.catalogId);
+  GetEventsFromRemoteSingleCategory();
 
   @override
-  List<Object?> get props => [catalogId];
+  List<Object?> get props => [];
 }
 
 class GetEventsFromRemoteAllCategories extends EventsDataBlocEvent {

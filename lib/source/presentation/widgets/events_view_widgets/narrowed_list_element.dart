@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fuksiarz_imitation/source/presentation/bloc/cubit/single_category_event_cubit.dart';
+import 'package:fuksiarz_imitation/source/presentation/bloc/single_category_cubit/single_category_event_cubit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 

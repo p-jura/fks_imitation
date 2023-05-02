@@ -34,35 +34,35 @@ class EventsDataBloc extends Bloc<EventsDataBlocEvent, EventsDataBlocState> {
       }
     };
     emit(LoadingState());
-    if (event.categoiresAmmount != null) {
-      for (var catId in mapOfCategories.keys) {
-        var eventEitherResponse = await getEventsData.call(catId);
-        eventEitherResponse.fold(
-          // logs - if [catId] has no data, or [ServerError] appear
-          (failure) => failure.mapFailuresToLog(),
 
-          (eventsDataList) {
-            var eventGamesCount = eventsDataList.eventData.length;
+    for (var catId in mapOfCategories.keys) {
+      var eventEitherResponse = await getEventsData.call(catId);
+      eventEitherResponse.fold(
+        // logs - if [catId] has no data, or [ServerError] appear
+        (failure) => failure.mapFailuresToLog(),
 
-            categoriesWithEvents[catId] = {
-              'categoryName':
-                  eventsDataList.eventData.first.category1Name?.toUpperCase(),
-              'categoryEventsCount': eventGamesCount,
-            };
-            // adds all events ammount into category 'WSZYSTKO'
-            allEventsGamesCount = allEventsGamesCount + eventGamesCount;
-          },
-        );
-        categoriesWithEvents.update(
-          0,
-          (map) => {
-            'categoryName': 'WSZYSTKO',
-            'categoryEventsCount': allEventsGamesCount,
-            'isActive': true,
-          },
-        );
-      }
+        (eventsDataList) {
+          var eventGamesCount = eventsDataList.eventData.length;
+
+          categoriesWithEvents[catId] = {
+            'categoryName':
+                eventsDataList.eventData.first.category1Name?.toUpperCase(),
+            'categoryEventsCount': eventGamesCount,
+          };
+          // adds all events ammount into category 'WSZYSTKO'
+          allEventsGamesCount = allEventsGamesCount + eventGamesCount;
+        },
+      );
+      categoriesWithEvents.update(
+        0,
+        (map) => {
+          'categoryName': 'WSZYSTKO',
+          'categoryEventsCount': allEventsGamesCount,
+          'isActive': true,
+        },
+      );
     }
+
     emit(
       AllCategoriesEventsLoadedState(
         categoriesWithEvents: categoriesWithEvents,
