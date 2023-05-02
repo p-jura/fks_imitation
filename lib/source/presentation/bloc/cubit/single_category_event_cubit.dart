@@ -14,6 +14,7 @@ class SingleCategoryEventCubit extends Cubit<SingleCategoryEventState> {
         super(SingleCategoryEventInitial());
 
   void getData(categoryId) async {
+    
     emit(const SingleCategoryLoadingState());
     final eventEitherResponse = await _getEventsData.call(categoryId);
     eventEitherResponse.fold(

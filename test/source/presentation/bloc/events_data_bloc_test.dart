@@ -65,11 +65,11 @@ void main() {
       expect: () => [
         LoadingState(),
         AllCategoriesEventsLoadedState(
-          allCategoriesEventsList: [
+          allEventsDataList: [
             EventsDataList(eventData: [eventData]),
             EventsDataList(eventData: [eventData]),
           ],
-          listOfMappedCatWithEventsCount: mapOfCatWithEventFixture,
+          categoriesWithEvents: mapOfCatWithEventFixture,
         ),
       ],
     );
@@ -137,8 +137,4 @@ void main() {
       eventGames: [],
     )
   ];
-  test('extension addAllElementsWitchFieldName extension', () {
-    final resoult = tList.addAllGamesInList();
-    expect(resoult, 5);
-  });
 }

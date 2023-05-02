@@ -61,7 +61,7 @@ class Data extends EventData {
   }
 
   static int _dataEventStartsToJson(DateTime date) {
-    return date.microsecondsSinceEpoch;
+    return date.millisecondsSinceEpoch;
   }
 }
 

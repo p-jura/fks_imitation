@@ -1,0 +1,131 @@
+[33mcommit ef574419c863c4de6ff0be73aa3ea6f3e7855c7a[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m
+Author: p-jura <themadman@o2.pl>
+Date:   Mon May 1 00:39:37 2023 +0200
+
+    testing new solution
+
+[33mcommit 3baabe283e4ddb907ec481acca784b2b98d9bec5[m[33m ([m[1;31morigin/main[m[33m)[m
+Author: p-jura <themadman@o2.pl>
+Date:   Sun Apr 30 21:41:01 2023 +0200
+
+    adds main_site_events_view_widget part 2
+
+[33mcommit 6c74f5273e30c41a365544c7ed866d7aee2bfd3b[m
+Author: p-jura <themadman@o2.pl>
+Date:   Fri Apr 28 10:02:22 2023 +0200
+
+    adds cache implementation part 1
+
+[33mcommit e015f7dabc01a5b8758243826f74a49eac98b781[m
+Author: p-jura <themadman@o2.pl>
+Date:   Fri Apr 28 07:40:22 2023 +0200
+
+    beggining to build cash mechanism
+
+[33mcommit 5ea3e9f0296da39fa7ef4d248af5a8eda069ffeb[m
+Author: p-jura <themadman@o2.pl>
+Date:   Thu Apr 27 21:26:27 2023 +0200
+
+    main_site_event_view_widget part 2
+
+[33mcommit 85243f55b0726eab8d8a9c6842756563c467e374[m
+Author: p-jura <themadman@o2.pl>
+Date:   Thu Apr 27 15:41:18 2023 +0200
+
+    repository impl tests
+
+[33mcommit 78f612d49e6d35dec2e0fc132eb99e188136f610[m
+Author: p-jura <themadman@o2.pl>
+Date:   Thu Apr 27 12:27:59 2023 +0200
+
+    adds main_site_events_view_widget part 1
+
+[33mcommit 896629a87ffbc1224046b50a97791f409f2929fc[m
+Author: p-jura <themadman@o2.pl>
+Date:   Thu Apr 27 09:49:06 2023 +0200
+
+    adds minor corrections in bloc
+
+[33mcommit ac4e3a10e4024732257f1d586a4bd4b0aef13cfa[m
+Author: p-jura <themadman@o2.pl>
+Date:   Wed Apr 26 22:26:44 2023 +0200
+
+    adds UI part 2
+
+[33mcommit 38c839bd14b17c2a02c66308f919bddbabcbc554[m
+Author: p-jura <themadman@o2.pl>
+Date:   Tue Apr 25 12:45:23 2023 +0200
+
+    adds bloc part 2
+
+[33mcommit 087e62cfaad3219e4d03d1635b92b477c1339b81[m
+Author: p-jura <themadman@o2.pl>
+Date:   Tue Apr 25 09:30:33 2023 +0200
+
+    adds bloc part 1
+
+[33mcommit 889248babf27be74719e3c939ad7f3a7a2acfda9[m
+Author: p-jura <themadman@o2.pl>
+Date:   Mon Apr 24 17:56:09 2023 +0200
+
+    adds data_remote_pepository_impl part 2, and data_source_impl
+
+[33mcommit 9a476dc5c855cea2ab1622774a2f099ccf442adf[m
+Author: p-jura <themadman@o2.pl>
+Date:   Sun Apr 23 22:49:59 2023 +0200
+
+    adds data_remote_repository_impl part 1
+
+[33mcommit f3f336f255300d732a6b3743516f15d3bf2a30d3[m
+Author: p-jura <themadman@o2.pl>
+Date:   Sun Apr 23 21:17:32 2023 +0200
+
+    adds QuickSearchResponse extends repository calls
+
+[33mcommit da3032ca4d10384a6a9c0f16f4e8d2ba849dd6da[m
+Author: p-jura <themadman@o2.pl>
+Date:   Sat Apr 22 13:26:17 2023 +0200
+
+    adds implementation of Data source
+
+[33mcommit ce68ed963f04d266eab437b44dd55d5930c46ba3[m
+Author: p-jura <themadman@o2.pl>
+Date:   Fri Apr 21 23:09:16 2023 +0200
+
+    adds implementation of data_remote_repository
+
+[33mcommit 7585a5579529c279816b410f98cda45499ddee94[m
+Author: p-jura <themadman@o2.pl>
+Date:   Fri Apr 21 20:10:56 2023 +0200
+
+    adds new version of models and reworked entities
+
+[33mcommit 4bfcf07b067e4581e263711aa906e179fa9d06ad[m
+Author: p-jura <themadman@o2.pl>
+Date:   Fri Apr 21 11:46:53 2023 +0200
+
+    changes in app entities structure
+
+[33mcommit a594259958006ca6c672cc83961ab700c383d383[m
+Author: p-jura <themadman@o2.pl>
+Date:   Thu Apr 20 23:03:11 2023 +0200
+
+    adds models with fromJson()
+
+[33mcommit 5414d983d38b381baa4f456bc55a5afa16d47c18[m
+Author: p-jura <themadman@o2.pl>
+Date:   Thu Apr 20 12:30:57 2023 +0200
+
+    adds test to services
+
+[33mcommit 185438a7e37cd981a7d2b47b912ae9f69f2a2384[m
+Author: p-jura <themadman@o2.pl>
+Date:   Thu Apr 20 11:16:17 2023 +0200
+
+    adds service and repository
+
+[33mcommit 33ab31271762a01956cd55a974ac7420dd102259[m
+Author: p-jura <themadman@o2.pl>
+Date:   Thu Apr 20 10:37:55 2023 +0200
+
+    first commit with entities

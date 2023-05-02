@@ -1,15 +1,11 @@
 const Map<int, String> mapOfCategories = {
-  1: 'Soccer',
-  2: 'Basketball',
-  3: 'Baseball',
-  4: 'Icehokey',
-  5: 'Tennis',
-  6: 'Live event',
-  7: 'Special event',
-  8: 'Handball',
-  9: 'Floorball',
-  10: 'Golf',
-  11: 'Voleyball',
+  1: 'PIŁKA NOŻNA',
+  2: 'KOSZYKÓWKA',
+  3: 'BASEBALL',
+  4: 'HOKEJ NA LODZIE',
+  5: 'TENIS',
+  6: 'PIŁKA RĘCZNA',
+  10: 'SIATKÓWKA',
 };
 
 const Map<String, String> mapOfCallenderWidget = {

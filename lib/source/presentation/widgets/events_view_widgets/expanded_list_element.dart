@@ -10,13 +10,13 @@ import 'package:intl/intl.dart';
 
 class ExpandedListElement extends StatefulWidget {
   const ExpandedListElement({
-    required this.itemCount,
-    required this.index,
+    required this.categoriesMappedWithEvents,
+    required this.categories,
     super.key,
   });
 
-  final List<Map<String, dynamic>> itemCount;
-  final int index;
+  final Map<int, Map<String, dynamic>> categoriesMappedWithEvents;
+  final int categories;
 
   @override
   State<ExpandedListElement> createState() => _ExpandedListElementState();
@@ -39,26 +39,29 @@ class _ExpandedListElementState extends State<ExpandedListElement> {
         builder: (ctx, state) {
           // initial cubit state
           if (state is SingleCategoryEventInitial) {
-            return NarrowedListElement(
-              itemCount: widget.itemCount,
-              index: widget.index,
-              isExpanded: isExpanded,
-              expandWidgetFunction: expandWidget,
-            );
+            if (widget.categoriesMappedWithEvents[widget.categories] != null) {
+              return NarrowedListElement(
+                categoriesMappedWithEvents: widget.categoriesMappedWithEvents,
+                categoryInex: widget.categories,
+                isExpanded: isExpanded,
+                expandWidgetFunction: expandWidget,
+              );
+            }
           }
           if (state is SingleCategoryLoadingState) {
             return Container();
           }
           if (state is SingleCategoryEventsLoadedState) {
             var dataList = state.eventsDataList;
-            var stateCatId = state.categoryId;
-            return stateCatId == widget.index
+
+            return state.categoryId == widget.categories
                 ? Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       NarrowedListElement(
-                        index: widget.index,
-                        itemCount: widget.itemCount,
+                        categoryInex: widget.categories,
+                        categoriesMappedWithEvents:
+                            widget.categoriesMappedWithEvents,
                         isExpanded: isExpanded,
                         expandWidgetFunction: expandWidget,
                       ),
@@ -67,17 +70,18 @@ class _ExpandedListElementState extends State<ExpandedListElement> {
                       // events category 2 and 3 level
                       CategoriesExtensionRow(
                         dataList: dataList,
-                        index: widget.index,
+                        index: widget.categories,
                       ),
                       MachParticipantsExtension(
                         dataList: dataList,
-                        index: widget.index,
+                        index: widget.categories,
                       ),
                     ],
                   )
                 : NarrowedListElement(
-                    index: widget.index,
-                    itemCount: widget.itemCount,
+                    categoryInex: widget.categories,
+                    categoriesMappedWithEvents:
+                        widget.categoriesMappedWithEvents,
                     isExpanded: isExpanded,
                     expandWidgetFunction: expandWidget,
                   );
@@ -92,40 +96,23 @@ class _ExpandedListElementState extends State<ExpandedListElement> {
 }
 
 class MachParticipantsExtension extends StatelessWidget {
-  MachParticipantsExtension(
+  const MachParticipantsExtension(
       {super.key, required this.dataList, required this.index});
   final EventsDataList dataList;
   final int index;
 
-  final List<String> _opponents = [];
-
-  void disassembleOponents() {
-    // creates _opponents List from String eventName
-    var oponents = dataList.eventData[index].eventName;
-    if (oponents != null) {
-      var paternIndex = oponents.indexOf('-');
-      _opponents.add(
-        oponents.substring(0, paternIndex).trim().toUpperCase(),
-      );
-      _opponents.add(oponents
-          .substring(paternIndex + 1, oponents.length)
-          .trim()
-          .toUpperCase());
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    disassembleOponents();
     var event = dataList.eventData[index];
     return ListView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      itemCount: event.eventGames.length,
-      itemBuilder: (context, index) => Padding(
-        padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
-        child: SizedBox(
-          height: 106,
+      // only first of games events is actual event
+      itemCount: index,
+      itemBuilder: (context, gamesIndexes) {
+        var outcomes = event.eventGames.first.outcomes;
+        return Padding(
+          padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -146,7 +133,7 @@ class MachParticipantsExtension extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          '${event.category3Name?.toUpperCase()} ${DateFormat('dd.MM').format(event.eventStart!)}',
+                          '${event.category3Name?.toUpperCase()} ${DateFormat('dd.MM.yyyy').format(event.eventStart!)}',
                           style: const TextStyle(
                             fontSize: 10,
                             fontWeight: FontWeight.w700,
@@ -225,7 +212,9 @@ class MachParticipantsExtension extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                _opponents.first,
+                                outcomes!.first.outcomeName!
+                                    .toUpperCase()
+                                    .toString(),
                                 style: const TextStyle(
                                   fontSize: 10,
                                   fontWeight: FontWeight.bold,
@@ -235,7 +224,9 @@ class MachParticipantsExtension extends StatelessWidget {
                                 height: 7,
                               ),
                               Text(
-                                _opponents.last,
+                                outcomes.last.outcomeName!
+                                    .toUpperCase()
+                                    .toString(),
                                 style: const TextStyle(
                                   fontSize: 10,
                                   fontWeight: FontWeight.bold,
@@ -245,29 +236,16 @@ class MachParticipantsExtension extends StatelessWidget {
                           ),
                         ),
                         // odds
-                        Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: const Color.fromARGB(255, 227, 232, 238),
+                        Row(
+                          children: [
+                            OddsWidget(
+                              odds: outcomes.first.outcomeOdds.toString(),
                             ),
-                            borderRadius: BorderRadius.circular(3),
-                          ),
-                          child: Column(
-                            children: [
-                              const Text(
-                                '1',
-                                style: TextStyle(
-                                    fontSize: 8, fontWeight: FontWeight.w600),
-                              ),
-                              Text(
-                                event.eventGames.first.outcomes!.first
-                                    .outcomeName!
-                                    .toString(),
-                                style: const TextStyle(
-                                    fontSize: 12, fontWeight: FontWeight.bold),
-                              ),
-                            ],
-                          ),
+                            const SizedBox(width: 6),
+                            OddsWidget(
+                              odds: outcomes.last.outcomeOdds.toString(),
+                            ),
+                          ],
                         )
                       ],
                     ),
@@ -276,7 +254,43 @@ class MachParticipantsExtension extends StatelessWidget {
               ),
             ],
           ),
+        );
+      },
+    );
+  }
+}
+
+class OddsWidget extends StatelessWidget {
+  const OddsWidget({
+    super.key,
+    required this.odds,
+  });
+  final String odds;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        vertical: 9,
+        horizontal: 10,
+      ),
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: const Color.fromARGB(255, 227, 232, 238),
         ),
+        borderRadius: BorderRadius.circular(3),
+      ),
+      child: Column(
+        children: [
+          const Text(
+            '1',
+            style: TextStyle(fontSize: 8, fontWeight: FontWeight.w600),
+          ),
+          Text(
+            odds,
+            style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+          ),
+        ],
       ),
     );
   }

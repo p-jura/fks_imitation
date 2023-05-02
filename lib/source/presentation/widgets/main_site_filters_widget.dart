@@ -35,13 +35,14 @@ class MainSiteFilters extends StatelessWidget {
                   return const LinearProgressIndicator();
                   // loaded data
                 } else if (state is AllCategoriesEventsLoadedState) {
+                  Map filterCategoriesWithEvents = state.categoriesWithEvents;
                   return ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemCount: state.mappedCatWithEventsCount.length,
+                    itemCount: filterCategoriesWithEvents.length,
                     itemBuilder: (context, index) {
                       return CategoriesFilterElement(
                         catWithEventsCount:
-                            state.mappedCatWithEventsCount[index],
+                            filterCategoriesWithEvents[index],
                       );
                     },
                   );

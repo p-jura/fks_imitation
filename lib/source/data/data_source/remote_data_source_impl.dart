@@ -19,14 +19,9 @@ class RemoteDataSourcesImpl implements RemoteDataSources {
 
   @override
   Future<EventsDataDto> getRemoteData([int? params]) async {
-    int categories;
-    if (params == null || params < 1) {
-      categories = 1;
-    } else {
-      categories = params;
-    }
+    int category = params ?? 0;
     final url = Uri.parse(
-      'https://fuksiarz.pl/rest/market/categories/multi/$categories/events',
+      'https://fuksiarz.pl/rest/market/categories/multi/$category/events',
     );
 
     final response = await _repository.get(

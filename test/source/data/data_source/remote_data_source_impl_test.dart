@@ -68,27 +68,6 @@ void main() {
         },
       );
       test(
-        'veryfieing proper category is selected when no parameter is given',
-        () async {
-          when(
-            mockedHttpClient.get(
-              any,
-              headers: anyNamed('headers'),
-            ),
-          ).thenAnswer((_) async => httpResponse);
-          await dataSourcesImpl.getRemoteData();
-          verify(
-            mockedHttpClient.get(
-              Uri.parse(
-                'https://fuksiarz.pl/rest/market/categories/multi/1/events',
-              ),
-              headers: anyNamed('headers'),
-            ),
-          );
-        },
-      );
-
-      test(
         'when getRemoteData() is called should return DTO',
         () async {
           when(

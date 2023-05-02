@@ -20,12 +20,13 @@ class LocalDataSourceImpl implements LocalDataSource {
 
   @override
   Future<bool> cashData({required EventsDataDto data, int? params}) async {
-    final bool isDataStored = await _cacheStatus.isDataStored(params);
+    int category = params ?? 0;
+    final bool isDataStored = await _cacheStatus.isDataStored(category);
     if (!isDataStored) {
       final String? tempDir = await _pathProvider.getTemporaryPath();
       if (tempDir != null) {
         log('creating cache file');
-        File tempFile = File('$tempDir/$params.json');
+        File tempFile = File('$tempDir/$category.json');
         await tempFile.writeAsString(
           json.encode(
             data.toJson(),
@@ -46,20 +47,23 @@ class LocalDataSourceImpl implements LocalDataSource {
 
   @override
   Future<EventsDataDto> getLocalData([int? params]) async {
-    bool dataExist = await _cacheStatus.isDataStored(params);
+
+    int category = params ?? 0;
+
+    bool dataExist = await _cacheStatus.isDataStored(category);
     if (dataExist) {
       final String? tempDir = await _pathProvider.getTemporaryPath();
-      final File tempFile = File('$tempDir/$params.json');
+      final File tempFile = File('$tempDir/$category.json');
       if (tempFile.existsSync()) {
         final data = await tempFile.readAsString();
         return EventsDataDto.fromJson(json.decode(data));
       }
       throw NoDataCached(
-        'getLocalData failed: no file found in directory $tempDir/$params',
+        'getLocalData failed: no file found in directory $tempDir/$category',
       );
     } else {
       throw NoDataCached(
-        'getLocalData failed: no file with givent param $params',
+        'getLocalData failed: no file with givent param $category',
       );
     }
   }

@@ -6,8 +6,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 class NarrowedListElement extends StatelessWidget {
   const NarrowedListElement({
-    required this.itemCount,
-    required this.index,
+    required this.categoriesMappedWithEvents,
+    required this.categoryInex,
     required Function expandWidgetFunction,
     required bool isExpanded,
     super.key,
@@ -16,11 +16,12 @@ class NarrowedListElement extends StatelessWidget {
 
   final Function _expandWidget;
   final bool _isExpanded;
-  final List<Map<String, dynamic>> itemCount;
-  final int index;
+  final Map<int, Map<String, dynamic>> categoriesMappedWithEvents;
+  final int categoryInex;
 
   @override
   Widget build(BuildContext context) {
+    
     return Container(
       padding: const EdgeInsets.all(10),
       decoration: const BoxDecoration(
@@ -39,7 +40,7 @@ class NarrowedListElement extends StatelessWidget {
             child: Row(
               children: [
                 Text(
-                  itemCount[index]['categoryName'],
+                  categoriesMappedWithEvents[categoryInex]?['categoryName'],
                   style: GoogleFonts.montserrat(
                     color: const Color.fromARGB(255, 0, 0, 0),
                     fontSize: 12,
@@ -60,7 +61,7 @@ class NarrowedListElement extends StatelessWidget {
                     ),
                   ),
                   child: Text(
-                    itemCount[index]['categoryEventsCount'].toString(),
+                    categoriesMappedWithEvents[categoryInex]!['categoryEventsCount'].toString(),
                     style: const TextStyle(
                       fontSize: 10,
                       fontWeight: FontWeight.w700,
@@ -72,11 +73,13 @@ class NarrowedListElement extends StatelessWidget {
           ),
           InkWell(
             onTap: () {
+              print(categoryInex);
+              // id cant be 0 otherwise it pick wrong file to
               _isExpanded
                   ? BlocProvider.of<SingleCategoryEventCubit>(context)
                       .resetCubitState()
                   : BlocProvider.of<SingleCategoryEventCubit>(context)
-                      .getData(index);
+                      .getData(categoryInex);
               _expandWidget();
             },
             child: Container(

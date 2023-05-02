@@ -23,17 +23,17 @@ class MainSiteEventsViewWidget extends StatelessWidget {
               ),
             );
           } else if (state is AllCategoriesEventsLoadedState) {
-            List<Map<String, dynamic>> itemCount =
-                state.mappedCatWithEventsCount;
-            itemCount.removeAt(0);
+            Map<int, Map<String, dynamic>> categoriesMappedWithEvents =
+                state.categoriesWithEvents;
+            categoriesMappedWithEvents.remove(0);
             return ListView.builder(
               shrinkWrap: true,
               padding: EdgeInsets.zero,
-              itemCount: itemCount.length,
+              itemCount: categoriesMappedWithEvents.length,
               itemBuilder: (context, index) {
                 return ExpandedListElement(
-                  itemCount: itemCount,
-                  index: index,
+                  categoriesMappedWithEvents: categoriesMappedWithEvents,
+                  categories: categoriesMappedWithEvents.keys.toList()[index],
                 );
               },
             );

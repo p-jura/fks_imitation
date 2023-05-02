@@ -13,26 +13,18 @@ class LoadingState extends EventsDataBlocState {
   List<Object?> get props => [];
 }
 
-
-
 class AllCategoriesEventsLoadedState extends EventsDataBlocState {
-  final List<EventsDataList> _allCategoriesEventsList;
-  final List<Map<String, dynamic>> _listOfMappedCatWithEventsCount;
+  final Map<int, Map<String, dynamic>> _categoriesWithEvents;
 
   AllCategoriesEventsLoadedState({
-    required allCategoriesEventsList,
-    required listOfMappedCatWithEventsCount,
-  })  : _allCategoriesEventsList = allCategoriesEventsList,
-        _listOfMappedCatWithEventsCount = listOfMappedCatWithEventsCount;
+    required categoriesWithEvents,
+  }) : _categoriesWithEvents = categoriesWithEvents;
 
-  List<EventsDataList> get allEventsDataList => [..._allCategoriesEventsList];
-
-  List<Map<String, dynamic>> get mappedCatWithEventsCount =>
-      [..._listOfMappedCatWithEventsCount];
+  Map<int, Map<String, dynamic>> get categoriesWithEvents =>
+      Map.from(_categoriesWithEvents);
 
   @override
-  List<Object?> get props =>
-      [_allCategoriesEventsList, _listOfMappedCatWithEventsCount];
+  List<Object?> get props => [_categoriesWithEvents];
 }
 
 class QueryLoadedState extends EventsDataBlocState {
