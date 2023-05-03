@@ -112,7 +112,7 @@ class _MainSiteCallenderState extends State<MainSiteCallender> {
                   color: const Color.fromARGB(255, 248, 248, 248),
                   padding: const EdgeInsets.all(10),
                   child: Center(
-                    child: Image.asset('assets/images/icons/callender.png'),
+                    child: Image.asset('assets/images/icons/callender.png', fit: BoxFit.contain,),
                   ),
                 ),
               ),

@@ -12,6 +12,7 @@ class QueryDataBloc extends Bloc<QueryDataEvent, QueryState> {
     required this.getQuickSearchData,
   }) : super(InitialQueryState()) {
     on<GetQueryFromRemote>(_getQueryData);
+    on<ResetQuery>(_resetData);
   }
   void _getQueryData(
     GetQueryFromRemote event,
@@ -23,11 +24,7 @@ class QueryDataBloc extends Bloc<QueryDataEvent, QueryState> {
       (failure) {
         failure.mapFailuresToLog();
         emit(
-          QueryLoadedState(
-            qickSearchEventList: const QuickSearchResponseList(
-              quickSearchResponse: [],
-            ),
-          ),
+          NoDataFoundState(failure.message ?? 'No data found'),
         );
       },
       (quickSearchResponseList) => emit(
@@ -36,5 +33,9 @@ class QueryDataBloc extends Bloc<QueryDataEvent, QueryState> {
         ),
       ),
     );
+  }
+
+  void _resetData(ResetQuery event, Emitter<QueryState> emit) {
+    emit(InitialQueryState());
   }
 }

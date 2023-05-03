@@ -4,6 +4,7 @@ import 'package:fuksiarz_imitation/source/data/data_source/local_data_source_imp
 import 'package:fuksiarz_imitation/source/data/data_source/remote_data_source.dart';
 import 'package:fuksiarz_imitation/source/domain/service/get_events_data_from_local.dart';
 import 'package:fuksiarz_imitation/source/domain/service/get_quick_search_data_from_remote.dart';
+import 'package:fuksiarz_imitation/source/presentation/bloc/query_data_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 
@@ -66,6 +67,11 @@ Future<void> setUp() async {
     ),
   );
   // Bloc
+  injSrv.registerSingleton<QueryDataBloc>(
+    QueryDataBloc(
+      getQuickSearchData: injSrv<GetQuickSearchDataFromeRemote>(),
+    ),
+  );
   injSrv.registerSingleton<EventsDataBloc>(
     EventsDataBloc(
       getEventsData: injSrv<GetEventsDataFromRemote>(),

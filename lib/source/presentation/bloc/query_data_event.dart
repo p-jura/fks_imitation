@@ -1,4 +1,3 @@
-
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
@@ -12,4 +11,9 @@ class GetQueryFromRemote extends QueryDataEvent {
 
   @override
   List<Object?> get props => [query];
+}
+
+class ResetQuery extends QueryDataEvent {
+  @override
+  List<Object?> get props => [];
 }
