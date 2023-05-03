@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fuksiarz_imitation/source/get_it_instance.dart';
 import 'package:fuksiarz_imitation/source/presentation/bloc/events_data_bloc.dart';
 import 'package:fuksiarz_imitation/source/presentation/bloc/events_data_bloc_state.dart';
-import 'package:fuksiarz_imitation/source/presentation/widgets/events_view_widgets/expanded_list_element.dart';
+import 'package:fuksiarz_imitation/source/presentation/widgets/main_site/events_view_widgets/expanded_list_element.dart';
 
 class MainSiteEventsViewWidget extends StatelessWidget {
   const MainSiteEventsViewWidget({super.key});

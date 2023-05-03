@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fuksiarz_imitation/source/get_it_instance.dart';
+import 'package:fuksiarz_imitation/source/presentation/bloc/query_data_bloc.dart';
 import 'package:fuksiarz_imitation/source/presentation/bloc/single_category_cubit/single_category_event_cubit.dart';
 import 'package:fuksiarz_imitation/source/presentation/bloc/events_data_bloc.dart';
-import 'package:fuksiarz_imitation/source/presentation/widgets/main_site_callender.dart';
-import 'package:fuksiarz_imitation/source/presentation/widgets/main_site_events_view_widget.dart';
-import 'package:fuksiarz_imitation/source/presentation/widgets/main_site_filters_widget.dart';
-import 'package:fuksiarz_imitation/source/presentation/widgets/main_site_header_widget.dart';
-import 'package:fuksiarz_imitation/source/presentation/widgets/main_site_quick_search_widget.dart';
+import 'package:fuksiarz_imitation/source/presentation/widgets/main_site/main_site_callender.dart';
+import 'package:fuksiarz_imitation/source/presentation/widgets/main_site/main_site_events_view_widget.dart';
+import 'package:fuksiarz_imitation/source/presentation/widgets/main_site/main_site_filters_widget.dart';
+import 'package:fuksiarz_imitation/source/presentation/widgets/main_site/main_site_header_widget.dart';
+import 'package:fuksiarz_imitation/source/presentation/widgets/main_site/main_site_quick_search_widget.dart';
+import 'package:fuksiarz_imitation/core/fixtures/fixtures.dart' as constants;
 
 class MainSite extends StatelessWidget {
   const MainSite({super.key});
@@ -15,7 +17,7 @@ class MainSite extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 198, 40, 40),
+      backgroundColor: constants.DEEP_BACKGROUND_COLOR,
       body: MultiBlocProvider(
         providers: [
           BlocProvider(
@@ -24,6 +26,9 @@ class MainSite extends StatelessWidget {
           BlocProvider(
             create: (_) => injSrv<SingleCategoryEventCubit>(),
           ),
+          BlocProvider(
+            create: (_) => injSrv<QueryDataBloc>(),
+          )
         ],
         child: Column(
           children: [

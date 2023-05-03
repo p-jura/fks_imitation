@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 
 class MachParticipantsExtension extends StatelessWidget {
   const MachParticipantsExtension(
-      {super.key, required this.dataList, required this.index});
+      {super.key, required this.dataList, required this.index,});
   final EventsDataList dataList;
   final int index;
 
@@ -93,7 +93,7 @@ class MachParticipantsExtension extends StatelessWidget {
                         Text(
                           DateFormat('H:mm').format(event.eventStart!),
                           style: const TextStyle(
-                              fontSize: 8, fontWeight: FontWeight.w600),
+                              fontSize: 8, fontWeight: FontWeight.w600,),
                         ),
                         const Expanded(
                           child: Divider(

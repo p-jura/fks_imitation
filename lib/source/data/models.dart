@@ -147,7 +147,7 @@ class QuickSearchResponseData extends QuickSearchResponse {
 class QuickSearchRequest extends Equatable {
   final List<String>? areas;
   final String? languageCode;
-  final int limit;
+  final String limit;
   final int? mergeLanguages;
   final List<String>? modes;
   final String pattern;

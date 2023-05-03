@@ -10,7 +10,7 @@ class MainSiteCallender extends StatefulWidget {
 }
 
 class _MainSiteCallenderState extends State<MainSiteCallender> {
-  final callender = mapOfCallenderWidget.values.toList();
+  final callender = MAP_OF_CALLENDER_WIDGET_STRINGS.values.toList();
 
   @override
   Widget build(BuildContext context) {

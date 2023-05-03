@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:fuksiarz_imitation/source/get_it_instance.dart';
 import 'package:fuksiarz_imitation/source/presentation/bloc/single_category_cubit/single_category_event_cubit.dart';
-import 'package:fuksiarz_imitation/source/presentation/widgets/events_view_widgets/category_extension_row.dart';
-import 'package:fuksiarz_imitation/source/presentation/widgets/events_view_widgets/match_participants.dart';
-import 'package:fuksiarz_imitation/source/presentation/widgets/events_view_widgets/match_winner_row.dart';
-import 'package:fuksiarz_imitation/source/presentation/widgets/events_view_widgets/narrowed_list_element.dart';
+import 'package:fuksiarz_imitation/source/presentation/widgets/main_site/events_view_widgets/category_extension_row.dart';
+import 'package:fuksiarz_imitation/source/presentation/widgets/main_site/events_view_widgets/match_participants.dart';
+import 'package:fuksiarz_imitation/source/presentation/widgets/main_site/events_view_widgets/match_winner_row.dart';
+import 'package:fuksiarz_imitation/source/presentation/widgets/main_site/events_view_widgets/narrowed_list_element.dart';
 
 class ExpandedListElement extends StatefulWidget {
   const ExpandedListElement({

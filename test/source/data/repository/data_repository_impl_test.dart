@@ -124,7 +124,7 @@ void main() {
         'Should return ServerOrClientError when the getListOfEvent() throws exception ',
         () async {
           when(mockRemoteDataSource.getRemoteData(any))
-              .thenAnswer((_) async => throw ServerException());
+              .thenAnswer((_) async => throw const ServerException());
 
           final result = await tRepository.getEventsDataFromRemote();
 
@@ -202,7 +202,7 @@ void main() {
         'Should return failure when quick search is called with no data',
         () async {
           when(mockRemoteDataSource.getQuckSearchData(tStr))
-              .thenAnswer((_) async => throw ServerException());
+              .thenAnswer((_) async => throw const ServerException());
 
           final result = await tRepository.getQuickSearchDataFromeRemote(tStr);
           expect(
@@ -215,7 +215,7 @@ void main() {
         },
       );
       test(
-        'Should return failure server error when quick search is called ',
+        'Should return failure ServerOrClientError error when quick search is called ',
         () async {
           when(mockRemoteDataSource.getQuckSearchData(tStr))
               .thenAnswer((_) async => quickSearchResposnseDtoFixtureWithError);
@@ -227,7 +227,7 @@ void main() {
               (l) => l,
               (_) => null,
             ),
-            isA<NoDataFoundFailure>(),
+            isA<ServerOrClientError>(),
           );
         },
       );

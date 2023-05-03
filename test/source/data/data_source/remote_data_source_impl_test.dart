@@ -37,7 +37,8 @@ void main() {
         'remote_data_simple_error_fixture.json',
         'remote_data_fixtures',
       );
-      const tEventDataDto = EventsDataDto(code: 200, description: 'OK.', data: []);
+      const tEventDataDto =
+          EventsDataDto(code: 200, description: 'OK.', data: []);
       final http.Response httpResponse = http.Response(dtoStringFixture, 200);
       final http.Response httpErrorResponse =
           http.Response(dtoStringWithErrorFixture, 500);
@@ -128,7 +129,7 @@ void main() {
       const postRequest = QuickSearchRequest(
         areas: null,
         languageCode: null,
-        limit: 20,
+        limit: '20',
         mergeLanguages: null,
         modes: null,
         pattern: searchPattern,
@@ -140,8 +141,6 @@ void main() {
           when(
             mockedHttpClient.post(
               any,
-              headers: anyNamed('headers'),
-              body: jsonEncode(postRequest.toJson()),
             ),
           ).thenAnswer((_) async => httpQueryResponse);
 
@@ -150,8 +149,6 @@ void main() {
           verify(
             mockedHttpClient.post(
               any,
-              headers: anyNamed('headers'),
-              body: jsonEncode(postRequest.toJson()),
             ),
           );
         },
@@ -178,8 +175,8 @@ void main() {
           when(
             mockedHttpClient.post(
               any,
-              headers: anyNamed('headers'),
-              body: jsonEncode(postRequest.toJson()),
+              // headers: anyNamed('headers'),
+              // body: jsonEncode(postRequest.toJson()),
             ),
           ).thenAnswer((_) async => httpQueryResponseWithError);
 

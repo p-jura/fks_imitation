@@ -13,6 +13,7 @@ class QuickSearchWidget extends StatelessWidget {
       child: InkWell(
         onTap: (){
           Navigator.of(context).pushNamed('/quick_search');
+         
         },
         child: Container(
           padding: const EdgeInsets.all(10),

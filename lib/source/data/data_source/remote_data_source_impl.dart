@@ -1,16 +1,11 @@
 // ignore_for_file: constant_identifier_names
-
 import 'dart:convert';
-import 'package:fuksiarz_imitation/core/errors/exceptions.dart';
-import 'package:fuksiarz_imitation/source/data/data_source/remote_data_source.dart';
-import 'package:fuksiarz_imitation/source/data/models.dart';
 import 'package:http/http.dart' as http;
 
-const QUICKSEARCHURI = 'https://fuksiarz.pl/rest/search/events/quick-search';
-const HEADERS = {
-  'Content-Type': 'application/json',
-  'Request-Language': 'en',
-};
+import 'package:fuksiarz_imitation/core/errors/exceptions.dart';
+import 'package:fuksiarz_imitation/core/fixtures/fixtures.dart' as constants;
+import 'package:fuksiarz_imitation/source/data/data_source/remote_data_source.dart';
+import 'package:fuksiarz_imitation/source/data/models.dart';
 
 class RemoteDataSourcesImpl implements RemoteDataSources {
   final http.Client _repository;
@@ -21,12 +16,12 @@ class RemoteDataSourcesImpl implements RemoteDataSources {
   Future<EventsDataDto> getRemoteData([int? params]) async {
     int category = params ?? 0;
     final url = Uri.parse(
-      'https://fuksiarz.pl/rest/market/categories/multi/$category/events',
+      '${constants.API_URL_PREFIX}/${constants.API_URL_EVENTS_SUFFIX}/$category/events',
     );
 
     final response = await _repository.get(
       url,
-      headers: HEADERS,
+      headers: constants.REQUEST_HEADER,
     );
     if (response.statusCode == 200) {
       return EventsDataDto.fromJson(
@@ -43,23 +38,30 @@ class RemoteDataSourcesImpl implements RemoteDataSources {
   @override
   Future<QuickSearchResponseDto> getQuckSearchData(String params) async {
     final QuickSearchRequest postRequest = QuickSearchRequest(
-      areas: null,
-      languageCode: null,
-      limit: 20,
-      mergeLanguages: null,
-      modes: null,
-      pattern: params,
+      areas: const [
+        'CATEGORY',
+        'LIVE',
+        'PREMATCH_EVENT',
+      ],
+      languageCode: 'pl',
+      limit: '5',
+      mergeLanguages: 1,
+      modes: const ['INFIX','PREFIX'],
+      pattern: 'BAR',
     );
 
-    final url = Uri.parse(QUICKSEARCHURI);
+    final url = Uri.parse(
+      '${constants.API_URL_PREFIX}/${constants.API_URL_QUICK_SEARCH_SUFFIX}',
+    );
     final http.Response postResponse = await _repository.post(
       url,
-      headers: HEADERS,
+      headers: constants.REQUEST_HEADER,
       body: jsonEncode(
         postRequest.toJson(),
       ),
     );
     if (postResponse.statusCode == 200) {
+      print(json.decode(utf8.decode(postResponse.bodyBytes)));
       return QuickSearchResponseDto.fromJson(
         json.decode(
           utf8.decode(postResponse.bodyBytes),

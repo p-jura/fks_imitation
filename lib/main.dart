@@ -25,7 +25,7 @@ class AppRootWidget extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes: {
         '/': (context) => const MainSite(),
-        '/quick_search': (context) => const QuerySite(),
+        '/quick_search': (context) => QuerySite(),
       },
     );
   }

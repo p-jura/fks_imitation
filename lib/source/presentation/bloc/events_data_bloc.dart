@@ -2,9 +2,7 @@ import 'dart:developer';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fuksiarz_imitation/core/errors/failure.dart';
 import 'package:fuksiarz_imitation/core/fixtures/fixtures.dart';
-import 'package:fuksiarz_imitation/source/domain/entities_lists.dart';
 import 'package:fuksiarz_imitation/source/domain/service/get_events_data_from_remote.dart';
-import 'package:fuksiarz_imitation/source/domain/service/get_quick_search_data_from_remote.dart';
 
 import 'package:fuksiarz_imitation/source/presentation/bloc/events_data_bloc_event.dart';
 import 'package:fuksiarz_imitation/source/presentation/bloc/events_data_bloc_state.dart';
@@ -37,7 +35,7 @@ class EventsDataBloc extends Bloc<EventsDataBlocEvent, EventsDataBlocState> {
     
     emit(LoadingState());
 
-    for (var catId in mapOfCategories.keys) {
+    for (var catId in MAP_OF_CATEGORIES.keys) {
       var eventEitherResponse = await getEventsData.call(catId);
       eventEitherResponse.fold(
         // logs - if [catId] has no data, or [ServerError] appear

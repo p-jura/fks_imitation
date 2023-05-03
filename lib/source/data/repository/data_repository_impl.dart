@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:fuksiarz_imitation/core/errors/exceptions.dart';
 
 import 'package:fuksiarz_imitation/core/errors/failure.dart';
+import 'package:fuksiarz_imitation/core/fixtures/fixtures.dart' as constants;
 import 'package:fuksiarz_imitation/core/service/cache_status.dart';
 import 'package:fuksiarz_imitation/source/data/data_source/local_data_source.dart';
 import 'package:fuksiarz_imitation/source/data/data_source/remote_data_source.dart';
@@ -44,7 +45,7 @@ class DataRepositoryImpl implements DataRepository {
         } else {
           return const Left(
             NoDataFoundFailure(
-              message: 'No data found',
+              message: constants.NO_DATA_FOUND_FAILURE_MESSAGE,
             ),
           );
         }
@@ -72,12 +73,14 @@ class DataRepositoryImpl implements DataRepository {
             quickSearchResponse: quckSearchData.data!,
           ),
         );
-      } else {
+      } else if (quckSearchData.code == 200 && quckSearchData.data == null) {
         return const Left(
           NoDataFoundFailure(
-            message: 'No data found',
+            message: constants.NO_DATA_FOUND_FAILURE_MESSAGE,
           ),
         );
+      } else {
+        throw ServerException(quckSearchData.code, quckSearchData.description);
       }
     } on ServerException catch (exception) {
       return Left(
@@ -102,7 +105,7 @@ class DataRepositoryImpl implements DataRepository {
           return Right(EventsDataList(eventData: localData.data!));
         } else {
           return const Left(
-            NoDataFoundFailure(message: 'No data found in cached file'),
+            NoDataFoundFailure(message: constants.NO_DATA_FOUND_FAILURE_CACHE_MESSAGE),
           );
         }
       } else {

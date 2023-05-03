@@ -11,8 +11,6 @@ import 'package:fuksiarz_imitation/source/presentation/bloc/events_data_bloc_sta
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import '../../../fixtures/quick_search_fixtures/quick_search_response_fixture.dart';
-import '../../../fixtures/remote_data_fixtures/event_data_fixture.dart';
 @GenerateNiceMocks([
   MockSpec<GetEventsDataFromRemote>(),
   MockSpec<GetQuickSearchDataFromeRemote>()
