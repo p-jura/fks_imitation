@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fuksiarz_imitation/source/presentation/bloc/single_category_cubit/single_category_event_cubit.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:fuksiarz_imitation/core/fixtures/fixtures.dart' as constants;
 
 class NarrowedListElement extends StatelessWidget {
   const NarrowedListElement({
@@ -21,7 +21,6 @@ class NarrowedListElement extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     return Container(
       padding: const EdgeInsets.all(10),
       decoration: const BoxDecoration(
@@ -29,7 +28,7 @@ class NarrowedListElement extends StatelessWidget {
         border: Border(
           top: BorderSide(
             width: 0.0,
-            color: Color.fromARGB(255, 227, 232, 238),
+            color: constants.BORDER_COLOR,
           ),
         ),
       ),
@@ -42,7 +41,6 @@ class NarrowedListElement extends StatelessWidget {
                 Text(
                   categoriesMappedWithEvents[categoryInex]?['categoryName'],
                   style: GoogleFonts.montserrat(
-                    color: const Color.fromARGB(255, 0, 0, 0),
                     fontSize: 12,
                     fontWeight: FontWeight.w700,
                   ),
@@ -54,14 +52,16 @@ class NarrowedListElement extends StatelessWidget {
                     horizontal: 8,
                   ),
                   decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 227, 232, 238),
+                    color: constants.BORDER_COLOR,
                     borderRadius: BorderRadius.circular(25),
                     border: Border.all(
-                      color: const Color.fromARGB(255, 227, 232, 238),
+                      color: constants.BORDER_COLOR,
                     ),
                   ),
                   child: Text(
-                    categoriesMappedWithEvents[categoryInex]!['categoryEventsCount'].toString(),
+                    categoriesMappedWithEvents[categoryInex]![
+                            'categoryEventsCount']
+                        .toString(),
                     style: const TextStyle(
                       fontSize: 10,
                       fontWeight: FontWeight.w700,
@@ -86,7 +86,7 @@ class NarrowedListElement extends StatelessWidget {
               padding: const EdgeInsets.all(3),
               decoration: BoxDecoration(
                 border: Border.all(
-                  color: const Color.fromARGB(255, 227, 232, 238),
+                  color: constants.BORDER_COLOR,
                 ),
                 borderRadius: BorderRadius.circular(5),
               ),

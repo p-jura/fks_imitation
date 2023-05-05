@@ -37,8 +37,8 @@ class RemoteDataSourcesImpl implements RemoteDataSources {
 
   @override
   Future<QuickSearchResponseDto> getQuckSearchData(String params) async {
-    final QuickSearchRequest postRequest = QuickSearchRequest(
-      areas: const [
+    const QuickSearchRequest postRequest = QuickSearchRequest(
+      areas: [
         'CATEGORY',
         'LIVE',
         'PREMATCH_EVENT',
@@ -46,7 +46,7 @@ class RemoteDataSourcesImpl implements RemoteDataSources {
       languageCode: 'pl',
       limit: '5',
       mergeLanguages: 1,
-      modes: const ['INFIX','PREFIX'],
+      modes: ['INFIX','PREFIX'],
       pattern: 'BAR',
     );
 

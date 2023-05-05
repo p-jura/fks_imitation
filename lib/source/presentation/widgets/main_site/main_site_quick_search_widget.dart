@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fuksiarz_imitation/core/fixtures/fixtures.dart' as constants;
 
 class QuickSearchWidget extends StatelessWidget {
   const QuickSearchWidget({super.key});
@@ -8,7 +9,7 @@ class QuickSearchWidget extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
       decoration: const BoxDecoration(
-        color: Color.fromARGB(255, 248, 248, 248),
+        color: constants.BACKGROUND_COLOR,
       ),
       child: InkWell(
         onTap: (){
@@ -18,9 +19,9 @@ class QuickSearchWidget extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color: const Color.fromARGB(255, 255, 255, 255),
+            color: constants.WHITE_COLOR,
             border: Border.all(
-              color: const Color.fromARGB(255, 227, 232, 238),
+              color: constants.BORDER_COLOR,
             ),
             borderRadius: const BorderRadius.all(
               Radius.circular(5),
@@ -31,7 +32,7 @@ class QuickSearchWidget extends StatelessWidget {
               Icon(
                 Icons.search_rounded,
                 size: 18,
-                color: Color.fromARGB(255, 148, 148, 148),
+                color: constants.SEARCH_ICON_COLOR,
               ),
               SizedBox(
                 width: 10,
@@ -39,7 +40,7 @@ class QuickSearchWidget extends StatelessWidget {
               Text(
                 'CZEGO SZUKASZ',
                 style: TextStyle(
-                  color: Color.fromARGB(255, 148, 148, 148),
+                  color: constants.SEARCH_ICON_COLOR,
                   fontWeight: FontWeight.w500,
                   fontSize: 10,
                 ),

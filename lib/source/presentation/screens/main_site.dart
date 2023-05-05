@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fuksiarz_imitation/source/get_it_instance.dart';
-import 'package:fuksiarz_imitation/source/presentation/bloc/query_data_bloc.dart';
 import 'package:fuksiarz_imitation/source/presentation/bloc/single_category_cubit/single_category_event_cubit.dart';
 import 'package:fuksiarz_imitation/source/presentation/bloc/events_data_bloc.dart';
 import 'package:fuksiarz_imitation/source/presentation/widgets/main_site/main_site_callender.dart';
@@ -26,9 +25,6 @@ class MainSite extends StatelessWidget {
           BlocProvider(
             create: (_) => injSrv<SingleCategoryEventCubit>(),
           ),
-          BlocProvider(
-            create: (_) => injSrv<QueryDataBloc>(),
-          )
         ],
         child: Column(
           children: [
@@ -44,29 +40,29 @@ class MainSite extends StatelessWidget {
                     topLeft: Radius.circular(40),
                     topRight: Radius.circular(40),
                   ),
-                  color: Color.fromARGB(255, 248, 248, 248),
+                  color: constants.BACKGROUND_COLOR,
                 ),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: const [
                     HeaderWidget(),
                     Divider(
-                      color: Color.fromARGB(255, 227, 232, 238),
+                      color: constants.BORDER_COLOR,
                       height: 1.50,
                     ),
                     QuickSearchWidget(),
                     Divider(
-                      color: Color.fromARGB(255, 227, 232, 238),
+                      color: constants.BORDER_COLOR,
                       height: 1.50,
                     ),
                     MainSiteCallender(),
                     Divider(
-                      color: Color.fromARGB(255, 227, 232, 238),
+                      color: constants.BORDER_COLOR,
                       height: 1.50,
                     ),
                     MainSiteFilters(),
                     Divider(
-                      color: Color.fromARGB(255, 227, 232, 238),
+                      color: constants.BORDER_COLOR,
                       height: 1.50,
                     ),
                     MainSiteEventsViewWidget(),

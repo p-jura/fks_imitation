@@ -19,12 +19,9 @@ import './events_data_bloc_test.mocks.dart';
 
 void main() {
   late GetEventsDataFromRemote mockGetEvent;
-  late GetQuickSearchDataFromeRemote mockGetQuickSearch;
   late EventsDataBloc tBloc;
-  const String tString = 'test';
   setUp(() {
     mockGetEvent = MockGetEventsDataFromRemote();
-    mockGetQuickSearch = MockGetQuickSearchDataFromeRemote();
     tBloc = EventsDataBloc(
       getEventsData: mockGetEvent,
     );
@@ -110,40 +107,4 @@ void main() {
     );
   });
 
-  List<EventData> tList = const [
-    EventData(
-      eventId: 1,
-      eventName: 'eventName',
-      category1Id: 1,
-      category2Id: 2,
-      category3Id: 3,
-      category1Name: 'category1Name',
-      category2Name: 'category2Name',
-      category3Name: 'category3Name',
-      eventCodeId: 1,
-      eventStart: null,
-      eventType: null,
-      gamesCount: 1,
-      remoteId: null,
-      eventExtendedData: null,
-      eventGames: [],
-    ),
-    EventData(
-      eventId: 1,
-      eventName: 'eventName',
-      category1Id: 1,
-      category2Id: 2,
-      category3Id: 3,
-      category1Name: 'category1Name',
-      category2Name: 'category2Name',
-      category3Name: 'category3Name',
-      eventCodeId: 1,
-      eventStart: null,
-      eventType: null,
-      gamesCount: 4,
-      remoteId: null,
-      eventExtendedData: null,
-      eventGames: [],
-    )
-  ];
 }

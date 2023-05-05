@@ -29,7 +29,16 @@ class LocalDataSourceImpl implements LocalDataSource {
       if (tempDir != null) {
         log('creating cache file');
         File tempFile = File('$tempDir/$category.json');
-        clearCacheIfDurationIsOver(timeToClearCache: 10, cachedFile: tempFile);
+
+        // if tempFile exists clear cache
+        if (tempFile.existsSync()) {
+          log('cashData');
+          clearCacheIfDurationIsOver(
+            timeToClearCache: 10,
+            cachedFile: tempFile,
+          );
+        }
+
         await tempFile.writeAsString(
           json.encode(
             data.toJson(),
@@ -56,6 +65,12 @@ class LocalDataSourceImpl implements LocalDataSource {
       final String? tempDir = await _pathProvider.getTemporaryPath();
       final File tempFile = File('$tempDir/$category.json');
       if (tempFile.existsSync()) {
+        log('getLocalData');
+        clearCacheIfDurationIsOver(
+          timeToClearCache: 10,
+          cachedFile: tempFile,
+        );
+
         final data = await tempFile.readAsString(encoding: utf8);
         return EventsDataDto.fromJson(json.decode(data));
       }

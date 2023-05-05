@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:fuksiarz_imitation/source/presentation/bloc/events_data_bloc.dart';
 import 'package:fuksiarz_imitation/source/presentation/bloc/events_data_bloc_event.dart';
 import 'package:fuksiarz_imitation/source/presentation/bloc/events_data_bloc_state.dart';
+import 'package:fuksiarz_imitation/core/fixtures/fixtures.dart' as constants;
 
 class MainSiteFilters extends StatelessWidget {
   const MainSiteFilters({super.key});
@@ -75,8 +76,8 @@ class CategoriesFilterElement extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: 5),
         decoration: BoxDecoration(
           color: catWithEventsCount['isActive'] != null
-              ? const Color.fromARGB(255, 224, 230, 237)
-              : const Color.fromARGB(255, 248, 248, 248),
+              ? constants.ACTIVE_COMPONENT_COLOR
+              : constants.BACKGROUND_COLOR,
           border: Border.all(
             width: 1,
             color: const Color.fromARGB(255, 227, 232, 238),

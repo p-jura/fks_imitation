@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:fuksiarz_imitation/core/fixtures/fixtures.dart' as constants;
 import 'package:google_fonts/google_fonts.dart';
 
 class MatchWinnerRow extends StatelessWidget {
@@ -72,8 +73,8 @@ class WinnerBoxExtension extends StatelessWidget {
             child: Divider(
                 thickness: 2.0,
                 color: isActive
-                    ? const Color.fromARGB(255, 156, 179, 202)
-                    : const Color.fromARGB(255, 248, 248, 248),),
+                    ? constants.ISACTIVE_COMPONENT_COLOR
+                    : constants.BACKGROUND_COLOR,),
           ),
         ],
       ),

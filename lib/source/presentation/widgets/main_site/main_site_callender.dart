@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fuksiarz_imitation/core/fixtures/fixtures.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:fuksiarz_imitation/core/fixtures/fixtures.dart' as constants;
 
 class MainSiteCallender extends StatefulWidget {
   const MainSiteCallender({super.key});
@@ -47,10 +48,10 @@ class _MainSiteCallenderState extends State<MainSiteCallender> {
                       if (callender[index] == 'MOJE') {
                         return Container(
                           decoration: const BoxDecoration(
-                            color: Color.fromARGB(255, 255, 255, 255),
+                            color: constants.WHITE_COLOR,
                             border: Border.symmetric(
                               vertical: BorderSide(
-                                color: Color.fromARGB(255, 227, 232, 238),
+                                color: constants.BORDER_COLOR,
                               ),
                             ),
                           ),
@@ -65,7 +66,6 @@ class _MainSiteCallenderState extends State<MainSiteCallender> {
                             child: Text(
                               callender[index],
                               style: GoogleFonts.montserrat(
-                                color: const Color.fromARGB(255, 0, 0, 0),
                                 fontSize: 10,
                                 fontWeight: FontWeight.w700,
                               ),
@@ -92,7 +92,9 @@ class _MainSiteCallenderState extends State<MainSiteCallender> {
                                     const Text(
                                       ' 🟢',
                                       style: TextStyle(
-                                          fontSize: 5, color: Colors.green,),
+                                        fontSize: 5,
+                                        color: Colors.green,
+                                      ),
                                     ),
                                   ],
                                 )
@@ -109,10 +111,13 @@ class _MainSiteCallenderState extends State<MainSiteCallender> {
               Flexible(
                 child: Container(
                   height: 45,
-                  color: const Color.fromARGB(255, 248, 248, 248),
+                  color: constants.BACKGROUND_COLOR,
                   padding: const EdgeInsets.all(10),
                   child: Center(
-                    child: Image.asset('assets/images/icons/callender.png', fit: BoxFit.contain,),
+                    child: Image.asset(
+                      'assets/images/icons/callender.png',
+                      fit: BoxFit.contain,
+                    ),
                   ),
                 ),
               ),
@@ -138,7 +143,6 @@ class CallenderTextWidget extends StatelessWidget {
     return Text(
       callender[index],
       style: GoogleFonts.montserrat(
-        color: const Color.fromARGB(255, 0, 0, 0),
         fontSize: 10,
         fontWeight: FontWeight.w700,
       ),

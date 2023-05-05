@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fuksiarz_imitation/source/domain/entities_lists.dart';
 import 'package:intl/intl.dart';
+import 'package:fuksiarz_imitation/core/fixtures/fixtures.dart' as constants;
 
 class MachParticipantsExtension extends StatelessWidget {
   const MachParticipantsExtension({
@@ -31,7 +32,7 @@ class MachParticipantsExtension extends StatelessWidget {
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   border: Border.all(
-                    color: const Color.fromARGB(255, 227, 232, 238),
+                    color: constants.BORDER_COLOR,
                   ),
                   borderRadius: const BorderRadius.all(
                     Radius.circular(10),
@@ -58,7 +59,7 @@ class MachParticipantsExtension extends StatelessWidget {
                                   horizontal: 6,
                                 ),
                                 decoration: const BoxDecoration(
-                                  color: Color.fromARGB(255, 198, 40, 40),
+                                  color: constants.DEEP_BACKGROUND_COLOR,
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(10),
                                   ),
@@ -77,7 +78,7 @@ class MachParticipantsExtension extends StatelessWidget {
                                       style: TextStyle(
                                         fontSize: 6,
                                         fontWeight: FontWeight.bold,
-                                        color: Colors.white,
+                                        color: constants.WHITE_COLOR,
                                       ),
                                     ),
                                   ],
@@ -102,7 +103,7 @@ class MachParticipantsExtension extends StatelessWidget {
                         ),
                         const Expanded(
                           child: Divider(
-                            color: Color.fromARGB(255, 227, 232, 238),
+                            color: constants.BORDER_COLOR,
                             indent: 10,
                             endIndent: 10,
                             thickness: 1,
@@ -113,7 +114,7 @@ class MachParticipantsExtension extends StatelessWidget {
                           style: const TextStyle(
                             fontSize: 8,
                             fontWeight: FontWeight.w600,
-                            color: Color.fromARGB(255, 198, 40, 40),
+                            color: constants.DEEP_BACKGROUND_COLOR,
                           ),
                         ),
                       ],
@@ -162,7 +163,7 @@ class MachParticipantsExtension extends StatelessWidget {
                               txt: '1',
                               color: outcomes.first.outcomeOdds >
                                       outcomes.last.outcomeOdds
-                                  ? const Color.fromARGB(255, 198, 40, 40)
+                                  ? constants.DEEP_BACKGROUND_COLOR
                                   : null,
                               odds: outcomes.first.outcomeOdds.toString(),
                             ),
@@ -171,7 +172,7 @@ class MachParticipantsExtension extends StatelessWidget {
                               txt: '2',
                               color: outcomes.last.outcomeOdds >
                                       outcomes.first.outcomeOdds
-                                  ? const Color.fromARGB(255, 198, 40, 40)
+                                  ? constants.DEEP_BACKGROUND_COLOR
                                   : null,
                               odds: outcomes.last.outcomeOdds.toString(),
                             ),
@@ -212,7 +213,7 @@ class OddsWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: color,
         border: Border.all(
-          color: color ?? const Color.fromARGB(255, 227, 232, 238),
+          color: color ?? constants.BORDER_COLOR,
         ),
         borderRadius: BorderRadius.circular(3),
       ),
@@ -223,7 +224,7 @@ class OddsWidget extends StatelessWidget {
             style: TextStyle(
               fontSize: 8,
               fontWeight: FontWeight.w600,
-              color: color != null ? Colors.white : null,
+              color: color != null ? constants.WHITE_COLOR : null,
             ),
           ),
           Text(
@@ -235,7 +236,7 @@ class OddsWidget extends StatelessWidget {
             style: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.bold,
-              color: color != null ? Colors.white : null,
+              color: color != null ? constants.WHITE_COLOR : null,
             ),
           ),
         ],

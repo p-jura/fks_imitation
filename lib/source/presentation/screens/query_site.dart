@@ -23,7 +23,7 @@ class QuerySite extends StatelessWidget {
       BlocProvider.of<QueryDataBloc>(ctx).add(
         GetQueryFromRemote(query: _controller.text),
       );
-    } else if (_controller.text.isEmpty) {
+    } else if (_controller.text.length < 3) {
       BlocProvider.of<QueryDataBloc>(ctx).add(
         ResetQuery(),
       );

@@ -51,7 +51,7 @@ class _ExpandedListElementState extends State<ExpandedListElement> {
           );
         } else if (state is SingleCategoryEventsLoadedState) {
           var dataList = state.eventsDataList;
-
+          dataList.eventData.removeRange(dataList.eventData.first.gamesCount!, dataList.eventData.length);
           return state.categoryId == widget.categories
               ? Column(
                   mainAxisSize: MainAxisSize.min,

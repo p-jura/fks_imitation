@@ -28,7 +28,6 @@ class CategoriesExtensionRow extends StatelessWidget {
                       .toString()
                       .toUpperCase(),
                   style: GoogleFonts.montserrat(
-                    color: const Color.fromARGB(255, 0, 0, 0),
                     fontSize: 10,
                     fontWeight: FontWeight.w800,
                   ),
@@ -48,7 +47,6 @@ class CategoriesExtensionRow extends StatelessWidget {
                       .toString()
                       .toUpperCase(),
                   style: GoogleFonts.montserrat(
-                    color: const Color.fromARGB(255, 0, 0, 0),
                     fontSize: 10,
                     fontWeight: FontWeight.w800,
                   ),

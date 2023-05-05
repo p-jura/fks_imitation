@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:fuksiarz_imitation/core/fixtures/fixtures.dart' as constants;
 
 class HeaderWidget extends StatelessWidget {
   const HeaderWidget({
@@ -25,7 +26,7 @@ class HeaderWidget extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(Radius.circular(30)),
               border: Border.all(
-                color: const Color.fromARGB(255, 227, 232, 238),
+                color: constants.BORDER_COLOR,
               ),
             ),
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -34,7 +35,7 @@ class HeaderWidget extends StatelessWidget {
                 const Icon(
                   Icons.add_circle,
                   size: 24,
-                  color: Color.fromARGB(255, 198, 40, 40),
+                  color: constants.DEEP_BACKGROUND_COLOR,
                 ),
                 const SizedBox(
                   width: 10,

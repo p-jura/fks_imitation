@@ -22,10 +22,12 @@ const Map<String, String> MAP_OF_CALLENDER_WIDGET_STRINGS = {
 // const String: failure messages
 const NO_DATA_FOUND_FAILURE_MESSAGE = 'No data found';
 const NO_DATA_FOUND_FAILURE_CACHE_MESSAGE = 'No data found in cached file';
-const GET_LOCAL_FAILED_MESSAGE ='getLocalData failed: no file found in directory ';
-const GET_LOCAL_FAILED_WITH_PARAM_MESSAGE = 'getLocalData failed: no file with givent';
+const GET_LOCAL_FAILED_MESSAGE =
+    'getLocalData failed: no file found in directory ';
+const GET_LOCAL_FAILED_WITH_PARAM_MESSAGE =
+    'getLocalData failed: no file with givent';
 
-// const String: 
+// const String:
 const String EARLY_PAYOUT = 'EARLY PAYOUT';
 const String RECOMENDED = 'POLECANE:';
 const String SHOW_ALL = 'POKAŻ WSZYSTKIE';
@@ -59,3 +61,7 @@ const Color BORDER_COLOR = Color.fromARGB(255, 227, 232, 238);
 const Color BACKGROUND_COLOR = Color.fromARGB(255, 248, 248, 248);
 const Color DEEP_BORDER_COLOR = Color.fromARGB(255, 196, 196, 196);
 const Color DEEP_BACKGROUND_COLOR = Color.fromARGB(255, 198, 40, 40);
+const Color WHITE_COLOR = Color.fromARGB(255, 255, 255, 255);
+const Color SEARCH_ICON_COLOR = Color.fromARGB(255, 148, 148, 148);
+const Color ACTIVE_COMPONENT_COLOR = Color.fromARGB(255, 224, 230, 237);
+const Color ISACTIVE_COMPONENT_COLOR = Color.fromARGB(255, 156, 179, 202);
