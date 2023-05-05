@@ -23,17 +23,7 @@ class CacheStatusImpl implements CacheStatus {
     if (path != null) {
       final String filePath = '$path/$param.json';
       _path = filePath;
-      var file = File(filePath);
-      if (!file.existsSync()) {
-        return false;
-      }
-      // overwrites the cache when a file modification was more than an hour ago
-      if (DateTime.now().difference(file.lastAccessedSync()) >
-          const Duration(hours: 1)) {
-        log('rewriting cache');
-        return false;
-      }
-      return true;
+      return await File(filePath).exists();
     } else {
       log('path not exists');
       return false;

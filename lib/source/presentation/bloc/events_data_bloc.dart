@@ -10,18 +10,15 @@ import 'package:fuksiarz_imitation/source/presentation/bloc/events_data_bloc_sta
 class EventsDataBloc extends Bloc<EventsDataBlocEvent, EventsDataBlocState> {
   final GetEventsDataFromRemote getEventsData;
 
-
   EventsDataBloc({
     required this.getEventsData,
-    
   }) : super(EmptyState()) {
-    on<GetEventsFromRemoteAllCategories>(_getAllCategoriesEventData);
-    on<GetEventsDataFromRemoteSingleCat>(_getSingleCategoryData);
-
+    on<GetAllCategoriesEventsData>(_getAllCategoriesEventData);
+    on<GetSingleCategoryEventsData>(_getSingleCategoryData);
   }
 
   void _getAllCategoriesEventData(
-    GetEventsFromRemoteAllCategories event,
+    GetAllCategoriesEventsData event,
     Emitter<EventsDataBlocState> emit,
   ) async {
     int allEventsGamesCount = 0;
@@ -32,7 +29,7 @@ class EventsDataBloc extends Bloc<EventsDataBlocEvent, EventsDataBlocState> {
         'isActive': true,
       }
     };
-    
+
     emit(LoadingState());
 
     for (var catId in MAP_OF_CATEGORIES.keys) {
@@ -42,7 +39,7 @@ class EventsDataBloc extends Bloc<EventsDataBlocEvent, EventsDataBlocState> {
         (failure) => failure.mapFailuresToLog(),
 
         (eventsDataList) {
-          var eventGamesCount = eventsDataList.eventData.length;
+          var eventGamesCount = eventsDataList.eventData.first.gamesCount ?? 0;
 
           categoriesWithEvents[catId] = {
             'categoryName':
@@ -71,10 +68,9 @@ class EventsDataBloc extends Bloc<EventsDataBlocEvent, EventsDataBlocState> {
   }
 
   void _getSingleCategoryData(
-    GetEventsDataFromRemoteSingleCat event,
+    GetSingleCategoryEventsData event,
     Emitter<EventsDataBlocState> emit,
   ) async {
-
     emit(LoadingState());
     final eventEitherResponse = await getEventsData.call(event.categoryId);
     eventEitherResponse.fold(
@@ -91,8 +87,6 @@ class EventsDataBloc extends Bloc<EventsDataBlocEvent, EventsDataBlocState> {
       },
     );
   }
-
- 
 }
 
 extension MapFailures on Failure {

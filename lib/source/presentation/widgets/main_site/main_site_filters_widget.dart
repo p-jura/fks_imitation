@@ -13,7 +13,7 @@ class MainSiteFilters extends StatelessWidget {
   Widget build(BuildContext context) {
     // categoires ammount lisetd in assignment
     BlocProvider.of<EventsDataBloc>(context)
-        .add(GetEventsFromRemoteAllCategories(12));
+        .add(GetAllCategoriesEventsData(12));
     return Container(
       width: double.infinity,
       height: 50,
@@ -34,15 +34,17 @@ class MainSiteFilters extends StatelessWidget {
                   return const LinearProgressIndicator();
                   // loaded data
                 } else if (state is AllCategoriesEventsLoadedState) {
-                  Map filterCategoriesWithEvents = state.categoriesWithEvents;
-                  return ListView.builder(
+                  final Map<int, Map<String, dynamic>>
+                      filterCategoriesWithEvents = state.categoriesWithEvents;
+                  return ListView(
                     scrollDirection: Axis.horizontal,
-                    itemCount: filterCategoriesWithEvents.length,
-                    itemBuilder: (context, index) {
-                      return CategoriesFilterElement(
-                        catWithEventsCount: filterCategoriesWithEvents[index],
-                      );
-                    },
+                    children: filterCategoriesWithEvents.values
+                        .map(
+                          (e) => CategoriesFilterElement(
+                            catWithEventsCount: e,
+                          ),
+                        )
+                        .toList(),
                   );
                 } else {
                   return const Text(

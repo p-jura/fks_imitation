@@ -11,19 +11,19 @@ class GetEventsFromRemoteSingleCategory extends EventsDataBlocEvent {
   List<Object?> get props => [];
 }
 
-class GetEventsFromRemoteAllCategories extends EventsDataBlocEvent {
+class GetAllCategoriesEventsData extends EventsDataBlocEvent {
   final int? categoiresAmmount;
 
-  GetEventsFromRemoteAllCategories([this.categoiresAmmount]);
+  GetAllCategoriesEventsData([this.categoiresAmmount]);
 
   @override
   List<Object?> get props => [categoiresAmmount];
 }
 
-class GetEventsDataFromRemoteSingleCat extends EventsDataBlocEvent {
+class GetSingleCategoryEventsData extends EventsDataBlocEvent {
   final int categoryId;
 
-  GetEventsDataFromRemoteSingleCat({required this.categoryId});
+  GetSingleCategoryEventsData({required this.categoryId});
  
   @override
   List<Object?> get props => [categoryId];

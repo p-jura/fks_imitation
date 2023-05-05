@@ -29,6 +29,7 @@ class LocalDataSourceImpl implements LocalDataSource {
       if (tempDir != null) {
         log('creating cache file');
         File tempFile = File('$tempDir/$category.json');
+        clearCacheIfDurationIsOver(timeToClearCache: 10, cachedFile: tempFile);
         await tempFile.writeAsString(
           json.encode(
             data.toJson(),
@@ -55,7 +56,7 @@ class LocalDataSourceImpl implements LocalDataSource {
       final String? tempDir = await _pathProvider.getTemporaryPath();
       final File tempFile = File('$tempDir/$category.json');
       if (tempFile.existsSync()) {
-        final data = await tempFile.readAsString();
+        final data = await tempFile.readAsString(encoding: utf8);
         return EventsDataDto.fromJson(json.decode(data));
       }
       throw NoDataCached(
@@ -65,6 +66,18 @@ class LocalDataSourceImpl implements LocalDataSource {
       throw NoDataCached(
         '${constants.GET_LOCAL_FAILED_WITH_PARAM_MESSAGE} $category',
       );
+    }
+  }
+
+  void clearCacheIfDurationIsOver({
+    required int timeToClearCache,
+    required File cachedFile,
+  }) async {
+    final durationIsOver =
+        DateTime.now().difference(cachedFile.lastModifiedSync()) >
+            Duration(minutes: timeToClearCache);
+    if (durationIsOver) {
+      await cachedFile.delete();
     }
   }
 }

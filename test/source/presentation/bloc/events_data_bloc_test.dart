@@ -100,7 +100,7 @@ void main() {
           EventsDataList(eventData: [eventData]),
         ),
       ),
-      act: (bloc) => bloc.add(GetEventsFromRemoteAllCategories()),
+      act: (bloc) => bloc.add(GetAllCategoriesEventsData()),
       expect: () => [
         LoadingState(),
         AllCategoriesEventsLoadedState(
