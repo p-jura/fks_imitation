@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
-import 'package:fuksiarz_imitation/core/fixtures/fixtures.dart' as constants;
 import 'package:path_provider_platform_interface/path_provider_platform_interface.dart'
     as ppi;
 
+import 'package:fuksiarz_imitation/core/fixtures/fixtures.dart' as constants;
 import 'package:fuksiarz_imitation/source/data/models.dart';
 import 'package:fuksiarz_imitation/source/data/data_source/local_data_source.dart';
 import 'package:fuksiarz_imitation/core/errors/failure.dart';
@@ -29,16 +29,6 @@ class LocalDataSourceImpl implements LocalDataSource {
       if (tempDir != null) {
         log('creating cache file');
         File tempFile = File('$tempDir/$category.json');
-
-        // if tempFile exists clear cache
-        if (tempFile.existsSync()) {
-          log('cashData');
-          clearCacheIfDurationIsOver(
-            timeToClearCache: 10,
-            cachedFile: tempFile,
-          );
-        }
-
         await tempFile.writeAsString(
           json.encode(
             data.toJson(),
@@ -65,12 +55,6 @@ class LocalDataSourceImpl implements LocalDataSource {
       final String? tempDir = await _pathProvider.getTemporaryPath();
       final File tempFile = File('$tempDir/$category.json');
       if (tempFile.existsSync()) {
-        log('getLocalData');
-        clearCacheIfDurationIsOver(
-          timeToClearCache: 10,
-          cachedFile: tempFile,
-        );
-
         final data = await tempFile.readAsString(encoding: utf8);
         return EventsDataDto.fromJson(json.decode(data));
       }
@@ -81,18 +65,6 @@ class LocalDataSourceImpl implements LocalDataSource {
       throw NoDataCached(
         '${constants.GET_LOCAL_FAILED_WITH_PARAM_MESSAGE} $category',
       );
-    }
-  }
-
-  void clearCacheIfDurationIsOver({
-    required int timeToClearCache,
-    required File cachedFile,
-  }) async {
-    final durationIsOver =
-        DateTime.now().difference(cachedFile.lastModifiedSync()) >
-            Duration(minutes: timeToClearCache);
-    if (durationIsOver) {
-      await cachedFile.delete();
     }
   }
 }

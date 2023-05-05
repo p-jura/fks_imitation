@@ -13,7 +13,7 @@ class DataRepositoryImpl implements DataRepository {
   final RemoteDataSources _remoteDataSource;
   final LocalDataSource _localDataSource;
   final CacheStatus _cacheStatus;
-
+   
   DataRepositoryImpl({
     required RemoteDataSources remoteDataSources,
     required LocalDataSource localDataSource,

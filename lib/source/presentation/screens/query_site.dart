@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fuksiarz_imitation/core/fixtures/fixtures.dart' as constants;
 import 'package:fuksiarz_imitation/source/domain/entities_lists.dart';
+import 'package:fuksiarz_imitation/source/domain/single_entities.dart';
 import 'package:fuksiarz_imitation/source/get_it_instance.dart';
 import 'package:fuksiarz_imitation/source/presentation/bloc/query_data_bloc.dart';
 import 'package:fuksiarz_imitation/source/presentation/bloc/query_data_event.dart';
@@ -58,7 +59,7 @@ class QuerySite extends StatelessWidget {
                 child: BlocBuilder<QueryDataBloc, QueryState>(
                   bloc: injSrv<QueryDataBloc>(),
                   builder: (context, state) {
-                    if (state is InitialQueryState) {
+                    if (state is QueryLoadedState) {
                       return Column(
                         children: [
                           Expanded(
@@ -88,10 +89,21 @@ class QuerySite extends StatelessWidget {
                           ),
                         ],
                       );
-                    } else if (state is QueryLoadedState &&
-                        state.qickSearchEventList.quickSearchResponse
-                            .isNotEmpty) {
-                      var data = state.qickSearchEventList;
+                    } else if (state is InitialQueryState
+                        // state is QueryLoadedState &&
+                        //   state.qickSearchEventList.quickSearchResponse
+                        //       .isNotEmpty
+                        ) {
+                      // var data = state.qickSearchEventList;
+                      var data =
+                          const QuickSearchResponseList(quickSearchResponse: [
+                        QuickSearchResponse(
+                            area: 1,
+                            name: 'name',
+                            id: 1,
+                            score: 2.0,
+                            extras: {'extras': 'extras'})
+                      ]);
                       return Column(
                         children: [
                           QuickSearchTextFieldWidget(
