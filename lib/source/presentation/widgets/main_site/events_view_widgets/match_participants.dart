@@ -1,11 +1,13 @@
-
 import 'package:flutter/material.dart';
 import 'package:fuksiarz_imitation/source/domain/entities_lists.dart';
 import 'package:intl/intl.dart';
 
 class MachParticipantsExtension extends StatelessWidget {
-  const MachParticipantsExtension(
-      {super.key, required this.dataList, required this.index,});
+  const MachParticipantsExtension({
+    super.key,
+    required this.dataList,
+    required this.index,
+  });
   final EventsDataList dataList;
   final int index;
 
@@ -73,9 +75,10 @@ class MachParticipantsExtension extends StatelessWidget {
                                     const Text(
                                       'HOT',
                                       style: TextStyle(
-                                          fontSize: 6,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white,),
+                                        fontSize: 6,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -93,7 +96,9 @@ class MachParticipantsExtension extends StatelessWidget {
                         Text(
                           DateFormat('H:mm').format(event.eventStart!),
                           style: const TextStyle(
-                              fontSize: 8, fontWeight: FontWeight.w600,),
+                            fontSize: 8,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                         const Expanded(
                           child: Divider(
@@ -155,12 +160,19 @@ class MachParticipantsExtension extends StatelessWidget {
                           children: [
                             OddsWidget(
                               txt: '1',
-                              color: const Color.fromARGB(255, 198, 40, 40),
+                              color: outcomes.first.outcomeOdds >
+                                      outcomes.last.outcomeOdds
+                                  ? const Color.fromARGB(255, 198, 40, 40)
+                                  : null,
                               odds: outcomes.first.outcomeOdds.toString(),
                             ),
                             const SizedBox(width: 6),
                             OddsWidget(
                               txt: '2',
+                              color: outcomes.last.outcomeOdds >
+                                      outcomes.first.outcomeOdds
+                                  ? const Color.fromARGB(255, 198, 40, 40)
+                                  : null,
                               odds: outcomes.last.outcomeOdds.toString(),
                             ),
                           ],

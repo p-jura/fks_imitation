@@ -21,7 +21,7 @@ class AllCategoriesEventsLoadedState extends EventsDataBlocState {
   }) : _categoriesWithEvents = categoriesWithEvents;
 
   Map<int, Map<String, dynamic>> get categoriesWithEvents =>
-      Map.from(_categoriesWithEvents);
+      Map.of(_categoriesWithEvents);
 
   @override
   List<Object?> get props => [_categoriesWithEvents];
