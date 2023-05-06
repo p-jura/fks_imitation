@@ -46,6 +46,7 @@ const String FIFTH_IMAGE_PATH = 'assets/images/fifth_image.png';
 const String QUICKSEARCH_PROGRESS_INDICATOR =
     'assets/images/icons/quick_search_progress_indicator.png';
 const String NO_DATA_IMAGE_PATH = 'assets/images/icons/no_data.png';
+const String TV_FULL_IMAGE_PATH = 'assets/images/icons/tv_full.png';
 
 // URL
 const API_URL_PREFIX = 'https://fuksiarz.pl/rest';

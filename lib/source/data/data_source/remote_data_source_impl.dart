@@ -37,17 +37,16 @@ class RemoteDataSourcesImpl implements RemoteDataSources {
 
   @override
   Future<QuickSearchResponseDto> getQuckSearchData(String params) async {
-    const QuickSearchRequest postRequest = QuickSearchRequest(
-      areas: [
-        'CATEGORY',
-        'LIVE',
+    QuickSearchRequest postRequest = QuickSearchRequest(
+      areas: const [
+        'LIVE_EVENT',
         'PREMATCH_EVENT',
       ],
       languageCode: 'pl',
       limit: '5',
-      mergeLanguages: 1,
-      modes: ['INFIX','PREFIX'],
-      pattern: 'BAR',
+      mergeLanguages: true,
+      modes: const ['INFIX', 'PREFIX'],
+      pattern: params,
     );
 
     final url = Uri.parse(
@@ -61,7 +60,7 @@ class RemoteDataSourcesImpl implements RemoteDataSources {
       ),
     );
     if (postResponse.statusCode == 200) {
-      print(json.decode(utf8.decode(postResponse.bodyBytes)));
+      
       return QuickSearchResponseDto.fromJson(
         json.decode(
           utf8.decode(postResponse.bodyBytes),

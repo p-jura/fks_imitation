@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fuksiarz_imitation/source/domain/entities_lists.dart';
+import 'package:fuksiarz_imitation/source/domain/single_entities.dart';
+import 'package:fuksiarz_imitation/source/presentation/widgets/event_strat_time_widget.dart';
+import 'package:fuksiarz_imitation/source/presentation/widgets/hot_container_widget.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:fuksiarz_imitation/core/fixtures/fixtures.dart' as constants;
 
@@ -53,37 +57,7 @@ class MachParticipantsExtension extends StatelessWidget {
                         // event, date and HOT icon
                         event.eventStart!.difference(DateTime.now()) <
                                 const Duration(hours: 4)
-                            ? Container(
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 3,
-                                  horizontal: 6,
-                                ),
-                                decoration: const BoxDecoration(
-                                  color: constants.DEEP_BACKGROUND_COLOR,
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(10),
-                                  ),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Image.asset(
-                                      'assets/images/icons/hot.png',
-                                      fit: BoxFit.fitHeight,
-                                    ),
-                                    const SizedBox(width: 2),
-                                    const Text(
-                                      'HOT',
-                                      style: TextStyle(
-                                        fontSize: 6,
-                                        fontWeight: FontWeight.bold,
-                                        color: constants.WHITE_COLOR,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              )
+                            ? const HotContainerWidget()
                             : const SizedBox(),
                       ],
                     ),
@@ -92,33 +66,7 @@ class MachParticipantsExtension extends StatelessWidget {
                     ),
 
                     // event progress bar
-                    Row(
-                      children: [
-                        Text(
-                          DateFormat('H:mm').format(event.eventStart!),
-                          style: const TextStyle(
-                            fontSize: 8,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        const Expanded(
-                          child: Divider(
-                            color: constants.BORDER_COLOR,
-                            indent: 10,
-                            endIndent: 10,
-                            thickness: 1,
-                          ),
-                        ),
-                        Text(
-                          '+ ${event.eventStart!.difference(DateTime.now()).inHours}',
-                          style: const TextStyle(
-                            fontSize: 8,
-                            fontWeight: FontWeight.w600,
-                            color: constants.DEEP_BACKGROUND_COLOR,
-                          ),
-                        ),
-                      ],
-                    ),
+                    EventStartTimeWidget(event: event),
                     const SizedBox(
                       height: 10,
                     ),
@@ -136,7 +84,7 @@ class MachParticipantsExtension extends StatelessWidget {
                                 outcomes!.first.outcomeName!
                                     .toUpperCase()
                                     .toString(),
-                                style: const TextStyle(
+                                style: GoogleFonts.montserrat(
                                   fontSize: 10,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -148,7 +96,7 @@ class MachParticipantsExtension extends StatelessWidget {
                                 outcomes.last.outcomeName!
                                     .toUpperCase()
                                     .toString(),
-                                style: const TextStyle(
+                                style: GoogleFonts.montserrat(
                                   fontSize: 10,
                                   fontWeight: FontWeight.bold,
                                 ),

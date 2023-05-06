@@ -26,9 +26,9 @@ void main() {
         QueryDataBloc(getQuickSearchData: mockGetQuickSearchDataFromeRemote);
   });
   group('_getQueryData()', () {
-    const QuickSearchResponse tQuickSearchResponse =
+     QuickSearchResponse tQuickSearchResponse =
         quickSearchResponseDataFixture;
-    const QuickSearchResponseList tQsearchList = QuickSearchResponseList(
+     QuickSearchResponseList tQsearchList = QuickSearchResponseList(
       quickSearchResponse: [
         tQuickSearchResponse,
       ],
@@ -38,7 +38,7 @@ void main() {
       build: () => tQBloc,
       setUp: () {
         when(mockGetQuickSearchDataFromeRemote.call(tString)).thenAnswer(
-          (_) async => const Right(
+          (_) async =>  Right(
             tQsearchList,
           ),
         );

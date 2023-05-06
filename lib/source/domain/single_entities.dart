@@ -186,17 +186,19 @@ class Outcome extends Equatable {
 
 @immutable
 class QuickSearchResponse extends Equatable {
-  final int area;
+  final String area;
   final String name;
   final int id;
   final double score;
-  final Map<String, String> extras;
+  final DateTime eventStart;
+  final Map<String, dynamic> extras;
 
   const QuickSearchResponse({
     required this.area,
     required this.name,
     required this.id,
     required this.score,
+    required this.eventStart,
     required this.extras,
   });
   factory QuickSearchResponse.fromJson(Map<String, dynamic> json) =>
@@ -206,6 +208,7 @@ class QuickSearchResponse extends Equatable {
         id: json['id'],
         score: json['score'],
         extras: json['extras'],
+        eventStart: DateTime.fromMillisecondsSinceEpoch(json['eventStart']),
       );
   Map<String, dynamic> toJson() {
     Map<String, dynamic> data = <String, dynamic>{};
@@ -214,9 +217,28 @@ class QuickSearchResponse extends Equatable {
     data['id'] = id;
     data['score'] = score;
     data['extras'] = extras;
+    data['eventStart'] = eventStart.millisecondsSinceEpoch;
     return data;
   }
 
   @override
   List<Object?> get props => [area, name, id, score, extras];
+
+  EventData qsResponseToEventData() => EventData(
+        eventId: id,
+        eventName: name,
+        category1Id: extras['CATEGORY_ID_1'],
+        category2Id: extras['CATEGORY_ID_2'],
+        category3Id: extras['CATEGORY_ID_3'],
+        category1Name: extras['CATEGORY_NAME_1'],
+        category2Name: extras['CATEGORY_NAME_2'],
+        category3Name: extras['CATEGORY_NAME_3'],
+        eventCodeId: id,
+        eventStart: eventStart,
+        eventType: extras['SPORT_ID'],
+        gamesCount: null,
+        remoteId: null,
+        eventExtendedData: null,
+        eventGames: const [],
+      );
 }

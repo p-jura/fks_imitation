@@ -1,16 +1,16 @@
 import 'package:fuksiarz_imitation/source/data/models.dart';
 
-const QuickSearchResponseDto quickSearchResposnseDtoFixtures =
-    QuickSearchResponseDto(
+QuickSearchResponseDto quickSearchResposnseDtoFixtures = QuickSearchResponseDto(
   code: 200,
   description: 'description',
   data: [
     QuickSearchResponseData(
-      area: 1,
+      area: '1',
       name: 'name',
       id: 1,
       score: 1.0,
-      modelExtras: {},
+      modelExtras: const {},
+      modelEventStart: DateTime.fromMillisecondsSinceEpoch(1683383400000),
     ),
   ],
 );

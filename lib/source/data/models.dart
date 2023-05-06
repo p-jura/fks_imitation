@@ -127,7 +127,12 @@ class QuickSearchResponseDto extends Equatable {
 @JsonSerializable()
 class QuickSearchResponseData extends QuickSearchResponse {
   @JsonKey(name: 'extras')
-  final Map<String, String> modelExtras;
+  final Map<String, dynamic> modelExtras;
+  @JsonKey(
+    name: 'eventStart',
+    fromJson: _dataTimeInMilliseconds,
+  )
+  final DateTime modelEventStart;
 
   const QuickSearchResponseData({
     required super.area,
@@ -135,20 +140,25 @@ class QuickSearchResponseData extends QuickSearchResponse {
     required super.id,
     required super.score,
     required this.modelExtras,
-  }) : super(extras: modelExtras);
+    required this.modelEventStart,
+  }) : super(extras: modelExtras, eventStart: modelEventStart);
 
   factory QuickSearchResponseData.fromJson(Map<String, dynamic> json) =>
       _$QuickSearchResponseDataFromJson(json);
 
   @override
   Map<String, dynamic> toJson() => _$QuickSearchResponseDataToJson(this);
+
+  static DateTime _dataTimeInMilliseconds(int milliseconds) {
+    return DateTime.fromMillisecondsSinceEpoch(milliseconds);
+  }
 }
 
 class QuickSearchRequest extends Equatable {
   final List<String>? areas;
   final String? languageCode;
   final String limit;
-  final int? mergeLanguages;
+  final bool mergeLanguages;
   final List<String>? modes;
   final String pattern;
 

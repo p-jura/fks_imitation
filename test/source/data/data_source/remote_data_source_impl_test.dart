@@ -130,7 +130,7 @@ void main() {
         areas: null,
         languageCode: null,
         limit: '20',
-        mergeLanguages: null,
+        mergeLanguages: true,
         modes: null,
         pattern: searchPattern,
       );
