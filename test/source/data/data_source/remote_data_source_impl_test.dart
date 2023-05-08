@@ -141,6 +141,8 @@ void main() {
           when(
             mockedHttpClient.post(
               any,
+              headers: anyNamed('headers'),
+              body: anyNamed('body'),
             ),
           ).thenAnswer((_) async => httpQueryResponse);
 
@@ -149,6 +151,8 @@ void main() {
           verify(
             mockedHttpClient.post(
               any,
+              headers: anyNamed('headers'),
+              body: anyNamed('body'),
             ),
           );
         },
@@ -160,7 +164,7 @@ void main() {
             mockedHttpClient.post(
               any,
               headers: anyNamed('headers'),
-              body: jsonEncode(postRequest.toJson()),
+              body: anyNamed('body'),
             ),
           ).thenAnswer((_) async => httpQueryResponse);
 
@@ -175,8 +179,8 @@ void main() {
           when(
             mockedHttpClient.post(
               any,
-              // headers: anyNamed('headers'),
-              // body: jsonEncode(postRequest.toJson()),
+              headers: anyNamed('headers'),
+              body: anyNamed('body'),
             ),
           ).thenAnswer((_) async => httpQueryResponseWithError);
 

@@ -3,8 +3,9 @@
     "description": "description",
     "data": [
         {
-            "area": 0,
+            "area": "0",
             "name": "",
+            "eventStart":1683383400000,
             "id": 0,
             "score": 1.0,
             "extras": {

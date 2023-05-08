@@ -7,7 +7,7 @@ final QuickSearchResponse quickSearchResponseDataFixture = QuickSearchResponse(
   score: 1.0,
   eventStart: DateTime.fromMillisecondsSinceEpoch(1683383400000),
   // ignore: prefer_const_literals_to_create_immutables
-  extras:  {},
+  extras:  {'CATEGORY_ID_1':1},
 );
 
 final EventData qsEventDataFixture = EventData(

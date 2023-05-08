@@ -7,7 +7,7 @@ import 'package:fuksiarz_imitation/source/presentation/bloc/query_data_cubit/que
 import 'package:fuksiarz_imitation/source/presentation/screens/main_site.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'source/get_it_instance.dart' as get_it_instance;
-import 'source/presentation/bloc/all_categories_cubit/all_categories_events_cubit_cubit.dart';
+import 'source/presentation/bloc/all_categories_cubit/all_categories_events_cubit.dart';
 import 'source/presentation/bloc/single_category_cubit/single_category_event_cubit.dart';
 import 'source/presentation/screens/query_site.dart';
 

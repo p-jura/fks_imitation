@@ -11,7 +11,7 @@ import 'package:fuksiarz_imitation/source/presentation/bloc/single_category_cubi
 import 'package:mockito/mockito.dart';
 
 import '../../../fixtures/remote_data_fixtures/event_data_fixture.dart';
-import './events_data_bloc_test.mocks.dart';
+import './all_categories_events_cubit_test.mocks.dart';
 
 void main() {
   late GetEventsDataFromRemote mockGetEvent;

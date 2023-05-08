@@ -1,6 +1,6 @@
 import 'package:fuksiarz_imitation/source/presentation/bloc/query_data_cubit/query_data_cubit.dart';
 
-import 'presentation/bloc/all_categories_cubit/all_categories_events_cubit_cubit.dart';
+import 'presentation/bloc/all_categories_cubit/all_categories_events_cubit.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider_platform_interface/path_provider_platform_interface.dart';

@@ -1,4 +1,4 @@
-part of 'all_categories_events_cubit_cubit.dart';
+part of 'all_categories_events_cubit.dart';
 
 abstract class AllCategoriesEventsState extends Equatable {
   const AllCategoriesEventsState();

@@ -5,7 +5,7 @@ import 'package:fuksiarz_imitation/source/domain/entities_lists.dart';
 import 'package:fuksiarz_imitation/source/domain/service/get_events_data_from_remote.dart';
 import 'package:fuksiarz_imitation/source/domain/service/get_quick_search_data_from_remote.dart';
 import 'package:fuksiarz_imitation/source/domain/single_entities.dart';
-import 'package:fuksiarz_imitation/source/presentation/bloc/all_categories_cubit/all_categories_events_cubit_cubit.dart';
+import 'package:fuksiarz_imitation/source/presentation/bloc/all_categories_cubit/all_categories_events_cubit.dart';
 
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -14,7 +14,7 @@ import 'package:mockito/mockito.dart';
   MockSpec<GetEventsDataFromRemote>(),
   MockSpec<GetQuickSearchDataFromeRemote>()
 ])
-import './events_data_bloc_test.mocks.dart';
+import './all_categories_events_cubit_test.mocks.dart';
 
 void main() {
   late GetEventsDataFromRemote mockGetEvent;

@@ -6,7 +6,7 @@ import 'package:fuksiarz_imitation/core/errors/failure.dart';
 import 'package:fuksiarz_imitation/core/fixtures/fixtures.dart' as constants;
 import 'package:fuksiarz_imitation/source/domain/service/get_events_data_from_remote.dart';
 
-part 'all_categories_events_cubit_state.dart';
+part 'all_categories_events_state.dart';
 
 class AllCategoriesEventsCubit extends Cubit<AllCategoriesEventsState> {
   AllCategoriesEventsCubit({
