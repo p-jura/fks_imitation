@@ -6,15 +6,18 @@ class QuickSearchTextFieldWidget extends StatelessWidget {
     super.key,
     required this.controller,
     required this.searchFunction,
+    required this.formKey,
   });
 
   final TextEditingController controller;
   final Function searchFunction;
+  final GlobalKey formKey;
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(bottom: 20),
       child: TextField(
+        key: formKey,
         onChanged: (_) => searchFunction(context),
         controller: controller,
         keyboardType: TextInputType.text,

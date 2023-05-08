@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fuksiarz_imitation/source/presentation/bloc/all_categories_cubit/all_categories_events_cubit_cubit.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import 'package:fuksiarz_imitation/source/presentation/bloc/events_data_bloc.dart';
-import 'package:fuksiarz_imitation/source/presentation/bloc/events_data_bloc_event.dart';
-import 'package:fuksiarz_imitation/source/presentation/bloc/events_data_bloc_state.dart';
 import 'package:fuksiarz_imitation/core/fixtures/fixtures.dart' as constants;
 
 class MainSiteFilters extends StatelessWidget {
@@ -13,8 +10,8 @@ class MainSiteFilters extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // categoires ammount lisetd in assignment
-    BlocProvider.of<EventsDataBloc>(context)
-        .add(GetAllCategoriesEventsData(12));
+    BlocProvider.of<AllCategoriesEventsCubit>(context).getAllCategoriesEventData();
+     
     return Container(
       width: double.infinity,
       height: 50,
@@ -28,10 +25,10 @@ class MainSiteFilters extends StatelessWidget {
             child: Image.asset('assets/images/icons/filter.png'),
           ),
           Expanded(
-            child: BlocBuilder<EventsDataBloc, EventsDataBlocState>(
+            child: BlocBuilder<AllCategoriesEventsCubit, AllCategoriesEventsState>(
               builder: (ctx, state) {
                 // circular progres indicator
-                if (state is LoadingState) {
+                if (state is AllCategoriesEventsLoading) {
                   return const LinearProgressIndicator();
                   // loaded data
                 } else if (state is AllCategoriesEventsLoadedState) {
@@ -49,7 +46,7 @@ class MainSiteFilters extends StatelessWidget {
                   );
                 } else {
                   return const Text(
-                    'No data found: Check your internet connection and reload application',
+                    'No data found: please reload application',
                   );
                 }
               },

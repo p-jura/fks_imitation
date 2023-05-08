@@ -73,7 +73,6 @@ class NarrowedListElement extends StatelessWidget {
           ),
           InkWell(
             onTap: () {
-              print(categoryInex);
               // id cant be 0 otherwise it pick wrong file to
               _isExpanded
                   ? BlocProvider.of<SingleCategoryEventCubit>(context)

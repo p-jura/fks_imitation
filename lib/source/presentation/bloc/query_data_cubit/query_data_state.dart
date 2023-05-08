@@ -1,5 +1,4 @@
-import 'package:equatable/equatable.dart';
-import 'package:fuksiarz_imitation/source/domain/entities_lists.dart';
+part of 'query_data_cubit.dart';
 
 abstract class QueryState extends Equatable {}
 
@@ -14,12 +13,15 @@ class LoadingState extends QueryState {
 }
 
 class QueryLoadedState extends QueryState {
-  final QuickSearchResponseList qickSearchEventList;
 
-  QueryLoadedState({required this.qickSearchEventList});
+  final EventsDataList eventsDataList;
+  QueryLoadedState({
+
+    required this.eventsDataList,
+  });
 
   @override
-  List<Object?> get props => [qickSearchEventList];
+  List<Object?> get props => [eventsDataList];
 }
 
 class NoDataFoundState extends QueryState {

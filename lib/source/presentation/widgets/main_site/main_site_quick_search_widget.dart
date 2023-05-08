@@ -38,7 +38,7 @@ class QuickSearchWidget extends StatelessWidget {
                 width: 10,
               ),
               Text(
-                'CZEGO SZUKASZ',
+                constants.WHAT_ARE_YOU_LOOKING_FOR,
                 style: TextStyle(
                   color: constants.SEARCH_ICON_COLOR,
                   fontWeight: FontWeight.w500,

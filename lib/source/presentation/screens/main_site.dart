@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fuksiarz_imitation/source/get_it_instance.dart';
 import 'package:fuksiarz_imitation/source/presentation/bloc/single_category_cubit/single_category_event_cubit.dart';
-import 'package:fuksiarz_imitation/source/presentation/bloc/events_data_bloc.dart';
+
 import 'package:fuksiarz_imitation/source/presentation/widgets/main_site/main_site_callender.dart';
 import 'package:fuksiarz_imitation/source/presentation/widgets/main_site/main_site_events_view_widget.dart';
 import 'package:fuksiarz_imitation/source/presentation/widgets/main_site/main_site_filters_widget.dart';
@@ -17,15 +17,8 @@ class MainSite extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: constants.DEEP_BACKGROUND_COLOR,
-      body: MultiBlocProvider(
-        providers: [
-          BlocProvider(
-            create: (_) => injSrv<EventsDataBloc>(),
-          ),
-          BlocProvider(
-            create: (_) => injSrv<SingleCategoryEventCubit>(),
-          ),
-        ],
+      body: BlocProvider(
+        create: (_) => injSrv<SingleCategoryEventCubit>(),
         child: Column(
           children: [
             Expanded(

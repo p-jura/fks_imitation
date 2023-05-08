@@ -10,6 +10,10 @@ class EventsDataList extends Equatable {
 
   @override
   List<Object?> get props => [eventData];
+
+  void add(EventData event){
+    eventData.add(event);
+  }
 }
 
 class EventGamesList extends Equatable {

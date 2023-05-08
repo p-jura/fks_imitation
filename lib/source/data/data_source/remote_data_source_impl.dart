@@ -43,7 +43,7 @@ class RemoteDataSourcesImpl implements RemoteDataSources {
         'PREMATCH_EVENT',
       ],
       languageCode: 'pl',
-      limit: '5',
+      limit: '50',
       mergeLanguages: true,
       modes: const ['INFIX', 'PREFIX'],
       pattern: params,
@@ -60,7 +60,6 @@ class RemoteDataSourcesImpl implements RemoteDataSources {
       ),
     );
     if (postResponse.statusCode == 200) {
-      
       return QuickSearchResponseDto.fromJson(
         json.decode(
           utf8.decode(postResponse.bodyBytes),

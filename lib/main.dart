@@ -2,10 +2,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fuksiarz_imitation/source/get_it_instance.dart';
-import 'package:fuksiarz_imitation/source/presentation/bloc/query_data_bloc.dart';
+import 'package:fuksiarz_imitation/source/presentation/bloc/query_data_cubit/query_data_cubit.dart';
+
 import 'package:fuksiarz_imitation/source/presentation/screens/main_site.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'source/get_it_instance.dart' as get_it_instance;
+import 'source/presentation/bloc/all_categories_cubit/all_categories_events_cubit_cubit.dart';
 import 'source/presentation/screens/query_site.dart';
 
 void main() async {
@@ -21,8 +23,15 @@ class AppRootWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => injSrv<QueryDataBloc>(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (_) => injSrv<AllCategoriesEventsCubit>(),
+        ),
+        BlocProvider(
+          create: (_) => injSrv<QueryDataCubit>(),
+        ),
+      ],
       child: MaterialApp(
         theme: ThemeData(
           textTheme: GoogleFonts.montserratTextTheme(),

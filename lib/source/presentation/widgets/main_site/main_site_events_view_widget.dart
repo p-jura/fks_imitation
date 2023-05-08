@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fuksiarz_imitation/source/get_it_instance.dart';
-import 'package:fuksiarz_imitation/source/presentation/bloc/events_data_bloc.dart';
-import 'package:fuksiarz_imitation/source/presentation/bloc/events_data_bloc_state.dart';
+import 'package:fuksiarz_imitation/source/presentation/bloc/all_categories_cubit/all_categories_events_cubit_cubit.dart';
 import 'package:fuksiarz_imitation/source/presentation/widgets/main_site/events_view_widgets/expanded_list_element.dart';
 
 class MainSiteEventsViewWidget extends StatelessWidget {
@@ -11,10 +10,10 @@ class MainSiteEventsViewWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: BlocBuilder<EventsDataBloc, EventsDataBlocState>(
-        bloc: injSrv<EventsDataBloc>(),
+      child: BlocBuilder<AllCategoriesEventsCubit, AllCategoriesEventsState>(
+        bloc: injSrv<AllCategoriesEventsCubit>(),
         builder: (blctx, state) {
-          if (state is LoadingState) {
+          if (state is AllCategoriesEventsLoading) {
             return const Center(
               child: SizedBox(
                 width: 50,
@@ -38,8 +37,10 @@ class MainSiteEventsViewWidget extends StatelessWidget {
               },
             );
           } else {
-            return const Text(
-              'No data found: Check your internet connection and reload application:MainSiteEventsViewWidget',
+            return const Center(
+              child: Text(
+                'No data found: Reload application',
+              ),
             );
           }
         },

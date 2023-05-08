@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fuksiarz_imitation/source/domain/entities_lists.dart';
-import 'package:fuksiarz_imitation/source/domain/single_entities.dart';
 import 'package:fuksiarz_imitation/source/presentation/widgets/event_strat_time_widget.dart';
 import 'package:fuksiarz_imitation/source/presentation/widgets/hot_container_widget.dart';
+import 'package:fuksiarz_imitation/source/presentation/widgets/odds_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:fuksiarz_imitation/core/fixtures/fixtures.dart' as constants;
@@ -11,10 +11,8 @@ class MachParticipantsExtension extends StatelessWidget {
   const MachParticipantsExtension({
     super.key,
     required this.dataList,
-    required this.index,
   });
   final EventsDataList dataList;
-  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +24,19 @@ class MachParticipantsExtension extends StatelessWidget {
       itemBuilder: (context, gamesIndexes) {
         var event = dataList.eventData[gamesIndexes];
         var outcomes = event.eventGames.first.outcomes;
+
+        var counter = -1;
+        final List<dynamic> oddsType = [1, 'X', 2];
+
+        var highOdd = 0.0;
+        outcomes?.forEach(
+          (element) {
+            element.outcomeOdds > highOdd
+                ? highOdd = element.outcomeOdds
+                : null;
+          },
+        );
+
         return Padding(
           padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
           child: Column(
@@ -107,22 +118,28 @@ class MachParticipantsExtension extends StatelessWidget {
                         // odds
                         Row(
                           children: [
-                            OddsWidget(
-                              txt: '1',
-                              color: outcomes.first.outcomeOdds >
-                                      outcomes.last.outcomeOdds
-                                  ? constants.DEEP_BACKGROUND_COLOR
-                                  : null,
-                              odds: outcomes.first.outcomeOdds.toString(),
-                            ),
-                            const SizedBox(width: 6),
-                            OddsWidget(
-                              txt: '2',
-                              color: outcomes.last.outcomeOdds >
-                                      outcomes.first.outcomeOdds
-                                  ? constants.DEEP_BACKGROUND_COLOR
-                                  : null,
-                              odds: outcomes.last.outcomeOdds.toString(),
+                            ...outcomes.map(
+                              (outcom) {
+                                if (counter < 4) {
+                                  counter = counter + 1;
+                                } else {
+                                  counter = 0;
+                                }
+                                return Container(
+                                  margin: const EdgeInsets.only(left: 6),
+                                  child: OddsWidget(
+                                    txt: outcomes.length > 2
+                                        ? oddsType[counter].toString()
+                                        : counter.toString(),
+                                    color: outcom.outcomeOdds == highOdd
+                                        ? constants.DEEP_BACKGROUND_COLOR
+                                        : null,
+                                    odds: outcomes[counter]
+                                        .outcomeOdds
+                                        .toString(),
+                                  ),
+                                );
+                              },
                             ),
                           ],
                         )
@@ -135,60 +152,6 @@ class MachParticipantsExtension extends StatelessWidget {
           ),
         );
       },
-    );
-  }
-}
-
-class OddsWidget extends StatelessWidget {
-  const OddsWidget({
-    super.key,
-    required this.odds,
-    this.color,
-    required this.txt,
-  });
-  final String txt;
-  final String odds;
-  final Color? color;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 49,
-      height: 45,
-      padding: const EdgeInsets.symmetric(
-        vertical: 9,
-        horizontal: 10,
-      ),
-      decoration: BoxDecoration(
-        color: color,
-        border: Border.all(
-          color: color ?? constants.BORDER_COLOR,
-        ),
-        borderRadius: BorderRadius.circular(3),
-      ),
-      child: Column(
-        children: [
-          Text(
-            txt,
-            style: TextStyle(
-              fontSize: 8,
-              fontWeight: FontWeight.w600,
-              color: color != null ? constants.WHITE_COLOR : null,
-            ),
-          ),
-          Text(
-            odds.length < 4
-                ? '${odds}0'
-                : odds.length > 4
-                    ? odds.substring(0, 3)
-                    : odds,
-            style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.bold,
-              color: color != null ? constants.WHITE_COLOR : null,
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

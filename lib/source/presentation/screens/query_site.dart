@@ -1,4 +1,4 @@
-import 'dart:math';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,12 +6,11 @@ import 'package:fuksiarz_imitation/core/fixtures/fixtures.dart' as constants;
 import 'package:fuksiarz_imitation/source/domain/entities_lists.dart';
 import 'package:fuksiarz_imitation/source/domain/single_entities.dart';
 import 'package:fuksiarz_imitation/source/get_it_instance.dart';
-import 'package:fuksiarz_imitation/source/presentation/bloc/query_data_bloc.dart';
-import 'package:fuksiarz_imitation/source/presentation/bloc/query_data_event.dart';
-import 'package:fuksiarz_imitation/source/presentation/bloc/query_data_state.dart';
+
+import 'package:fuksiarz_imitation/source/presentation/bloc/query_data_cubit/query_data_cubit.dart';
 import 'package:fuksiarz_imitation/source/presentation/widgets/event_strat_time_widget.dart';
 import 'package:fuksiarz_imitation/source/presentation/widgets/hot_container_widget.dart';
-import 'package:fuksiarz_imitation/source/presentation/widgets/main_site/events_view_widgets/match_participants.dart';
+import 'package:fuksiarz_imitation/source/presentation/widgets/odds_widget.dart';
 import 'package:fuksiarz_imitation/source/presentation/widgets/query_site/loading_widget.dart';
 import 'package:fuksiarz_imitation/source/presentation/widgets/query_site/no_data_widget.dart';
 import 'package:fuksiarz_imitation/source/presentation/widgets/query_site/quick_search_form_field.dart';
@@ -25,16 +24,13 @@ class QuerySite extends StatelessWidget {
   static const routName = '/quick_search';
 
   final TextEditingController _controller = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   void _searchDataBase(BuildContext ctx) {
     if (_controller.text.length >= 3) {
-      BlocProvider.of<QueryDataBloc>(ctx).add(
-        GetQueryFromRemote(query: _controller.text),
-      );
+      BlocProvider.of<QueryDataCubit>(ctx).getQueryData(_controller.text);
     } else if (_controller.text.length < 3) {
-      BlocProvider.of<QueryDataBloc>(ctx).add(
-        ResetQuery(),
-      );
+      BlocProvider.of<QueryDataCubit>(ctx).resetData();
     }
   }
 
@@ -63,14 +59,15 @@ class QuerySite extends StatelessWidget {
                   vertical: 40,
                   horizontal: 20,
                 ),
-                child: BlocBuilder<QueryDataBloc, QueryState>(
-                  bloc: injSrv<QueryDataBloc>(),
+                child: BlocBuilder<QueryDataCubit, QueryState>(
+                  bloc: injSrv<QueryDataCubit>(),
                   builder: (context, state) {
                     if (state is InitialQueryState) {
                       return Column(
                         children: [
                           Expanded(
                             child: QuickSearchTextFieldWidget(
+                              formKey: _formKey,
                               controller: _controller,
                               searchFunction: _searchDataBase,
                             ),
@@ -86,6 +83,7 @@ class QuerySite extends StatelessWidget {
                         children: [
                           Expanded(
                             child: QuickSearchTextFieldWidget(
+                              formKey: _formKey,
                               controller: _controller,
                               searchFunction: _searchDataBase,
                             ),
@@ -97,18 +95,17 @@ class QuerySite extends StatelessWidget {
                         ],
                       );
                     } else if (state is QueryLoadedState &&
-                        state.qickSearchEventList.quickSearchResponse
-                            .isNotEmpty) {
-                      var data = state.qickSearchEventList;
+                        state.eventsDataList.eventData.isNotEmpty) {
+                      final EventsDataList eventList = state.eventsDataList;
                       return Column(
                         children: [
                           QuickSearchTextFieldWidget(
+                            formKey: _formKey,
                             controller: _controller,
                             searchFunction: _searchDataBase,
                           ),
-                          const SizedBox(height: 30),
                           Expanded(
-                            child: ContentTableWidget(data: data),
+                            child: ContentTableWidget(eventList: eventList),
                           ),
                         ],
                       );
@@ -117,6 +114,7 @@ class QuerySite extends StatelessWidget {
                         children: [
                           Expanded(
                             child: QuickSearchTextFieldWidget(
+                              formKey: _formKey,
                               controller: _controller,
                               searchFunction: _searchDataBase,
                             ),
@@ -140,16 +138,22 @@ class QuerySite extends StatelessWidget {
 }
 
 class ContentTableWidget extends StatelessWidget {
-  const ContentTableWidget({super.key, required this.data});
-  final QuickSearchResponseList data;
+  const ContentTableWidget({
+    super.key,
+    required this.eventList,
+  });
+
+  final EventsDataList eventList;
   @override
   Widget build(BuildContext context) {
     return ListView(
+      padding: EdgeInsets.zero,
       children: [
-        ...data.quickSearchResponse
+        ...eventList.eventData
             .map(
-              (quickSarch) =>
-                  ContentWidget(event: quickSarch.qsResponseToEventData()),
+              (event) => ContentWidget(
+                event: event,
+              ),
             )
             .toList(),
       ],
@@ -180,7 +184,7 @@ class ContentWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                '${event.category1Name}  ${DateFormat('dd.MM').format(event.eventStart!)}',
+                '${event.category3Name}  ${DateFormat('dd.MM').format(event.eventStart!)}',
                 style:
                     const TextStyle(fontSize: 10, fontWeight: FontWeight.w600),
               ),
@@ -209,60 +213,69 @@ class ParticipantsWithOdds extends StatelessWidget {
   final EventData event;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Container(
-            constraints: const BoxConstraints(maxWidth: 200),
-            margin: const EdgeInsets.symmetric(vertical: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  event.eventName!.toUpperCase().toString(),
-                  style: GoogleFonts.montserrat(
-                    fontSize: 10,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
+    var counter = -1;
+    final List<dynamic> oddsType = [1, 'X', 2];
+
+    final outcomes = event.eventGames.first.outcomes;
+    var highOdd = 0.0;
+    outcomes?.forEach(
+      (element) {
+        element.outcomeOdds > highOdd ? highOdd = element.outcomeOdds : null;
+      },
+    );
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Container(
+          constraints: const BoxConstraints(maxWidth: 200),
+          margin: const EdgeInsets.symmetric(vertical: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                outcomes!.first.outcomeName!.toUpperCase().toString(),
+                style: GoogleFonts.montserrat(
+                  fontSize: 10,
+                  fontWeight: FontWeight.bold,
                 ),
-                const SizedBox(
-                  height: 7,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+              const SizedBox(
+                height: 7,
+              ),
+              Text(
+                outcomes.last.outcomeName!.toUpperCase().toString(),
+                style: GoogleFonts.montserrat(
+                  fontSize: 10,
+                  fontWeight: FontWeight.bold,
                 ),
-                // Text(
-                //   outcomes.last.outcomeName!.toUpperCase().toString(),
-                //   style: GoogleFonts.montserrat(
-                //     fontSize: 10,
-                //     fontWeight: FontWeight.bold,
-                //   ),
-                // ),
-              ],
-            ),
+              ),
+            ],
           ),
-          // odds
-          // Row(
-          //   children: [
-          //     OddsWidget(
-          //       txt: '1',
-          //       color: event > outcomes.last.outcomeOdds
-          //           ? constants.DEEP_BACKGROUND_COLOR
-          //           : null,
-          //       odds: outcomes.first.outcomeOdds.toString(),
-          //     ),
-          //     const SizedBox(width: 6),
-          //     OddsWidget(
-          //       txt: '2',
-          //       color: outcomes.last.outcomeOdds > outcomes.first.outcomeOdds
-          //           ? constants.DEEP_BACKGROUND_COLOR
-          //           : null,
-          //       odds: outcomes.last.outcomeOdds.toString(),
-          //     ),
-          //   ],
-          // )
-        ],
-      ),
+        ),
+        // odds
+        Row(
+          children: [
+            ...outcomes.map(
+              (outcom) {
+                counter = counter + 1;
+                return Container(
+                  margin: const EdgeInsets.only(left: 6),
+                  child: OddsWidget(
+                    txt: outcomes.length>2? oddsType[counter].toString(): counter.toString(),
+                    color: outcom.outcomeOdds == highOdd
+                        ? constants.DEEP_BACKGROUND_COLOR
+                        : null,
+                    odds: outcomes[counter].outcomeOdds.toString(),
+                  ),
+                );
+              },
+            ),
+          ],
+        )
+      ],
     );
   }
 }

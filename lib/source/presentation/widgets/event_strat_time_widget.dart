@@ -14,6 +14,7 @@ class EventStartTimeWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var timeDiference = event.eventStart!.difference(DateTime.now()).inHours;
     return Row(
       children: [
         Text(
@@ -23,16 +24,32 @@ class EventStartTimeWidget extends StatelessWidget {
             fontWeight: FontWeight.w600,
           ),
         ),
-        const Expanded(
-          child: Divider(
-            color: constants.BORDER_COLOR,
-            indent: 10,
-            endIndent: 10,
-            thickness: 1,
+        Expanded(
+          child: Stack(
+            children: [
+              const Divider(
+                color: constants.BORDER_COLOR,
+                indent: 10,
+                endIndent: 10,
+                thickness: 1,
+              ),
+              timeDiference <= 0 &&
+                      timeDiference >= -2
+                  ? Divider(
+                      color: constants.MATCH_ACTIVE_STATUS_BAR_COLOR,
+                      endIndent: timeDiference*(-100),
+                    )
+                  : const Divider(
+                      color: constants.BORDER_COLOR,
+                      indent: 10,
+                      endIndent: 10,
+                      thickness: 1,
+                    ),
+            ],
           ),
         ),
         Text(
-          '+ ${event.eventStart!.difference(DateTime.now()).inHours}',
+          '+ ${event.eventStart!.difference(DateTime.now()).inDays}',
           style: const TextStyle(
             fontSize: 8,
             fontWeight: FontWeight.w600,

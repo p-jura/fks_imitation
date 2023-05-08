@@ -35,6 +35,7 @@ const String GIVE_US_A_MOMENT = 'DAJ NAM CHWILĘ';
 const String SEACKING_THROU_DATABASE = 'PRESZUKUJEMY BAZĘ DANYCH';
 const String NO_RESULTS = 'BRAK WYNIKÓW';
 const String TRY_ANOTHER_QUERY = 'SPRÓBUJ INNEGO ZAPYTANIA';
+const String WHAT_ARE_YOU_LOOKING_FOR = 'CZEGO SZUKASZ';
 
 // const String: path
 
@@ -66,3 +67,4 @@ const Color WHITE_COLOR = Color.fromARGB(255, 255, 255, 255);
 const Color SEARCH_ICON_COLOR = Color.fromARGB(255, 148, 148, 148);
 const Color ACTIVE_COMPONENT_COLOR = Color.fromARGB(255, 224, 230, 237);
 const Color ISACTIVE_COMPONENT_COLOR = Color.fromARGB(255, 156, 179, 202);
+const Color MATCH_ACTIVE_STATUS_BAR_COLOR = Color.fromARGB(255, 76, 175, 80);

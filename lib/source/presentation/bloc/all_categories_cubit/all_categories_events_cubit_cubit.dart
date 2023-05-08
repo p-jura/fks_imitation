@@ -1,26 +1,21 @@
 import 'dart:developer';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:fuksiarz_imitation/core/errors/failure.dart';
-import 'package:fuksiarz_imitation/core/fixtures/fixtures.dart';
+import 'package:fuksiarz_imitation/core/fixtures/fixtures.dart' as constants;
 import 'package:fuksiarz_imitation/source/domain/service/get_events_data_from_remote.dart';
 
-import 'package:fuksiarz_imitation/source/presentation/bloc/events_data_bloc_event.dart';
-import 'package:fuksiarz_imitation/source/presentation/bloc/events_data_bloc_state.dart';
+part 'all_categories_events_cubit_state.dart';
 
-class EventsDataBloc extends Bloc<EventsDataBlocEvent, EventsDataBlocState> {
-  final GetEventsDataFromRemote getEventsData;
+class AllCategoriesEventsCubit extends Cubit<AllCategoriesEventsState> {
+  AllCategoriesEventsCubit({
+    required GetEventsDataFromRemote getEventsData,
+  }) : _getEventsData = getEventsData, super(AllCategoriesEventsInitial());
 
-  EventsDataBloc({
-    required this.getEventsData,
-  }) : super(EmptyState()) {
-    on<GetAllCategoriesEventsData>(_getAllCategoriesEventData);
-    on<GetSingleCategoryEventsData>(_getSingleCategoryData);
-  }
+  final GetEventsDataFromRemote _getEventsData;
 
-  void _getAllCategoriesEventData(
-    GetAllCategoriesEventsData event,
-    Emitter<EventsDataBlocState> emit,
-  ) async {
+  void getAllCategoriesEventData() async {
     int allEventsGamesCount = 0;
     final Map<int, Map<String, dynamic>> categoriesWithEvents = {
       0: {
@@ -30,10 +25,10 @@ class EventsDataBloc extends Bloc<EventsDataBlocEvent, EventsDataBlocState> {
       }
     };
 
-    emit(LoadingState());
+    emit(AllCategoriesEventsLoading());
 
-    for (var catId in MAP_OF_CATEGORIES.keys) {
-      var eventEitherResponse = await getEventsData.call(catId);
+    for (var catId in constants.MAP_OF_CATEGORIES.keys) {
+      var eventEitherResponse = await _getEventsData.call(catId);
       eventEitherResponse.fold(
         // logs - if [catId] has no data, or [ServerError] appear
         (failure) => failure.mapFailuresToLog(),
@@ -64,27 +59,6 @@ class EventsDataBloc extends Bloc<EventsDataBlocEvent, EventsDataBlocState> {
       AllCategoriesEventsLoadedState(
         categoriesWithEvents: categoriesWithEvents,
       ),
-    );
-  }
-
-  void _getSingleCategoryData(
-    GetSingleCategoryEventsData event,
-    Emitter<EventsDataBlocState> emit,
-  ) async {
-    emit(LoadingState());
-    final eventEitherResponse = await getEventsData.call(event.categoryId);
-    eventEitherResponse.fold(
-      (failure) {
-        failure.mapFailuresToLog();
-      },
-      (eventsDataList) {
-        emit(
-          SingleCategoryEventsLoadedState(
-            eventsDataList: eventsDataList,
-            categoryId: event.categoryId,
-          ),
-        );
-      },
     );
   }
 }

@@ -5,9 +5,8 @@ import 'package:fuksiarz_imitation/source/domain/entities_lists.dart';
 import 'package:fuksiarz_imitation/source/domain/service/get_events_data_from_remote.dart';
 import 'package:fuksiarz_imitation/source/domain/service/get_quick_search_data_from_remote.dart';
 import 'package:fuksiarz_imitation/source/domain/single_entities.dart';
-import 'package:fuksiarz_imitation/source/presentation/bloc/events_data_bloc.dart';
-import 'package:fuksiarz_imitation/source/presentation/bloc/events_data_bloc_event.dart';
-import 'package:fuksiarz_imitation/source/presentation/bloc/events_data_bloc_state.dart';
+import 'package:fuksiarz_imitation/source/presentation/bloc/all_categories_cubit/all_categories_events_cubit_cubit.dart';
+
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
@@ -19,10 +18,10 @@ import './events_data_bloc_test.mocks.dart';
 
 void main() {
   late GetEventsDataFromRemote mockGetEvent;
-  late EventsDataBloc tBloc;
+  late AllCategoriesEventsCubit tBloc;
   setUp(() {
     mockGetEvent = MockGetEventsDataFromRemote();
-    tBloc = EventsDataBloc(
+    tBloc = AllCategoriesEventsCubit(
       getEventsData: mockGetEvent,
     );
   });
@@ -32,7 +31,7 @@ void main() {
     build: () => tBloc,
     verify: (bloc) => expect(
       bloc.state,
-      isA<EmptyState>(),
+      isA<AllCategoriesEventsLoading>(),
     ),
   );
 
@@ -97,9 +96,9 @@ void main() {
           EventsDataList(eventData: [eventData]),
         ),
       ),
-      act: (bloc) => bloc.add(GetAllCategoriesEventsData()),
+      act: (bloc) => bloc.getAllCategoriesEventData(),
       expect: () => [
-        LoadingState(),
+        AllCategoriesEventsLoading(),
         AllCategoriesEventsLoadedState(
           categoriesWithEvents: mapOfCatWithEventFixture,
         ),
