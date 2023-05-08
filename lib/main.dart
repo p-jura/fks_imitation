@@ -32,6 +32,9 @@ class AppRootWidget extends StatelessWidget {
         BlocProvider(
           create: (_) => get_it_instance.injSrv<QueryDataCubit>(),
         ),
+        BlocProvider(
+          create: (_) => get_it_instance.injSrv<AllCategoriesEventsCubit>()..getAllCategoriesEventData(),
+        ),
       ],
       child: MaterialApp(
         theme: ThemeData(

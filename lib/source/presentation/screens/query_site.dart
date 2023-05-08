@@ -1,23 +1,16 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:fuksiarz_imitation/core/fixtures/fixtures.dart' as constants;
 import 'package:fuksiarz_imitation/source/domain/entities_lists.dart';
-import 'package:fuksiarz_imitation/source/domain/single_entities.dart';
 import 'package:fuksiarz_imitation/source/get_it_instance.dart';
-
 import 'package:fuksiarz_imitation/source/presentation/bloc/query_data_cubit/query_data_cubit.dart';
-import 'package:fuksiarz_imitation/source/presentation/widgets/event_strat_time_widget.dart';
-import 'package:fuksiarz_imitation/source/presentation/widgets/hot_container_widget.dart';
-import 'package:fuksiarz_imitation/source/presentation/widgets/odds_widget.dart';
 import 'package:fuksiarz_imitation/source/presentation/widgets/query_site/content_table_widget.dart';
-import 'package:fuksiarz_imitation/source/presentation/widgets/query_site/loading_widget.dart';
 import 'package:fuksiarz_imitation/source/presentation/widgets/query_site/no_data_widget.dart';
 import 'package:fuksiarz_imitation/source/presentation/widgets/query_site/quick_search_form_field.dart';
 import 'package:fuksiarz_imitation/source/presentation/widgets/query_site/recomended_view_widget.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
+import 'package:fuksiarz_imitation/source/presentation/widgets/loading_widget.dart';
 
 class QuerySite extends StatelessWidget {
   QuerySite({super.key});
@@ -89,7 +82,7 @@ class QuerySite extends StatelessWidget {
                               searchFunction: _searchDataBase,
                             ),
                           ),
-                          const Flexible(
+                           const Flexible(
                             flex: 2,
                             child: LoadingWidget(),
                           ),

@@ -8,38 +8,20 @@ import 'package:fuksiarz_imitation/source/presentation/widgets/main_site/events_
 import 'package:fuksiarz_imitation/core/fixtures/fixtures.dart' as constants;
 
 class MainSiteEventsViewWidget extends StatelessWidget {
-  const MainSiteEventsViewWidget({super.key});
-
+  const MainSiteEventsViewWidget({required this.categoriesMappedWithEvents, super.key,});
+  final Map<int, Map<String, dynamic>> categoriesMappedWithEvents;
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: BlocBuilder<AllCategoriesEventsCubit, AllCategoriesEventsState>(
-        bloc: get_it_instance.injSrv<AllCategoriesEventsCubit>(),
-        builder: (_, state) {
-          if (state is AllCategoriesEventsLoading) {
-            return LoadingWidget();
-          } else if (state is AllCategoriesEventsLoadedState) {
-            Map<int, Map<String, dynamic>> categoriesMappedWithEvents =
-                state.categoriesWithEvents;
-            categoriesMappedWithEvents.remove(0);
-            return ListView.builder(
-              shrinkWrap: true,
-              padding: EdgeInsets.zero,
-              itemCount: categoriesMappedWithEvents.length,
-              itemBuilder: (_, index) {
-                return ExpandedListElement(
-                  categoriesMappedWithEvents: categoriesMappedWithEvents,
-                  categories: categoriesMappedWithEvents.keys.toList()[index],
-                );
-              },
-            );
-          } else {
-            return const Center(
-              child: Text(
-                constants.RELOAD_APPLICATION,
-              ),
-            );
-          }
+      child: ListView.builder(
+        shrinkWrap: true,
+        padding: EdgeInsets.zero,
+        itemCount: categoriesMappedWithEvents.length,
+        itemBuilder: (_, index) {
+          return ExpandedListElement(
+            categoriesMappedWithEvents: categoriesMappedWithEvents,
+            categories: categoriesMappedWithEvents.keys.toList()[index],
+          );
         },
       ),
     );

@@ -30,30 +30,33 @@ void main() {
         getQuickSearchData: mockGetQuickSearchDataFromeRemote,
         getEventsDataFromRemote: mockGetEventsDataFromeRemote);
   });
-  group('_getQueryData()', () {
-    final QuickSearchResponse tQuickSearchResponse =
-        quickSearchResponseDataFixture;
-    final QuickSearchResponseList tQsearchList = QuickSearchResponseList(
-      quickSearchResponse: [
-        tQuickSearchResponse,
-      ],
-    );
-    final EventsDataList tEventsDataList =
-        EventsDataList(eventData: [qsEventDataFixture]);
-    blocTest(
-      'should emit state QueryLoadedState() when data is properly retrived',
-      build: () => tQBloc,
-      setUp: () {
-        when(mockGetQuickSearchDataFromeRemote.call(any))
-            .thenAnswer((_) async => Right(tQsearchList));
-        when(mockGetEventsDataFromeRemote.call(any))
-            .thenAnswer((_) async => Right(tEventsDataList));
-      },
-      act: (cubit) => cubit.getQueryData(tString),
-      expect: () => [
-        LoadingState(),
-        QueryLoadedState(eventsDataList: tEventsDataList),
-      ],
-    );
-  });
+  group(
+    '_getQueryData()',
+    () {
+      final QuickSearchResponse tQuickSearchResponse =
+          quickSearchResponseDataFixture;
+      final QuickSearchResponseList tQsearchList = QuickSearchResponseList(
+        quickSearchResponse: [
+          tQuickSearchResponse,
+        ],
+      );
+      final EventsDataList tEventsDataList =
+          EventsDataList(eventData: [qsEventDataFixture]);
+      blocTest(
+        'should emit state QueryLoadedState() when data is properly retrived',
+        build: () => tQBloc,
+        setUp: () {
+          when(mockGetQuickSearchDataFromeRemote.call(any))
+              .thenAnswer((_) async => Right(tQsearchList));
+          when(mockGetEventsDataFromeRemote.call(any))
+              .thenAnswer((_) async => Right(tEventsDataList));
+        },
+        act: (cubit) => cubit.getQueryData(tString),
+        expect: () => [
+          LoadingState(),
+          QueryLoadedState(eventsDataList: tEventsDataList),
+        ],
+      );
+    },
+  );
 }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fuksiarz_imitation/source/get_it_instance.dart' as get_it_instance;
+import 'package:fuksiarz_imitation/source/get_it_instance.dart'
+    as get_it_instance;
 import 'package:fuksiarz_imitation/source/presentation/bloc/all_categories_cubit/all_categories_events_cubit_cubit.dart';
+import 'package:fuksiarz_imitation/source/presentation/widgets/loading_widget.dart';
 
 import 'package:fuksiarz_imitation/source/presentation/widgets/main_site/main_site_callender.dart';
 import 'package:fuksiarz_imitation/source/presentation/widgets/main_site/main_site_events_view_widget.dart';
@@ -17,54 +19,84 @@ class MainSite extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: constants.DEEP_BACKGROUND_COLOR,
-      body: BlocProvider(
-        create: (_) => get_it_instance.injSrv<AllCategoriesEventsCubit>(),
-        child: Column(
-          children: [
-            Expanded(
-              child: Container(),
-            ),
-            // Main part of site
-            Flexible(
-              flex: 20,
-              child: Container(
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(40),
-                    topRight: Radius.circular(40),
+      body: Column(
+        children: [
+          Expanded(
+            child: Container(),
+          ),
+          // Main part of site
+          BlocBuilder<AllCategoriesEventsCubit, AllCategoriesEventsState>(
+            builder: (_, state) {
+              if (state is AllCategoriesEventsLoading) {
+                return Flexible(
+                  flex: 20,
+                  child: Container(
+                    width: double.infinity,
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(40),
+                        topRight: Radius.circular(40),
+                      ),
+                      color: constants.BACKGROUND_COLOR,
+                    ),
+                    child: const LoadingWidget(),
                   ),
-                  color: constants.BACKGROUND_COLOR,
-                ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: const [
-                    HeaderWidget(),
-                    Divider(
-                      color: constants.BORDER_COLOR,
-                      height: 1.50,
+                );
+              } else if (state is AllCategoriesEventsLoadedState) {
+                final Map<int, Map<String, dynamic>>
+                    categoriesMappedWithEvents = state.categoriesWithEvents;
+                return Flexible(
+                  flex: 20,
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(40),
+                        topRight: Radius.circular(40),
+                      ),
+                      color: constants.BACKGROUND_COLOR,
                     ),
-                    QuickSearchWidget(),
-                    Divider(
-                      color: constants.BORDER_COLOR,
-                      height: 1.50,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const HeaderWidget(),
+                        const Divider(
+                          color: constants.BORDER_COLOR,
+                          height: 1.50,
+                        ),
+                        const QuickSearchWidget(),
+                        const Divider(
+                          color: constants.BORDER_COLOR,
+                          height: 1.50,
+                        ),
+                        const MainSiteCallender(),
+                        const Divider(
+                          color: constants.BORDER_COLOR,
+                          height: 1.50,
+                        ),
+                        MainSiteFilters(
+                          categoriesMappedWithEvents:
+                              categoriesMappedWithEvents,
+                        ),
+                        const Divider(
+                          color: constants.BORDER_COLOR,
+                          height: 1.50,
+                        ),
+                        MainSiteEventsViewWidget(
+                          categoriesMappedWithEvents:
+                              categoriesMappedWithEvents,
+                        ),
+                      ],
                     ),
-                    MainSiteCallender(),
-                    Divider(
-                      color: constants.BORDER_COLOR,
-                      height: 1.50,
-                    ),
-                    MainSiteFilters(),
-                    Divider(
-                      color: constants.BORDER_COLOR,
-                      height: 1.50,
-                    ),
-                    MainSiteEventsViewWidget(),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
+                  ),
+                );
+              } else {
+                return const Center(
+                  child: Text(constants.RELOAD_APPLICATION),
+                );
+              }
+            },
+          ),
+        ],
       ),
     );
   }

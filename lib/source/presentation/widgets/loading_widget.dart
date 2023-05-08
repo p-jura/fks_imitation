@@ -38,13 +38,15 @@ class _LoadingWidgetState extends State<LoadingWidget>
   Widget build(BuildContext context) {
     return SizedBox(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           RotationTransition(
             turns: _animation,
             child: SizedBox(
-                height: 84,
-                width: 84,
-                child: Image.asset(constants.QUICKSEARCH_PROGRESS_INDICATOR),),
+              height: 84,
+              width: 84,
+              child: Image.asset(constants.QUICKSEARCH_PROGRESS_INDICATOR),
+            ),
           ),
           Container(
             margin: const EdgeInsets.all(5),

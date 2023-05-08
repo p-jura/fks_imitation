@@ -5,13 +5,15 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:fuksiarz_imitation/core/fixtures/fixtures.dart' as constants;
 
 class MainSiteFilters extends StatelessWidget {
-  const MainSiteFilters({super.key});
+  const MainSiteFilters({
+    required this.categoriesMappedWithEvents,
+    super.key,
+  });
+
+  final Map categoriesMappedWithEvents;
 
   @override
   Widget build(BuildContext context) {
-    // categoires ammount lisetd in assignment
-    BlocProvider.of<AllCategoriesEventsCubit>(context).getAllCategoriesEventData();
-     
     return Container(
       width: double.infinity,
       height: 50,
@@ -25,31 +27,15 @@ class MainSiteFilters extends StatelessWidget {
             child: Image.asset('assets/images/icons/filter.png'),
           ),
           Expanded(
-            child: BlocBuilder<AllCategoriesEventsCubit, AllCategoriesEventsState>(
-              builder: (ctx, state) {
-                // circular progres indicator
-                if (state is AllCategoriesEventsLoading) {
-                  return const LinearProgressIndicator();
-                  // loaded data
-                } else if (state is AllCategoriesEventsLoadedState) {
-                  final Map<int, Map<String, dynamic>>
-                      filterCategoriesWithEvents = state.categoriesWithEvents;
-                  return ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: filterCategoriesWithEvents.values
-                        .map(
-                          (e) => CategoriesFilterElement(
-                            catWithEventsCount: e,
-                          ),
-                        )
-                        .toList(),
-                  );
-                } else {
-                  return const Text(
-                    'No data found: please reload application',
-                  );
-                }
-              },
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: categoriesMappedWithEvents.values
+                  .map(
+                    (e) => CategoriesFilterElement(
+                      catWithEventsCount: e,
+                    ),
+                  )
+                  .toList(),
             ),
           ),
         ],

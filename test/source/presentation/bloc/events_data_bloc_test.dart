@@ -18,17 +18,17 @@ import './events_data_bloc_test.mocks.dart';
 
 void main() {
   late GetEventsDataFromRemote mockGetEvent;
-  late AllCategoriesEventsCubit tBloc;
+  late AllCategoriesEventsCubit tCubit;
   setUp(() {
     mockGetEvent = MockGetEventsDataFromRemote();
-    tBloc = AllCategoriesEventsCubit(
+    tCubit = AllCategoriesEventsCubit(
       getEventsData: mockGetEvent,
     );
   });
 
   blocTest(
     'Initial state should be EmptyState()',
-    build: () => tBloc,
+    build: () => tCubit,
     verify: (bloc) => expect(
       bloc.state,
       isA<AllCategoriesEventsInitial>(),
@@ -90,7 +90,7 @@ void main() {
     };
     blocTest(
       'Should emit state with data from all categories',
-      build: () => tBloc,
+      build: () => tCubit,
       setUp: () => when(mockGetEvent.call(any)).thenAnswer(
         (_) async => const Right(
           EventsDataList(eventData: [eventData]),
