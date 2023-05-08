@@ -7,6 +7,7 @@ import 'package:fuksiarz_imitation/source/presentation/widgets/main_site/events_
 import 'package:fuksiarz_imitation/source/presentation/widgets/main_site/events_view_widgets/match_participants.dart';
 import 'package:fuksiarz_imitation/source/presentation/widgets/main_site/events_view_widgets/match_winner_row.dart';
 import 'package:fuksiarz_imitation/source/presentation/widgets/main_site/events_view_widgets/narrowed_list_element.dart';
+import 'package:fuksiarz_imitation/core/fixtures/fixtures.dart' as constants;
 
 class ExpandedListElement extends StatefulWidget {
   const ExpandedListElement({
@@ -34,9 +35,9 @@ class _ExpandedListElementState extends State<ExpandedListElement> {
   Widget build(BuildContext context) {
     return BlocBuilder<SingleCategoryEventCubit, SingleCategoryEventState>(
       bloc: injSrv<SingleCategoryEventCubit>(),
-      builder: (ctx, state) {
+      builder: (_, singleCategoryState) {
         // initial cubit state
-        if (state is SingleCategoryEventInitial) {
+        if (singleCategoryState is SingleCategoryEventInitial) {
           if (widget.categoriesMappedWithEvents[widget.categories] != null) {
             return NarrowedListElement(
               categoriesMappedWithEvents: widget.categoriesMappedWithEvents,
@@ -45,13 +46,13 @@ class _ExpandedListElementState extends State<ExpandedListElement> {
               expandWidgetFunction: expandWidget,
             );
           }
-        } else if (state is SingleCategoryLoadingState) {
+        } else if (singleCategoryState is SingleCategoryLoadingState) {
           return const Center(
             child: CircularProgressIndicator(),
           );
-        } else if (state is SingleCategoryEventsLoadedState) {
-          var dataList = state.eventsDataList;
-          return state.categoryId == widget.categories
+        } else if (singleCategoryState is SingleCategoryEventsLoadedState) {
+          var dataList = singleCategoryState.eventsDataList;
+          return singleCategoryState.categoryId == widget.categories
               ? Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -81,8 +82,10 @@ class _ExpandedListElementState extends State<ExpandedListElement> {
                   expandWidgetFunction: expandWidget,
                 );
         }
-        return const Text(
-          'No data found: Check your internet connection and reload application',
+        return const Center(
+          child:  Text(
+            constants.RELOAD_APPLICATION,
+          ),
         );
       },
     );

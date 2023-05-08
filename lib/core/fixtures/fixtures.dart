@@ -36,9 +36,11 @@ const String SEACKING_THROU_DATABASE = 'PRESZUKUJEMY BAZĘ DANYCH';
 const String NO_RESULTS = 'BRAK WYNIKÓW';
 const String TRY_ANOTHER_QUERY = 'SPRÓBUJ INNEGO ZAPYTANIA';
 const String WHAT_ARE_YOU_LOOKING_FOR = 'CZEGO SZUKASZ';
+const String PRICE = '21,37 zł';
+const String RELOAD_APPLICATION = 'No data found: Reload application';
 
 // const String: path
-
+const String LOGO_PATH = 'assets/images/logo.png';
 const String FIRST_IMAGE_PATH = 'assets/images/first_image.png';
 const String SECOND_IMAGE_PATH = 'assets/images/second_image.png';
 const String THIRD_IMAGE_PATH = 'assets/images/third_image.png';

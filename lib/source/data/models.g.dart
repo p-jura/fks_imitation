@@ -133,18 +133,18 @@ Map<String, dynamic> _$OutcomeDataToJson(OutcomeData instance) {
 }
 
 QuickSearchResponseDto _$QuickSearchResponseDtoFromJson(
-        Map<String, dynamic> json,) =>
+        Map<String, dynamic> json) =>
     QuickSearchResponseDto(
       code: json['code'] as int?,
       description: json['description'] as String?,
       data: (json['data'] as List<dynamic>?)
           ?.map((e) =>
-              QuickSearchResponseData.fromJson(e as Map<String, dynamic>),)
+              QuickSearchResponseData.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
 Map<String, dynamic> _$QuickSearchResponseDtoToJson(
-        QuickSearchResponseDto instance,) =>
+        QuickSearchResponseDto instance) =>
     <String, dynamic>{
       'code': instance.code,
       'description': instance.description,
@@ -152,7 +152,7 @@ Map<String, dynamic> _$QuickSearchResponseDtoToJson(
     };
 
 QuickSearchResponseData _$QuickSearchResponseDataFromJson(
-        Map<String, dynamic> json,) =>
+        Map<String, dynamic> json) =>
     QuickSearchResponseData(
       area: json['area'] as String,
       name: json['name'] as String,
@@ -160,11 +160,11 @@ QuickSearchResponseData _$QuickSearchResponseDataFromJson(
       score: (json['score'] as num).toDouble(),
       modelExtras: json['extras'] as Map<String, dynamic>,
       modelEventStart: QuickSearchResponseData._dataTimeInMilliseconds(
-          json['eventStart'] as int,),
+          json['eventStart'] as int),
     );
 
 Map<String, dynamic> _$QuickSearchResponseDataToJson(
-        QuickSearchResponseData instance,) =>
+        QuickSearchResponseData instance) =>
     <String, dynamic>{
       'area': instance.area,
       'name': instance.name,

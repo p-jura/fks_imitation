@@ -178,4 +178,12 @@ class MockEventsDataList extends _i1.Mock implements _i7.EventsDataList {
         returnValue: <Object?>[],
         returnValueForMissingStub: <Object?>[],
       ) as List<Object?>);
+  @override
+  void add(_i8.EventData? event) => super.noSuchMethod(
+        Invocation.method(
+          #add,
+          [event],
+        ),
+        returnValueForMissingStub: null,
+      );
 }

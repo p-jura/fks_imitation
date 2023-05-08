@@ -120,7 +120,9 @@ class MachParticipantsExtension extends StatelessWidget {
                           children: [
                             ...outcomes.map(
                               (outcom) {
-                                if (counter < 4) {
+
+                                // 
+                                if (counter <= 2) {
                                   counter = counter + 1;
                                 } else {
                                   counter = 0;
@@ -130,7 +132,7 @@ class MachParticipantsExtension extends StatelessWidget {
                                   child: OddsWidget(
                                     txt: outcomes.length > 2
                                         ? oddsType[counter].toString()
-                                        : counter.toString(),
+                                        : (counter + 1).toString(),
                                     color: outcom.outcomeOdds == highOdd
                                         ? constants.DEEP_BACKGROUND_COLOR
                                         : null,

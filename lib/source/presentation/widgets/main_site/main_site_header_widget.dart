@@ -18,7 +18,7 @@ class HeaderWidget extends StatelessWidget {
             width: 80,
             height: 20,
             child: Image.asset(
-              'assets/images/logo.png',
+              constants.LOGO_PATH,
               fit: BoxFit.fitWidth,
             ),
           ),
@@ -41,7 +41,7 @@ class HeaderWidget extends StatelessWidget {
                   width: 10,
                 ),
                 Text(
-                  '21,37 zł',
+                  constants.PRICE,
                   style: GoogleFonts.montserrat(
                     fontSize: 12,
                     fontWeight: FontWeight.w800,

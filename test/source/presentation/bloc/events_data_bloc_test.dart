@@ -31,7 +31,7 @@ void main() {
     build: () => tBloc,
     verify: (bloc) => expect(
       bloc.state,
-      isA<AllCategoriesEventsLoading>(),
+      isA<AllCategoriesEventsInitial>(),
     ),
   );
 
