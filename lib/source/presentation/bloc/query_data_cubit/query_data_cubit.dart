@@ -46,11 +46,12 @@ class QueryDataCubit extends Cubit<QueryState> {
             (eventList) {
               for (var event in eventList.eventData) {
                 if (event.eventId == quickSearch.id) {
-
                   // gameType = 1 is proper format to show as resoult
                   event.eventGames
                       .removeWhere((element) => element.gameType != 1);
-                  eventsDataList.add(event);
+                  if (event.eventGames.isNotEmpty) {
+                    eventsDataList.add(event);
+                  }
                 }
               }
             },
