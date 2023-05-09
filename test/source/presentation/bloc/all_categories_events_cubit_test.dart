@@ -62,38 +62,45 @@ void main() {
       1: {
         'categoryName': 'STRING',
         'categoryEventsCount': 1,
+        'isActive': false,
       },
       2: {
         'categoryName': 'STRING',
         'categoryEventsCount': 1,
+        'isActive': false,
       },
       3: {
         'categoryName': 'STRING',
         'categoryEventsCount': 1,
+        'isActive': false,
       },
       4: {
         'categoryName': 'STRING',
         'categoryEventsCount': 1,
+        'isActive': false,
       },
       5: {
         'categoryName': 'STRING',
         'categoryEventsCount': 1,
+        'isActive': false,
       },
       6: {
         'categoryName': 'STRING',
         'categoryEventsCount': 1,
+        'isActive': false,
       },
       10: {
         'categoryName': 'STRING',
         'categoryEventsCount': 1,
+        'isActive': false,
       },
     };
     blocTest(
       'Should emit state with data from all categories',
       build: () => tCubit,
       setUp: () => when(mockGetEvent.call(any)).thenAnswer(
-        (_) async => Right(
-          EventsDataList(eventData: const [eventData]),
+        (_) async => const Right(
+          EventsDataList(eventData: [eventData]),
         ),
       ),
       act: (bloc) => bloc.getAllCategoriesEventData(),
