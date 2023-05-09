@@ -92,7 +92,7 @@ class MachParticipantsExtension extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Container(
-                                constraints: const BoxConstraints(maxWidth: 200),
+                                constraints: const BoxConstraints(maxWidth: 150),
                                 margin: const EdgeInsets.symmetric(vertical: 10),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
