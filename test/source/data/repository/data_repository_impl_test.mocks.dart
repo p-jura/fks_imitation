@@ -6,6 +6,8 @@
 import 'dart:async' as _i4;
 
 import 'package:fuksiarz_imitation/core/service/cache_status.dart' as _i6;
+import 'package:fuksiarz_imitation/source/data/data_source/cache_life_cicle.dart'
+    as _i9;
 import 'package:fuksiarz_imitation/source/data/data_source/local_data_source.dart'
     as _i5;
 import 'package:fuksiarz_imitation/source/data/data_source/remote_data_source.dart'
@@ -186,4 +188,28 @@ class MockEventsDataList extends _i1.Mock implements _i7.EventsDataList {
         ),
         returnValueForMissingStub: null,
       );
+}
+
+/// A class which mocks [CacheLifeCicle].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockCacheLifeCicle extends _i1.Mock implements _i9.CacheLifeCicle {
+  @override
+  _i4.Future<bool> shouldOverrideData(int? params) => (super.noSuchMethod(
+        Invocation.method(
+          #shouldOverrideData,
+          [params],
+        ),
+        returnValue: _i4.Future<bool>.value(false),
+        returnValueForMissingStub: _i4.Future<bool>.value(false),
+      ) as _i4.Future<bool>);
+  @override
+  _i4.Future<bool> clearCache(String? category) => (super.noSuchMethod(
+        Invocation.method(
+          #clearCache,
+          [category],
+        ),
+        returnValue: _i4.Future<bool>.value(false),
+        returnValueForMissingStub: _i4.Future<bool>.value(false),
+      ) as _i4.Future<bool>);
 }

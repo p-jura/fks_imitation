@@ -12,9 +12,8 @@ class QuickSearchWidget extends StatelessWidget {
         color: constants.BACKGROUND_COLOR,
       ),
       child: InkWell(
-        onTap: (){
+        onTap: () {
           Navigator.of(context).pushNamed('/quick_search');
-         
         },
         child: Container(
           padding: const EdgeInsets.all(10),

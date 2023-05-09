@@ -18,9 +18,10 @@ class RecomendedViewWidget extends StatelessWidget {
             Text(
               constants.SHOW_ALL,
               style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                  color: constants.DEEP_BACKGROUND_COLOR,),
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+                color: constants.DEEP_BACKGROUND_COLOR,
+              ),
             )
           ],
         ),

@@ -71,10 +71,11 @@ class WinnerBoxExtension extends StatelessWidget {
           SizedBox(
             width: width,
             child: Divider(
-                thickness: 2.0,
-                color: isActive
-                    ? constants.ISACTIVE_COMPONENT_COLOR
-                    : constants.BACKGROUND_COLOR,),
+              thickness: 2.0,
+              color: isActive
+                  ? constants.ISACTIVE_COMPONENT_COLOR
+                  : constants.BACKGROUND_COLOR,
+            ),
           ),
         ],
       ),

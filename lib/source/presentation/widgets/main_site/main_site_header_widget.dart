@@ -18,7 +18,7 @@ class HeaderWidget extends StatelessWidget {
             width: 80,
             height: 20,
             child: Image.asset(
-              constants.LOGO_PATH,
+              constants.LOGO_IMAGE_PATH,
               fit: BoxFit.fitWidth,
             ),
           ),

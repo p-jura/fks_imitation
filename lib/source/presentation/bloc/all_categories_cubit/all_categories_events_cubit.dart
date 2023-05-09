@@ -11,7 +11,8 @@ part 'all_categories_events_state.dart';
 class AllCategoriesEventsCubit extends Cubit<AllCategoriesEventsState> {
   AllCategoriesEventsCubit({
     required GetEventsDataFromRemote getEventsData,
-  }) : _getEventsData = getEventsData, super(AllCategoriesEventsInitial());
+  })  : _getEventsData = getEventsData,
+        super(AllCategoriesEventsInitial());
 
   final GetEventsDataFromRemote _getEventsData;
 

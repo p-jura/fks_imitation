@@ -2,11 +2,10 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-
+import 'package:fuksiarz_imitation/core/fixtures/fixtures.dart' as constants;
 import 'package:fuksiarz_imitation/source/domain/entities_lists.dart';
 import 'package:fuksiarz_imitation/source/domain/service/get_events_data_from_remote.dart';
 import 'package:fuksiarz_imitation/source/domain/service/get_quick_search_data_from_remote.dart';
-import 'package:fuksiarz_imitation/source/domain/single_entities.dart';
 import 'package:fuksiarz_imitation/source/presentation/bloc/all_categories_cubit/all_categories_events_cubit.dart';
 
 part 'query_data_state.dart';
@@ -35,13 +34,16 @@ class QueryDataCubit extends Cubit<QueryState> {
         );
       },
       (quickSearchResponseList) async {
-        final EventsDataList eventsDataList = EventsDataList(eventData: []);
+        const EventsDataList eventsDataList = EventsDataList(eventData: []);
+        String? message;
+
         for (var quickSearch in quickSearchResponseList.quickSearchResponse) {
           var result = await _getEventsDataFromRemote
               .call(quickSearch.extras['CATEGORY_ID_1']);
           result.fold(
             (failure) {
               log('no event found');
+              message = failure.message;
             },
             (eventList) {
               for (var event in eventList.eventData) {
@@ -57,10 +59,17 @@ class QueryDataCubit extends Cubit<QueryState> {
             },
           );
         }
-
-        emit(
-          QueryLoadedState(eventsDataList: eventsDataList),
-        );
+        if (eventsDataList.eventData.isNotEmpty) {
+          emit(
+            QueryLoadedState(eventsDataList: eventsDataList),
+          );
+        } else {
+          emit(
+            NoDataFoundState(
+              message ?? constants.NO_DATA_FOUND_FAILURE_MESSAGE,
+            ),
+          );
+        }
       },
     );
   }

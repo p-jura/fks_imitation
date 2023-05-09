@@ -1,5 +1,6 @@
+// ignore_for_file: unused_import
+
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fuksiarz_imitation/source/presentation/bloc/all_categories_cubit/all_categories_events_cubit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:fuksiarz_imitation/core/fixtures/fixtures.dart' as constants;
@@ -24,7 +25,7 @@ class MainSiteFilters extends StatelessWidget {
             margin: const EdgeInsets.only(right: 5),
             height: 24,
             width: 24,
-            child: Image.asset('assets/images/icons/filter.png'),
+            child: Image.asset(constants.FILTER_ICON_IMAGE_PATH),
           ),
           Expanded(
             child: ListView(

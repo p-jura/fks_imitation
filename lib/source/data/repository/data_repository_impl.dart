@@ -1,9 +1,10 @@
 import 'package:dartz/dartz.dart';
-import 'package:fuksiarz_imitation/core/errors/exceptions.dart';
 
+import 'package:fuksiarz_imitation/core/errors/exceptions.dart';
 import 'package:fuksiarz_imitation/core/errors/failure.dart';
 import 'package:fuksiarz_imitation/core/fixtures/fixtures.dart' as constants;
 import 'package:fuksiarz_imitation/core/service/cache_status.dart';
+import 'package:fuksiarz_imitation/source/data/data_source/cache_life_cicle.dart';
 import 'package:fuksiarz_imitation/source/data/data_source/local_data_source.dart';
 import 'package:fuksiarz_imitation/source/data/data_source/remote_data_source.dart';
 import 'package:fuksiarz_imitation/source/domain/entities_lists.dart';
@@ -13,21 +14,24 @@ class DataRepositoryImpl implements DataRepository {
   final RemoteDataSources _remoteDataSource;
   final LocalDataSource _localDataSource;
   final CacheStatus _cacheStatus;
-   
+  final CacheLifeCicle _cacheLifeCicle;
   DataRepositoryImpl({
     required RemoteDataSources remoteDataSources,
     required LocalDataSource localDataSource,
     required CacheStatus cacheStatus,
+    required CacheLifeCicle cacheLifeCicle,
   })  : _remoteDataSource = remoteDataSources,
         _localDataSource = localDataSource,
-        _cacheStatus = cacheStatus;
+        _cacheStatus = cacheStatus,
+        _cacheLifeCicle = cacheLifeCicle;
 
   @override
   Future<Either<Failure, EventsDataList>> getEventsDataFromRemote([
     int? params,
   ]) async {
     final cacheStatus = await _cacheStatus.isDataStored(params);
-    if (!cacheStatus) {
+    final shouldOverrideData = await _cacheLifeCicle.shouldOverrideData(params);
+    if (!cacheStatus || shouldOverrideData) {
       try {
         final remoteData = await _remoteDataSource.getRemoteData(params);
         if (remoteData.code == 200 &&
@@ -98,17 +102,22 @@ class DataRepositoryImpl implements DataRepository {
   ]) async {
     try {
       final cacheStatus = await _cacheStatus.isDataStored(params);
-      if (cacheStatus) {
+      final shouldOverrideData =
+          await _cacheLifeCicle.shouldOverrideData(params);
+      if (cacheStatus && !shouldOverrideData) {
         final localData = await _localDataSource.getLocalData(params);
 
         if (localData.data!.isNotEmpty) {
           return Right(EventsDataList(eventData: localData.data!));
         } else {
           return const Left(
-            NoDataFoundFailure(message: constants.NO_DATA_FOUND_FAILURE_CACHE_MESSAGE),
+            NoDataFoundFailure(
+              message: constants.NO_DATA_FOUND_FAILURE_CACHE_MESSAGE,
+            ),
           );
         }
       } else {
+        await _cacheLifeCicle.clearCache(params.toString());
         return getEventsDataFromRemote(params);
       }
     } on NoDataCached catch (failure) {

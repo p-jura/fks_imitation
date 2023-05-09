@@ -1,3 +1,4 @@
+import 'package:fuksiarz_imitation/source/data/data_source/cache_life_cicle.dart';
 import 'package:fuksiarz_imitation/source/presentation/bloc/query_data_cubit/query_data_cubit.dart';
 
 import 'presentation/bloc/all_categories_cubit/all_categories_events_cubit.dart';
@@ -29,9 +30,14 @@ Future<void> setUp() async {
     ),
   );
   // Data source
+  injSrv.registerLazySingleton<CacheLifeCicleImpl>(
+    () => CacheLifeCicleImpl(
+      injSrv<PathProviderPlatform>(),
+    ),
+  );
+
   injSrv.registerLazySingleton<LocalDataSource>(
     () => LocalDataSourceImpl(
-      cacheStatus: injSrv<CacheStatus>(),
       pathProvider: injSrv<PathProviderPlatform>(),
     ),
   );
@@ -43,10 +49,10 @@ Future<void> setUp() async {
   // Repository
   injSrv.registerLazySingleton<DataRepositoryImpl>(
     () => DataRepositoryImpl(
-      cacheStatus: injSrv<CacheStatus>(),
-      localDataSource: injSrv<LocalDataSource>(),
-      remoteDataSources: injSrv<RemoteDataSources>(),
-    ),
+        cacheStatus: injSrv<CacheStatus>(),
+        localDataSource: injSrv<LocalDataSource>(),
+        remoteDataSources: injSrv<RemoteDataSources>(),
+        cacheLifeCicle: injSrv<CacheLifeCicleImpl>(),),
   );
 
   // Services

@@ -23,7 +23,7 @@ class AllCategoriesEventsLoadedState extends AllCategoriesEventsState {
 
   Map<int, Map<String, dynamic>> get categoriesWithEvents =>
       Map.from(_categoriesWithEvents);
-      
+
   @override
   List<Object> get props => [_categoriesWithEvents];
 }

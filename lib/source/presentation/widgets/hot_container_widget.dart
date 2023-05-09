@@ -28,13 +28,13 @@ class HotContainerWidget extends StatelessWidget {
           SizedBox(
             height: 7,
             child: Image.asset(
-              'assets/images/icons/hot.png',
+              constants.HOT_ICON_IMAGE_PATH,
               fit: BoxFit.scaleDown,
             ),
           ),
           const SizedBox(width: 3),
           const Text(
-            'HOT',
+            constants.HOT,
             style: TextStyle(
               fontSize: 6,
               fontWeight: FontWeight.bold,

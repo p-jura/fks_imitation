@@ -38,9 +38,10 @@ const String TRY_ANOTHER_QUERY = 'SPRÓBUJ INNEGO ZAPYTANIA';
 const String WHAT_ARE_YOU_LOOKING_FOR = 'CZEGO SZUKASZ';
 const String PRICE = '21,37 zł';
 const String RELOAD_APPLICATION = 'No data found: Reload application';
+const String HOT = 'HOT';
 
 // const String: path
-const String LOGO_PATH = 'assets/images/logo.png';
+const String LOGO_IMAGE_PATH = 'assets/images/logo.png';
 const String FIRST_IMAGE_PATH = 'assets/images/first_image.png';
 const String SECOND_IMAGE_PATH = 'assets/images/second_image.png';
 const String THIRD_IMAGE_PATH = 'assets/images/third_image.png';
@@ -50,7 +51,9 @@ const String QUICKSEARCH_PROGRESS_INDICATOR =
     'assets/images/icons/quick_search_progress_indicator.png';
 const String NO_DATA_IMAGE_PATH = 'assets/images/icons/no_data.png';
 const String TV_FULL_IMAGE_PATH = 'assets/images/icons/tv_full.png';
-
+const String HOT_ICON_IMAGE_PATH = 'assets/images/icons/hot.png';
+const String FILTER_ICON_IMAGE_PATH = 'assets/images/icons/filter.png';
+const String CALLENDER_ICON_IMAGE_PATH = 'assets/images/icons/callender.png';
 // URL
 const API_URL_PREFIX = 'https://fuksiarz.pl/rest';
 const API_URL_QUICK_SEARCH_SUFFIX = 'search/events/quick-search';

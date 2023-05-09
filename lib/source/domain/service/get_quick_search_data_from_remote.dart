@@ -13,6 +13,6 @@ class GetQuickSearchDataFromeRemote
 
   @override
   Future<Either<Failure, QuickSearchResponseList>> call(String params) async {
-   return _repository.getQuickSearchDataFromeRemote(params);
+    return _repository.getQuickSearchDataFromeRemote(params);
   }
 }

@@ -120,8 +120,7 @@ class MachParticipantsExtension extends StatelessWidget {
                           children: [
                             ...outcomes.map(
                               (outcom) {
-
-                                // 
+                                //
                                 if (counter <= 2) {
                                   counter = counter + 1;
                                 } else {

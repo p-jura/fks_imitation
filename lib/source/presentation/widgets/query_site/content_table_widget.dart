@@ -4,9 +4,7 @@ import 'package:fuksiarz_imitation/source/domain/single_entities.dart';
 import 'package:fuksiarz_imitation/core/fixtures/fixtures.dart' as constants;
 import 'package:fuksiarz_imitation/source/presentation/widgets/event_strat_time_widget.dart';
 import 'package:fuksiarz_imitation/source/presentation/widgets/hot_container_widget.dart';
-import 'package:fuksiarz_imitation/source/presentation/widgets/odds_widget.dart';
 import 'package:fuksiarz_imitation/source/presentation/widgets/query_site/participants_with_odds_widget.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 class ContentTableWidget extends StatelessWidget {

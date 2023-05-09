@@ -115,7 +115,7 @@ class _MainSiteCallenderState extends State<MainSiteCallender> {
                   padding: const EdgeInsets.all(10),
                   child: Center(
                     child: Image.asset(
-                      'assets/images/icons/callender.png',
+                      constants.CALLENDER_ICON_IMAGE_PATH,
                       fit: BoxFit.contain,
                     ),
                   ),

@@ -7,12 +7,10 @@ import 'package:fuksiarz_imitation/source/domain/repository/data_repository.dart
 class GetEventsDataFromRemote extends GetData<EventsDataList, int> {
   final DataRepository _repository;
 
-  GetEventsDataFromRemote(DataRepository repository)
-      : _repository = repository;
+  GetEventsDataFromRemote(DataRepository repository) : _repository = repository;
 
   @override
   Future<Either<Failure, EventsDataList>> call([int? params]) async {
-    
     return await _repository.getEventsDataFromRemote(params);
   }
 }

@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fuksiarz_imitation/core/service/cache_status.dart';
+import 'package:fuksiarz_imitation/source/data/data_source/cache_life_cicle.dart';
 import 'package:fuksiarz_imitation/source/data/data_source/local_data_source.dart';
 import 'package:fuksiarz_imitation/source/data/repository/data_repository_impl.dart';
 import 'package:mockito/annotations.dart';
@@ -15,19 +16,22 @@ import 'package:fuksiarz_imitation/source/domain/entities_lists.dart';
 import 'package:fuksiarz_imitation/source/domain/single_entities.dart';
 import '../../../fixtures/quick_search_fixtures/quick_serach_response_dto_fixture.dart';
 import '../../../fixtures/remote_data_fixtures/event_data_fixture.dart';
+
 @GenerateNiceMocks([
   MockSpec<RemoteDataSources>(),
   MockSpec<LocalDataSource>(),
   MockSpec<CacheStatus>(),
-  MockSpec<EventsDataList>()
+  MockSpec<EventsDataList>(),
+  MockSpec<CacheLifeCicle>()
 ])
 import './data_repository_impl_test.mocks.dart';
 
 void main() {
-  late RemoteDataSources mockRemoteDataSource;
-  late LocalDataSource mockLocalDataSource;
+  late MockRemoteDataSources mockRemoteDataSource;
+  late MockLocalDataSource mockLocalDataSource;
   late DataRepositoryImpl tRepository;
-  late CacheStatus mockCacheStatus;
+  late MockCacheStatus mockCacheStatus;
+  late MockCacheLifeCicle mockCacheLifeCicle;
 
   const int tParam = 1;
 
@@ -38,17 +42,18 @@ void main() {
 
       mockLocalDataSource = MockLocalDataSource();
       mockRemoteDataSource = MockRemoteDataSources();
+      mockCacheLifeCicle = MockCacheLifeCicle();
 
       tRepository = DataRepositoryImpl(
         remoteDataSources: mockRemoteDataSource,
         localDataSource: mockLocalDataSource,
         cacheStatus: mockCacheStatus,
+        cacheLifeCicle: mockCacheLifeCicle,
       );
     },
   );
   group(
     'RemoteDataSources',
-    
     () {
       setUp(() {
         when(mockCacheStatus.isDataStored(tParam)).thenAnswer(
@@ -189,6 +194,32 @@ void main() {
           final result = localData.fold((failure) => failure, (_) => null);
           expect(result, isA<NoDataFoundFailure>());
           expect(result?.message, 'No data found in cached file');
+        },
+      );
+      test(
+        'Shuld call clearCache() and download data when CacheLifeCicle.shouldOverrideData return true',
+        () async {
+          when(mockCacheLifeCicle.shouldOverrideData(any))
+              .thenAnswer((_) async => true);
+          when(mockRemoteDataSource.getRemoteData(any))
+              .thenAnswer((_) async => mockedDTO);
+          when(
+            mockLocalDataSource.cashData(
+              data: anyNamed('data'),
+              params: anyNamed('params'),
+            ),
+          ).thenAnswer((_) async => true);
+          // when(mockLocalDataSource.getLocalData(any))
+          //     .thenAnswer((_) async => mockedDTO);
+          await tRepository.getEventsDataFromLocal(tParam);
+          verify(mockCacheLifeCicle.shouldOverrideData(any));
+          verify(mockCacheLifeCicle.clearCache(any));
+          verify(mockLocalDataSource.cashData(
+            data: anyNamed('data'),
+            params: anyNamed('params'),
+          ),);
+          verifyNever(mockLocalDataSource.getLocalData(any));
+          verify(mockRemoteDataSource.getRemoteData(any));
         },
       );
     },

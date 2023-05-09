@@ -13,10 +13,8 @@ class LoadingState extends QueryState {
 }
 
 class QueryLoadedState extends QueryState {
-
   final EventsDataList eventsDataList;
   QueryLoadedState({
-
     required this.eventsDataList,
   });
 

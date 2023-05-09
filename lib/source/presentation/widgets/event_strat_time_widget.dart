@@ -33,11 +33,10 @@ class EventStartTimeWidget extends StatelessWidget {
                 endIndent: 10,
                 thickness: 1,
               ),
-              timeDiference <= 0 &&
-                      timeDiference >= -2
+              timeDiference <= 0 && timeDiference >= -2
                   ? Divider(
                       color: constants.MATCH_ACTIVE_STATUS_BAR_COLOR,
-                      endIndent: timeDiference*(-100),
+                      endIndent: timeDiference * (-100),
                     )
                   : const Divider(
                       color: constants.BORDER_COLOR,

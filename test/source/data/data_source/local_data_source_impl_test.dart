@@ -1,22 +1,15 @@
 import 'dart:io';
 
-import 'package:fuksiarz_imitation/core/service/cache_status.dart';
 import 'package:fuksiarz_imitation/source/data/data_source/local_data_source_impl.dart';
 import 'package:fuksiarz_imitation/source/data/models.dart';
 import 'package:path_provider_platform_interface/path_provider_platform_interface.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
-
-@GenerateNiceMocks([MockSpec<CacheStatusImpl>()])
-import './local_data_source_impl_test.mocks.dart';
 
 const String fTempPath = 'test/fixtures';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   late MockPathProviderPlatform mockPathProviderPlatform;
-  late MockCacheStatusImpl mockCacheStatusImpl;
   late LocalDataSourceImpl localDataSourceImpl;
 
   const tParam = 1;
@@ -24,10 +17,9 @@ void main() {
 
   setUp(() {
     mockPathProviderPlatform = MockPathProviderPlatform();
-    mockCacheStatusImpl = MockCacheStatusImpl();
+
     localDataSourceImpl = LocalDataSourceImpl(
       pathProvider: mockPathProviderPlatform,
-      cacheStatus: mockCacheStatusImpl,
     );
   });
   test(
@@ -52,20 +44,6 @@ void main() {
         },
       );
       test(
-        'LocalDataSource.cacheData() should return true if data is not cashed',
-        () async {
-          when(mockCacheStatusImpl.isDataStored(any))
-              .thenAnswer((_) async => false);
-
-          final result = await localDataSourceImpl.cashData(
-            data: tEventDataDto,
-            params: tParam,
-          );
-          verify(mockCacheStatusImpl.isDataStored(tParam));
-          expect(result, true);
-        },
-      );
-      test(
         'Should return true if temporary directory exists and file was created',
         () async {
           final result = await localDataSourceImpl.cashData(
@@ -83,10 +61,8 @@ void main() {
       test(
         'Should return EventsDataDto when file exists',
         () async {
-          when(mockCacheStatusImpl.isDataStored(any))
-              .thenAnswer((_) async => true);
           final result = await localDataSourceImpl.getLocalData(tParam);
-          verify(mockCacheStatusImpl.isDataStored(tParam));
+
           expect(result, equals(tEventDataDto));
         },
       );

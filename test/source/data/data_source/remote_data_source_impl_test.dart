@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fuksiarz_imitation/core/errors/exceptions.dart';
 import 'package:fuksiarz_imitation/source/data/models.dart';
@@ -126,14 +125,6 @@ void main() {
 
       const String searchPattern = 'test';
 
-      const postRequest = QuickSearchRequest(
-        areas: null,
-        languageCode: null,
-        limit: '20',
-        mergeLanguages: true,
-        modes: null,
-        pattern: searchPattern,
-      );
 
       test(
         'veryfying if post request is properly sended',
