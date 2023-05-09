@@ -91,7 +91,7 @@ class _MainSiteEventsWidgetState extends State<MainSiteEventsWidget> {
                               categoryInex: categoriesId[index],
                               categoriesMappedWithEvents:
                                   widget.categoriesMappedWithEvents,
-                              isExpanded: isExpanded,
+                              isExpanded: true,
                               expandWidgetFunction: expandWidget,
                             ),
                             // winner extension
