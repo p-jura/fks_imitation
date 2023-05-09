@@ -15,7 +15,10 @@ class SingleCategoryEventCubit extends Cubit<SingleCategoryEventState> {
 
   void getData(categoryId) async {
     emit(const SingleCategoryLoadingState());
-    final eventEitherResponse = await _getEventsData.call(categoryId);
+
+    // filter "WSZYSTKO" sets categiryID to 0 to prevent that I used condition with "1"
+    final eventEitherResponse =
+        await _getEventsData.call(categoryId == 0 ? 1 : categoryId);
     eventEitherResponse.fold(
       (failure) {
         failure.mapFailuresToLog();

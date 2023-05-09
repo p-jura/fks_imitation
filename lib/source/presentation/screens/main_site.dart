@@ -43,7 +43,7 @@ class MainSite extends StatelessWidget {
                 );
               } else if (state is AllCategoriesEventsLoadedState) {
                 final Map<int, Map<String, dynamic>>
-                    categoriesMappedWithEvents = state.categoriesWithEvents;
+                    categoriesMappedWithEvents = state.categoriesWithEvents.cast();
                 return Flexible(
                   flex: 20,
                   child: Container(

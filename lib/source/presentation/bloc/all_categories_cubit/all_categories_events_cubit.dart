@@ -41,6 +41,7 @@ class AllCategoriesEventsCubit extends Cubit<AllCategoriesEventsState> {
             'categoryName':
                 eventsDataList.eventData.first.category1Name?.toUpperCase(),
             'categoryEventsCount': eventGamesCount,
+            'isActive': false,
           };
           // adds all events ammount into category 'WSZYSTKO'
           allEventsGamesCount = allEventsGamesCount + eventGamesCount;

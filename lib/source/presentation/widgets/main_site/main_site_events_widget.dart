@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -32,15 +34,22 @@ class _MainSiteEventsWidgetState extends State<MainSiteEventsWidget> {
 
   @override
   Widget build(BuildContext context) {
-    // removes category "WSZYSTKIE" from map of categories
-    widget.categoriesMappedWithEvents.remove(0);
-    final List<int> categoriesId =
-        widget.categoriesMappedWithEvents.keys.toList();
-
     return BlocBuilder<SingleCategoryEventCubit, SingleCategoryEventState>(
       bloc: injSrv<SingleCategoryEventCubit>(),
       builder: (_, singleCategoryState) {
+        //
+        // sets the map of categories viewed on condition 'isActive'
+        //
+        final Map<int, Map<String, dynamic>> catWithActiveEvents =
+            Map.from(widget.categoriesMappedWithEvents);
+        if (catWithActiveEvents[0]?['isActive'] == false) {
+          catWithActiveEvents.removeWhere((_, map) => map['isActive'] == false);
+        }
+        final List<int> categoriesId = catWithActiveEvents.keys.toList();
+        categoriesId.remove(0);
+        //
         // initial cubit state
+        //
         if (singleCategoryState is SingleCategoryEventInitial) {
           return Expanded(
             child: ListView.builder(
@@ -48,19 +57,26 @@ class _MainSiteEventsWidgetState extends State<MainSiteEventsWidget> {
               padding: EdgeInsets.zero,
               itemCount: categoriesId.length,
               itemBuilder: (_, index) => NarrowedListElement(
-                categoriesMappedWithEvents: widget.categoriesMappedWithEvents,
+                categoriesMappedWithEvents: catWithActiveEvents,
                 categoryInex: categoriesId[index],
-                isExpanded: isExpanded,
+                isExpanded: false,
                 expandWidgetFunction: expandWidget,
               ),
             ),
           );
+          //
+          // loading state
+          //
         } else if (singleCategoryState is SingleCategoryLoadingState) {
           return const Expanded(
             child: LoadingWidget(),
           );
+          //
+          // loaded state
+          //
         } else if (singleCategoryState is SingleCategoryEventsLoadedState) {
           var dataList = singleCategoryState.eventsDataList;
+
           return Expanded(
             child: ListView.builder(
               shrinkWrap: true,
@@ -94,7 +110,7 @@ class _MainSiteEventsWidgetState extends State<MainSiteEventsWidget> {
                           categoryInex: categoriesId[index],
                           categoriesMappedWithEvents:
                               widget.categoriesMappedWithEvents,
-                          isExpanded: isExpanded,
+                          isExpanded: false,
                           expandWidgetFunction: expandWidget,
                         ),
             ),

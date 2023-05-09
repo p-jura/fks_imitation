@@ -83,69 +83,77 @@ class MachParticipantsExtension extends StatelessWidget {
                       height: 10,
                     ),
                     // event opponents
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          constraints: const BoxConstraints(maxWidth: 200),
-                          margin: const EdgeInsets.symmetric(vertical: 10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                    LayoutBuilder(
+                      builder: (ctx, constraints) => SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: ConstrainedBox(
+                          constraints: BoxConstraints(maxWidth: constraints.maxWidth),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                outcomes!.first.outcomeName!
-                                    .toUpperCase()
-                                    .toString(),
-                                style: GoogleFonts.montserrat(
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.bold,
+                              Container(
+                                constraints: const BoxConstraints(maxWidth: 200),
+                                margin: const EdgeInsets.symmetric(vertical: 10),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      outcomes!.first.outcomeName!
+                                          .toUpperCase()
+                                          .toString(),
+                                      style: GoogleFonts.montserrat(
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 7,
+                                    ),
+                                    Text(
+                                      outcomes.last.outcomeName!
+                                          .toUpperCase()
+                                          .toString(),
+                                      style: GoogleFonts.montserrat(
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                              const SizedBox(
-                                height: 7,
-                              ),
-                              Text(
-                                outcomes.last.outcomeName!
-                                    .toUpperCase()
-                                    .toString(),
-                                style: GoogleFonts.montserrat(
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
+                              // odds
+                              Row(
+                                children: [
+                                  ...outcomes.map(
+                                    (outcom) {
+                                      //
+                                      if (counter < 2) {
+                                        counter = counter + 1;
+                                      } else {
+                                        counter = 0;
+                                      }
+                                      return Container(
+                                        margin: const EdgeInsets.only(left: 6),
+                                        child: OddsWidget(
+                                          txt: outcomes.length > 2
+                                              ? oddsType[counter].toString()
+                                              : (counter + 1).toString(),
+                                          color: outcom.outcomeOdds == highOdd
+                                              ? constants.DEEP_BACKGROUND_COLOR
+                                              : null,
+                                          odds: outcomes[counter]
+                                              .outcomeOdds
+                                              .toString(),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ],
+                              )
                             ],
                           ),
                         ),
-                        // odds
-                        Row(
-                          children: [
-                            ...outcomes.map(
-                              (outcom) {
-                                //
-                                if (counter < 2) {
-                                  counter = counter + 1;
-                                } else {
-                                  counter = 0;
-                                }
-                                return Container(
-                                  margin: const EdgeInsets.only(left: 6),
-                                  child: OddsWidget(
-                                    txt: outcomes.length > 2
-                                        ? oddsType[counter].toString()
-                                        : (counter + 1).toString(),
-                                    color: outcom.outcomeOdds == highOdd
-                                        ? constants.DEEP_BACKGROUND_COLOR
-                                        : null,
-                                    odds: outcomes[counter]
-                                        .outcomeOdds
-                                        .toString(),
-                                  ),
-                                );
-                              },
-                            ),
-                          ],
-                        )
-                      ],
+                      ),
                     ),
                   ],
                 ),
