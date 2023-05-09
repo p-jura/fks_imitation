@@ -23,6 +23,7 @@ class MachParticipantsExtension extends StatelessWidget {
       itemCount: dataList.eventData.length,
       itemBuilder: (context, gamesIndexes) {
         var event = dataList.eventData[gamesIndexes];
+
         var outcomes = event.eventGames.first.outcomes;
 
         var counter = -1;
@@ -121,7 +122,7 @@ class MachParticipantsExtension extends StatelessWidget {
                             ...outcomes.map(
                               (outcom) {
                                 //
-                                if (counter <= 2) {
+                                if (counter < 2) {
                                   counter = counter + 1;
                                 } else {
                                   counter = 0;

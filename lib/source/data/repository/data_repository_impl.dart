@@ -37,6 +37,7 @@ class DataRepositoryImpl implements DataRepository {
         if (remoteData.code == 200 &&
             remoteData.data != null &&
             remoteData.data!.isNotEmpty) {
+          await _cacheLifeCicle.clearCache(params.toString());
           _localDataSource.cashData(
             data: remoteData,
             params: params,

@@ -92,8 +92,8 @@ void main() {
       'Should emit state with data from all categories',
       build: () => tCubit,
       setUp: () => when(mockGetEvent.call(any)).thenAnswer(
-        (_) async => const Right(
-          EventsDataList(eventData: [eventData]),
+        (_) async => Right(
+          EventsDataList(eventData: const [eventData]),
         ),
       ),
       act: (bloc) => bloc.getAllCategoriesEventData(),
@@ -105,5 +105,4 @@ void main() {
       ],
     );
   });
-
 }

@@ -17,11 +17,14 @@ class EventStartTimeWidget extends StatelessWidget {
     var timeDiference = event.eventStart!.difference(DateTime.now()).inHours;
     return Row(
       children: [
-        Text(
-          DateFormat('H:mm').format(event.eventStart!),
-          style: const TextStyle(
-            fontSize: 8,
-            fontWeight: FontWeight.w600,
+        Container(
+          margin: const EdgeInsets.only(right: 10),
+          child: Text(
+            DateFormat('H:mm').format(event.eventStart!),
+            style: const TextStyle(
+              fontSize: 8,
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ),
         Expanded(
@@ -47,12 +50,15 @@ class EventStartTimeWidget extends StatelessWidget {
             ],
           ),
         ),
-        Text(
-          '+ ${event.eventStart!.difference(DateTime.now()).inDays}',
-          style: const TextStyle(
-            fontSize: 8,
-            fontWeight: FontWeight.w600,
-            color: constants.DEEP_BACKGROUND_COLOR,
+        Container(
+          margin: const EdgeInsets.only(left: 10),
+          child: Text(
+            '+ ${event.eventStart!.difference(DateTime.now()).inDays}',
+            style: const TextStyle(
+              fontSize: 8,
+              fontWeight: FontWeight.w600,
+              color: constants.DEEP_BACKGROUND_COLOR,
+            ),
           ),
         ),
       ],

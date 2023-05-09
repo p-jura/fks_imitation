@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
@@ -34,7 +36,7 @@ class QueryDataCubit extends Cubit<QueryState> {
         );
       },
       (quickSearchResponseList) async {
-        const EventsDataList eventsDataList = EventsDataList(eventData: []);
+        EventsDataList eventsDataList = EventsDataList(eventData: []);
         String? message;
 
         for (var quickSearch in quickSearchResponseList.quickSearchResponse) {

@@ -1,12 +1,12 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
 import 'package:fuksiarz_imitation/source/domain/single_entities.dart';
 
-@immutable
 class EventsDataList extends Equatable {
   final List<EventData> eventData;
 
-  const EventsDataList({required this.eventData});
+  const EventsDataList({
+    required this.eventData,
+  });
 
   @override
   List<Object?> get props => [eventData];
