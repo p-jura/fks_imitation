@@ -18,7 +18,7 @@ class EventStartTimeWidget extends StatelessWidget {
     return Row(
       children: [
         Container(
-          margin: const EdgeInsets.only(right: 10),
+          margin: const EdgeInsets.only(right: 3),
           child: Text(
             DateFormat('H:mm').format(event.eventStart!),
             style: const TextStyle(
@@ -51,7 +51,7 @@ class EventStartTimeWidget extends StatelessWidget {
           ),
         ),
         Container(
-          margin: const EdgeInsets.only(left: 10),
+          margin: const EdgeInsets.only(left: 3),
           child: Text(
             '+ ${event.eventStart!.difference(DateTime.now()).inDays}',
             style: const TextStyle(

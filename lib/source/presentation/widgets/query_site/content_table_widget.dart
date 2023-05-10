@@ -70,6 +70,7 @@ class ContentWidget extends StatelessWidget {
               )
             ],
           ),
+          const SizedBox(height: 10),
           EventStartTimeWidget(event: event),
           ParticipantsWithOdds(event: event),
         ],

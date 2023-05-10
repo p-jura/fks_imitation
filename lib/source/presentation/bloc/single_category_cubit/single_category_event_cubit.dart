@@ -28,7 +28,9 @@ class SingleCategoryEventCubit extends Cubit<SingleCategoryEventState> {
           // removes clasifications and other non-match event
           eventsDataList.eventData
               .removeWhere((element) => element.eventType! != 1);
-
+          eventsDataList.eventData.sort(
+            (a, b) => a.category3Id.compareTo(b.category3Id),
+          );
           emit(
             SingleCategoryEventsLoadedState(
               eventsDataList: eventsDataList,

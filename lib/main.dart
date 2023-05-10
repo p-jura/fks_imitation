@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fuksiarz_imitation/source/presentation/bloc/query_data_cubit/query_data_cubit.dart';
 
@@ -23,6 +24,9 @@ class AppRootWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+        overlays: [SystemUiOverlay.bottom],);
     return MultiBlocProvider(
       providers: [
         BlocProvider(

@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
@@ -8,6 +6,7 @@ import 'package:fuksiarz_imitation/core/fixtures/fixtures.dart' as constants;
 import 'package:fuksiarz_imitation/source/domain/entities_lists.dart';
 import 'package:fuksiarz_imitation/source/domain/service/get_events_data_from_remote.dart';
 import 'package:fuksiarz_imitation/source/domain/service/get_quick_search_data_from_remote.dart';
+import 'package:fuksiarz_imitation/source/domain/single_entities.dart';
 import 'package:fuksiarz_imitation/source/presentation/bloc/all_categories_cubit/all_categories_events_cubit.dart';
 
 part 'query_data_state.dart';
@@ -36,7 +35,7 @@ class QueryDataCubit extends Cubit<QueryState> {
         );
       },
       (quickSearchResponseList) async {
-        EventsDataList eventsDataList = EventsDataList(eventData: []);
+        List<EventData> allEventData = [];
         String? message;
 
         for (var quickSearch in quickSearchResponseList.quickSearchResponse) {
@@ -54,16 +53,23 @@ class QueryDataCubit extends Cubit<QueryState> {
                   event.eventGames
                       .removeWhere((element) => element.gameType != 1);
                   if (event.eventGames.isNotEmpty) {
-                    eventsDataList.add(event);
+                    allEventData.add(event);
                   }
                 }
               }
             },
           );
         }
-        if (eventsDataList.eventData.isNotEmpty) {
+        if (allEventData.isNotEmpty) {
+          allEventData.sort(
+            (a, b) => a.category3Id.compareTo(b.category3Id),
+          );
           emit(
-            QueryLoadedState(eventsDataList: eventsDataList),
+            QueryLoadedState(
+              eventsDataList: EventsDataList(
+                eventData: allEventData,
+              ),
+            ),
           );
         } else {
           emit(

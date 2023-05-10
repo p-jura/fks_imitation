@@ -83,46 +83,49 @@ class MachParticipantsExtension extends StatelessWidget {
                       height: 10,
                     ),
                     // event opponents
-                    LayoutBuilder(
-                      builder: (ctx, constraints) => SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: ConstrainedBox(
-                          constraints: BoxConstraints(maxWidth: constraints.maxWidth),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          constraints: const BoxConstraints(maxWidth: 150),
+                          margin: const EdgeInsets.symmetric(vertical: 10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Container(
-                                constraints: const BoxConstraints(maxWidth: 150),
-                                margin: const EdgeInsets.symmetric(vertical: 10),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      outcomes!.first.outcomeName!
-                                          .toUpperCase()
-                                          .toString(),
-                                      style: GoogleFonts.montserrat(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 7,
-                                    ),
-                                    Text(
-                                      outcomes.last.outcomeName!
-                                          .toUpperCase()
-                                          .toString(),
-                                      style: GoogleFonts.montserrat(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
+                              Text(
+                                outcomes!.first.outcomeName!
+                                    .toUpperCase()
+                                    .toString(),
+                                style: GoogleFonts.montserrat(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              // odds
-                              Row(
+                              const SizedBox(
+                                height: 7,
+                              ),
+                              Text(
+                                outcomes.last.outcomeName!
+                                    .toUpperCase()
+                                    .toString(),
+                                style: GoogleFonts.montserrat(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        // odds
+                        LayoutBuilder(
+                          builder: (ctx, constraints) => SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: ConstrainedBox(
+                              constraints: BoxConstraints(
+                                maxWidth: constraints.maxWidth,
+                                minWidth: constraints.minWidth,
+                              ),
+                              child: Row(
                                 children: [
                                   ...outcomes.map(
                                     (outcom) {
@@ -149,11 +152,11 @@ class MachParticipantsExtension extends StatelessWidget {
                                     },
                                   ),
                                 ],
-                              )
-                            ],
+                              ),
+                            ),
                           ),
                         ),
-                      ),
+                      ],
                     ),
                   ],
                 ),

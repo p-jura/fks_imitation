@@ -1,7 +1,7 @@
 import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+
 import 'package:fuksiarz_imitation/core/errors/failure.dart';
 import 'package:fuksiarz_imitation/core/fixtures/fixtures.dart' as constants;
 import 'package:fuksiarz_imitation/source/domain/service/get_events_data_from_remote.dart';
